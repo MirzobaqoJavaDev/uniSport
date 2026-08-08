@@ -45,6 +45,7 @@ public class SecurityConfig {
                     // Ochiq API lar
                     .requestMatchers("/api/v1/auth/**").permitAll()
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                    .requestMatchers("/actuator/**").permitAll() // Observability endpoints
                     // Qolgan barchasi autentifikatsiya talab qiladi
                     .anyRequest().authenticated()
             )

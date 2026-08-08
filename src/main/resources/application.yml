@@ -37,3 +37,16 @@ logging:
     uz.uniSport: DEBUG
     org.springframework.web: INFO
     org.hibernate.SQL: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus, info, metrics
+  endpoint:
+    health:
+      show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
