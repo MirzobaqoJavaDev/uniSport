@@ -68,3 +68,39 @@
 
 **Verification Status:**
 - `mvn clean test` successfully executed. Tables created correctly.
+
+## Phase C: Secondary Features
+
+**Requirement:** GYM-01 (Inventory), QR-01 (Access Control), AI-02 (Token usage), and Wellness Module definitions.
+
+**Old State:** 
+- Secondary features explicitly requested in TZ were missing from the entity structure.
+
+**New State:** 
+- Added `InventoryItem` for gym equipment management.
+- Added `DynamicQRCode` for gate access integration.
+- Added `Exercise` and `WorkoutPlan` for personalized wellness features.
+- Added `TokenUsageLog` for LLM token auditing.
+
+**Files Changed:**
+- `src/main/java/uz/uniSport/uni_sport/domain/gym/InventoryItem.java` (Created)
+- `src/main/java/uz/uniSport/uni_sport/domain/integration/DynamicQRCode.java` (Created)
+- `src/main/java/uz/uniSport/uni_sport/domain/wellness/Exercise.java` (Created)
+- `src/main/java/uz/uniSport/uni_sport/domain/wellness/WorkoutPlan.java` (Created)
+- `src/main/java/uz/uniSport/uni_sport/domain/ai/TokenUsageLog.java` (Created)
+
+**Database Changes:**
+- Created `inventory_items`, `dynamic_qr_codes`, `exercises`, `workout_plans`, `workout_plan_exercises`, and `token_usage_logs` tables.
+- Mapped in `07-add-secondary-features.yaml`.
+
+**API Changes:**
+- None yet.
+
+**Tests Added/Changed:**
+- Context tests passed successfully with new entities.
+
+**Potential Breaking Changes:**
+- None.
+
+**Verification Status:**
+- `mvn clean test` successfully executed. Tables created correctly.
