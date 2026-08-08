@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/changesets/04-add-permissions.yaml
   - include:
       file: db/changelog/changesets/05-add-quotas.yaml
+  - include:
+      file: db/changelog/changesets/06-add-payments-module.yaml

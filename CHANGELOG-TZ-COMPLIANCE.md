@@ -35,3 +35,36 @@
 
 **Verification Status:**
 - `mvn clean test` successfully executed and verified database context loading via Liquibase.
+
+## Phase B: Payments & Subscriptions Module
+
+**Requirement:** PAY-01 (Missing `Payments` module including Subscriptions and Transactions).
+
+**Old State:** 
+- The system had no representation of subscriptions or financial transactions.
+
+**New State:** 
+- Added `SubscriptionPlan` to define pricing packages.
+- Added `Subscription` to track user access duration.
+- Added `PaymentTransaction` to log payments and enforce Idempotency.
+
+**Files Changed:**
+- `src/main/java/uz/uniSport/uni_sport/domain/payment/SubscriptionPlan.java` (Created)
+- `src/main/java/uz/uniSport/uni_sport/domain/payment/Subscription.java` (Created)
+- `src/main/java/uz/uniSport/uni_sport/domain/payment/PaymentTransaction.java` (Created)
+
+**Database Changes:**
+- Created `subscription_plans`, `subscriptions`, and `payment_transactions` tables.
+- Mapped in `06-add-payments-module.yaml`.
+
+**API Changes:**
+- Service and API layers not yet implemented, but domain foundation is complete.
+
+**Tests Added/Changed:**
+- None, but context tests passed.
+
+**Potential Breaking Changes:**
+- None, isolated module.
+
+**Verification Status:**
+- `mvn clean test` successfully executed. Tables created correctly.
