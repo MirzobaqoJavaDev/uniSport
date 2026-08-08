@@ -3,83 +3,81 @@
 UniSport - bu universitet talabalari va jamoasi uchun sport zallarini bron qilish, mashg'ulotlarga yozilish, sport anjomlarini ijaraga olish, sun'iy intellekt orqali jismoniy holat bo'yicha maslahatlar olish va jismoniy tarbiya darslari davomatini yuritish imkonini beruvchi yagona ekotizimdir.
 
 ## 🚀 Loyiha Arxitekturasi
-Ushbu loyiha **Modular Monolith** arxitekturasida yozilgan bo'lib, kelajakda Microservices arxitekturasiga osongina o'tish imkoniyatiga ega.
+
+Ushbu loyiha **Modular Monolith** arxitekturasida yozilgan bo'lib, kelajakda Microservices arxitekturasiga osongina o'tish imkoniyatiga ega. Loyiha qat'iy "Clean Architecture" va "SOLID" prinsiplariga amal qilib ishlab chiqilgan.
 
 ### Texnologik Stack
 * **Backend:** Java 21, Spring Boot 3.2, Spring Security (JWT), Spring Data JPA
-* **Database:** PostgreSQL (Asosiy DB), Redis (Kesh va Rate Limiting), H2 (Testlar uchun)
-* **File Storage:** MinIO (AWS S3 alternative) - Rasmlar va fayllar saqlash uchun
-* **Frontend:** React 19, Vite, TailwindCSS, Shadcn UI
-* **Mobile:** Flutter (Mobile ilova asosi)
-* **Testing:** JUnit 5, Mockito, Testcontainers
-* **DevOps & Deployment:** Docker, Docker Compose, GitHub Actions (CI/CD)
-* **Monitoring:** Spring Boot Actuator, Prometheus, Micrometer Tracing (Brave)
+* **Database:** PostgreSQL (Asosiy DB), Redis (Kesh, JWT Invalidatsiya, Rate Limiting)
+* **Migrations:** Liquibase
+* **Mappers:** MapStruct
+* **Build Tool:** Maven
+* **Documentation:** Swagger/OpenAPI 3.0
+* **Testing:** JUnit 5, Mockito
 
 ## 📁 Loyiha Tuzilishi
 
 Loyiha mantiqiy jihatdan quyidagi modullarga bo'lingan:
-* **Auth Module:** Foydalanuvchilarni ro'yxatdan o'tkazish, JWT token generatsiyasi va avtorizatsiya.
-* **Gym Module:** Sport inshootlari (Facility), maydonchalar (Court) va ularni bron qilish (Booking).
-* **Equipment Module:** Sport anjomlari (Equipment) va ularni ijaraga olish (Rental).
-* **PE (Physical Education) Module:** Jismoniy tarbiya darslari, dars jadvallari va davomat tizimi.
-* **Workout Module:** Mashg'ulotlar dasturi, AI orqali ovqatlanish tahlillari va jismoniy rivojlanish kabi sog'liqni saqlash komponentlari.
-* **Files Module:** Barcha media fayllarni S3/MinIO da xavfsiz boshqarish.
-* **AI Module:** Gemini AI yordamida foydalanuvchiga personal maslahatlar va chat xizmati.
+
+* **Auth Module (`uz.uniSport.uni_sport.domain.auth`)**: Foydalanuvchilarni ro'yxatdan o'tkazish, tizimga kirish (JWT), Rol va Huquqlar (Role & Permission) tizimini boshqarish.
+* **Gym Module (`uz.uniSport.uni_sport.domain.gym`)**: Sport inshootlari (Facility), maydonchalar (Court), jihozlar (Equipment), ularni bron qilish (Booking) hamda jihozlarni ijaraga olish (Rental) jarayonlari. Shuningdek, xodimlar uchun kvotalar (Quota) va ombor hisob-kitobi (InventoryItem).
+* **Wellness & AI Module (`uz.uniSport.uni_sport.domain.wellness`, `uz.uniSport.uni_sport.domain.ai`)**: Mashqlar katalogi (Exercise), shaxsiy mashg'ulot rejalari (WorkoutPlan), AI (LLM) orqali yozilgan so'rovlar (AIRequestLog, PromptTemplate, TokenUsageLog) integratsiyasi.
+* **Payment Module (`uz.uniSport.uni_sport.domain.payment`)**: Obunalar (SubscriptionPlan, Subscription) va to'lov tranzaksiyalari (PaymentTransaction).
+* **Integration Module (`uz.uniSport.uni_sport.domain.integration`)**: Tashqi tizimlar bilan ishlash, jumladan, Dinamik QR Kodlar (DynamicQRCode).
+
+### Arxitektura qatlamlari
+Har bir modul ichida qat'iy qatlamlar mavjud:
+1. **Controller (`/controller`)**: REST API endpointlari (Spring Web MVC).
+2. **Service (`/service`)**: Biznes mantiqi (Business Logic) va tranzaksiyalarni boshqarish (`@Transactional`).
+3. **Repository (`/repository`)**: Ma'lumotlar bazasi bilan ishlash (Spring Data JPA).
+4. **DTO (`/dto`)**: Tarmoq orqali uzatiladigan obyektlar (Request/Response modellari).
+5. **Mapper (`/mapper`)**: Entity va DTO'lar o'rtasida konvertatsiya qiluvchi MapStruct interfeyslari.
+6. **Domain (`/domain`)**: Ma'lumotlar bazasi jadvallariga mos keluvchi JPA Entity'lar.
 
 ## 🛠️ O'rnatish va Ishga tushirish (Local)
 
 Loyihani o'z kompyuteringizda ishga tushirish uchun quyidagi dasturlar o'rnatilgan bo'lishi kerak:
-- Docker va Docker Compose
-- Java 21 va Maven (Agar Docker ishlatmasangiz)
-- Node.js (Frontend uchun)
+- Java 21
+- Maven
+- PostgreSQL 15+
+- Redis (ixtiyoriy, xotira uchun)
 
-### 1-usul: Docker Compose orqali (Tavsiya etiladi)
+### Manual Ishga tushirish
 
-Loyihani to'liq bitta buyruq bilan ko'tarish:
-```bash
-docker-compose up -d --build
-```
-Ushbu buyruq PostgreSQL, Redis, MinIO, Backend va Frontend larni avtomatik tarzda ishga tushiradi.
-* **Backend API:** `http://localhost:8080`
-* **Frontend:** `http://localhost:5173`
-* **MinIO Console:** `http://localhost:9001` (login: minioadmin, pass: minioadmin)
-
-### 2-usul: Manual Ishga tushirish
-
-1. **Ma'lumotlar bazasi va yordamchi xizmatlarni (Postgres, Redis, MinIO) Docker da yoqish:**
-```bash
-docker run --name unisport-db -e POSTGRES_USER=unisport_user -e POSTGRES_PASSWORD=unisport_pass -e POSTGRES_DB=unisport -p 5432:5432 -d postgres:15-alpine
-docker run --name unisport-redis -p 6379:6379 -d redis:7-alpine
-docker run --name unisport-minio -p 9000:9000 -p 9001:9001 -e MINIO_ROOT_USER=minioadmin -e MINIO_ROOT_PASSWORD=minioadmin -d minio/minio server /data --console-address ":9001"
+1. **Ma'lumotlar bazasini sozlash (`application.yml`):**
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/unisport
+    username: postgres
+    password: password
 ```
 
-2. **Backendni ishga tushirish:**
+2. **Migratsiyalarni bajarish va Backendni ishga tushirish:**
+Loyihada **Liquibase** yoqilgan. Ilova birinchi marta ishga tushganda barcha jadvallar (`changelog.xml` fayllari orqali) avtomatik tarzda yaratiladi.
 ```bash
-mvn clean install -DskipTests
+mvn clean package -DskipTests
 mvn spring-boot:run
 ```
-
-3. **Frontendni ishga tushirish:**
+Yoki yig'ilgan jar faylni ishga tushirish:
 ```bash
-cd frontend
-npm install
-npm run dev
+java -jar target/uni-sport-0.0.1-SNAPSHOT.jar
 ```
 
-## 🧪 Testlarni ishga tushirish
-Loyihada Testcontainers va In-Memory H2 bazasi yordamida Integration va Unit testlar yo'lga qo'yilgan.
-```bash
-mvn clean test -Dnet.bytebuddy.experimental=true
-```
+3. **API Dokumentatsiya:**
+Ilova muvaffaqiyatli ishga tushgach, Swagger UI orqali barcha API'larni ko'rishingiz mumkin:
+* Swagger UI: `http://localhost:8080/swagger-ui.html`
+* OpenAPI JSON: `http://localhost:8080/v3/api-docs`
 
-## 🛡 Xavfsizlik (Security & Rate Limiting)
-* Barcha REST API lar **JWT** (JSON Web Token) orqali himoyalangan.
-* Takroriy so'rovlarni oldini olish uchun (Idempotency) va serverni ortiqcha yuklanishidan asrash uchun (Rate Limiting) **Redis** interseptorlari sozlangan.
-* Xatoliklar global miqyosda ushlanib mijozga tushunarli JSON formatda (`GlobalExceptionHandler`) taqdim etiladi.
+## 🛡 Xavfsizlik va Ma'lumotlar Butunligi
+* **Optimistic Locking:** Parallellik muammolarining oldini olish maqsadida barcha muhim jadvallarda `@Version` (optimistic locking) maydoni qat'iy joriy qilingan.
+* **Audit Fields:** Barcha Entity'lar `BaseEntity` dan voris oladi (`createdAt`, `updatedAt`, `deleted` maydonlari) - "Soft Delete" (mantiqiy o'chirish) imkoniyati uchun.
+* **UUID as PK:** Xavfsizlikni ta'minlash va bashorat qilishni qiyinlashtirish maqsadida ko'pchilik jadvallarning Asosiy Kalitlari (Primary Key) `UUID` (v4) sifatida tanlangan.
 
-## 📊 Monitoring
-* Spring Boot Actuator va Prometheus loyihada faol. Metrikalarni ko'rish uchun:
-`GET http://localhost:8080/actuator/prometheus`
+## 📝 Konventsiyalar (Conventions)
+* **Til:** Loyihadagi barcha kod izohlari (Commit xabarlari, Javadoc, Swagger tavsiflari) to'liq o'zbek tilida yozilgan.
+* **Lombok:** Boilerplate kodni kamaytirish uchun Lombok annotation'lari (`@Getter`, `@Setter`) ishlatilgan. Ammo Hibernate Entity'larida unumdorlik va `LazyInitializationException` muammolari tufayli `@Data` va `@EqualsAndHashCode` dan umuman FОYDALANILMAGAN.
+* **API Versioning:** Barcha API endpointlari versiyalanadi, masalan: `/api/v1/...`.
 
 ---
-*Loyiha "Software Engineering" standartlari (Clean Code, SOLID, DRY) hamda modern DevOps amaliyotlari asosida yaratilgan.*
+*Ushbu tizim O'zbekistondagi universitetlarning jismoniy madaniyat, sport va sog'lomlashtirish komplekslari uchun maxsus yechim sifatida yaratilgan.*
