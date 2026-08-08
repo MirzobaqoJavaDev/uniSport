@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-create-schemas
+      author: system
+      changes:
+        - sql:
+            sql: CREATE SCHEMA IF NOT EXISTS ai;
+        - sql:
+            sql: CREATE SCHEMA IF NOT EXISTS files;
+        - sql:
+            sql: CREATE SCHEMA IF NOT EXISTS audit;
+        - sql:
+            sql: CREATE SCHEMA IF NOT EXISTS analytics;

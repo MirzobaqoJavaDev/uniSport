@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: uni-sport
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:unisport}
+    username: ${DB_USER:unisport_user}
+    password: ${DB_PASS:unisport_pass}
+  jpa:
+    hibernate:
+      ddl-auto: validate # TZ explicitly prohibits automatic schema generation
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+# MinIO Configuration
+minio:
+  url: ${MINIO_URL:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:minioadmin}
+  bucket-name: ${MINIO_BUCKET:unisport-files}
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:SuperSecretKeyForDevelopmentOnlyDoNotUseInProd2026!}
+  expiration-minutes: 15
+  refresh-expiration-days: 7
+
+logging:
+  level:
+    uz.uniSport: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
