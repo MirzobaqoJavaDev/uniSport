@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: unisport-postgres
+  db:
+    image: postgres:15-alpine
+    container_name: unisport-db
     environment:
       POSTGRES_USER: unisport_user
       POSTGRES_PASSWORD: unisport_pass
@@ -11,8 +11,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: unless-stopped
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - unisport-network
 
   redis:
     image: redis:7-alpine
@@ -20,24 +21,68 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - redis_data:/data
-    restart: unless-stopped
+      - redis-data:/data
+    networks:
+      - unisport-network
 
   minio:
-    image: minio/minio
+    image: minio/minio:latest
     container_name: unisport-minio
-    command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
     ports:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - minio_data:/data
-    restart: unless-stopped
+      - minio-data:/data
+    networks:
+      - unisport-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: unisport-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=unisport
+      - DB_USER=unisport_user
+      - DB_PASS=unisport_pass
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MINIO_URL=http://minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_BUCKET=unisport-files
+    depends_on:
+      - db
+      - redis
+      - minio
+    networks:
+      - unisport-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: unisport-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - unisport-network
 
 volumes:
-  postgres_data:
-  redis_data:
-  minio_data:
+  db-data:
+  redis-data:
+  minio-data:
+
+networks:
+  unisport-network:
+    driver: bridge

@@ -1,17 +1,20 @@
-# Loyiha uchun Dockerfile
-# Bu Dockerfile ilovani build qilish va run qilish uchun ishlatiladi
-
-# 1. Build bosqichi
+# 1. Build stage
 FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
 WORKDIR /app
 COPY pom.xml .
+# Faqat dependency'larni yuklab olish (keshlash uchun)
 RUN mvn dependency:go-offline -B
 COPY src ./src
+# Ilovani build qilish (-DskipTests testlarni o'tkazib yuborish uchun agar CI da ishlasa, hozircha o'chirib qo'yish ham mumkin)
 RUN mvn clean package -DskipTests
 
-# 2. Run bosqichi
+# 2. Run stage
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
+
+# JVM sozlamalari
+ENV JAVA_OPTS="-Xms512m -Xmx512m"
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
