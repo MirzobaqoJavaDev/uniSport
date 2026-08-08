@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-quotas-table
+      author: antigravity
+      changes:
+        - createTable:
+            tableName: quotas
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_quotas_role
+                    references: roles(id)
+              - column:
+                  name: max_active_bookings
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: max_bookings_per_week
+                  type: INT
+              - column:
+                  name: version
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false

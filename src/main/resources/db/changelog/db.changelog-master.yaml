@@ -5,3 +5,7 @@ databaseChangeLog:
       file: db/changelog/changesets/02-init-tables.yaml
   - include:
       file: db/changelog/changesets/03-init-tables-part2.yaml
+  - include:
+      file: db/changelog/changesets/04-add-permissions.yaml
+  - include:
+      file: db/changelog/changesets/05-add-quotas.yaml
