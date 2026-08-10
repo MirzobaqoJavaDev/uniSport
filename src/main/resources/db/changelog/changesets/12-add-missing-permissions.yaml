@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 12-add-missing-deleted-permissions-quotas
+      author: antigravity
+      changes:
+        - addColumn:
+            tableName: permissions
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+        - addColumn:
+            tableName: quotas
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }

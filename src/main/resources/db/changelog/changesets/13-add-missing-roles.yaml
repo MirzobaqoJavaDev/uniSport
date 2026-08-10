@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 13-add-missing-deleted-roles
+      author: antigravity
+      changes:
+        - addColumn:
+            tableName: roles
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }

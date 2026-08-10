@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10-add-missing-deleted-columns
+      author: antigravity
+      changes:
+        - addColumn:
+            tableName: subscription_plans
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+        - addColumn:
+            tableName: subscriptions
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+        - addColumn:
+            tableName: payment_transactions
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+        - addColumn:
+            tableName: inventory_items
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+        - addColumn:
+            tableName: dynamic_qr_codes
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+        - addColumn:
+            tableName: exercises
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+        - addColumn:
+            tableName: workout_plans
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+        - addColumn:
+            tableName: token_usage_logs
+            columns:
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
