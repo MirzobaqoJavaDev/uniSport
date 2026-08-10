@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: 08-drop-old-ai-schema-tables
+      author: system
+      changes:
+        - dropTable:
+            schemaName: ai
+            tableName: prompt_versions
+        - dropTable:
+            schemaName: ai
+            tableName: request_logs
+        - dropTable:
+            schemaName: ai
+            tableName: prompt_templates
+
+  - changeSet:
+      id: 08-create-prompt-templates
+      author: system
+      changes:
+        - createTable:
+            tableName: prompt_templates
+            columns:
+              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
+              - column: { name: name, type: VARCHAR(100), constraints: { nullable: false, unique: true } }
+              - column: { name: description, type: TEXT }
+              - column: { name: template_text, type: TEXT, constraints: { nullable: false } }
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+
+  - changeSet:
+      id: 08-create-ai-request-logs
+      author: system
+      changes:
+        - createTable:
+            tableName: ai_request_logs
+            columns:
+              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
+              - column: { name: user_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_aireqlogs_user, references: users(id) } }
+              - column: { name: prompt_template_id, type: UUID, constraints: { foreignKeyName: fk_aireqlogs_template, references: prompt_templates(id) } }
+              - column: { name: request_payload, type: TEXT, constraints: { nullable: false } }
+              - column: { name: response_payload, type: TEXT }
+              - column: { name: execution_time_ms, type: BIGINT }
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+
+  - changeSet:
+      id: 08-create-token-usage-logs
+      author: system
+      changes:
+        - createTable:
+            tableName: token_usage_logs
+            columns:
+              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
+              - column: { name: user_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_tokenlogs_user, references: users(id) } }
+              - column: { name: request_type, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: tokens_used, type: INTEGER, constraints: { nullable: false } }
+              - column: { name: timestamp, type: TIMESTAMP, constraints: { nullable: false } }
+              - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }

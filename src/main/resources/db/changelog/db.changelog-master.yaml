@@ -13,3 +13,5 @@ databaseChangeLog:
       file: db/changelog/changesets/06-add-payments-module.yaml
   - include:
       file: db/changelog/changesets/07-add-secondary-features.yaml
+  - include:
+      file: db/changelog/changesets/08-fix-ai-tables.yaml
