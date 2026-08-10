@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/unisport
+    username: unisport_user
+    password: unisport_pass
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+minio:
+  url: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket-name: unisport-files
+
+jwt:
+  secret: SuperSecretKeyForDevelopmentOnlyDoNotUseInProd2026!
+  expiration-minutes: 15
+  refresh-expiration-days: 7

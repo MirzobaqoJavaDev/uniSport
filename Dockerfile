@@ -14,7 +14,7 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 # JVM sozlamalari
-ENV JAVA_OPTS="-Xms512m -Xmx512m"
+ENV JAVA_OPTS="-XX:MaxRAMPercentage=75.0"
 
 EXPOSE 8080
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]

@@ -18,7 +18,7 @@ const Login: React.FC = () => {
       // API call to backend authentication
       const response = await apiClient.post('/auth/login', { email, password });
       
-      const { accessToken, tokenType } = response.data;
+      const { accessToken } = response.data;
       
       if (accessToken) {
         localStorage.setItem('token', accessToken);
