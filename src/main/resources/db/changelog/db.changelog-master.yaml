@@ -15,3 +15,5 @@ databaseChangeLog:
       file: db/changelog/changesets/07-add-secondary-features.yaml
   - include:
       file: db/changelog/changesets/08-fix-ai-tables.yaml
+  - include:
+      file: db/changelog/changesets/09-add-notifications.yaml
