@@ -37,4 +37,15 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
     boolean isCourtBooked(@Param("courtId") UUID courtId, 
                           @Param("start") LocalDateTime start, 
                           @Param("end") LocalDateTime end);
+
+    /**
+     * Eslatma yuborish uchun mos keladigan bandliklarni topish.
+     * ACTIVE holatdagi, vaqti yetgan va hali ushbu turdagi eslatma yuborilmagan bandliklar olinadi.
+     */
+    @Query("SELECT b FROM Booking b WHERE b.status = 'ACTIVE' AND b.deleted = false " +
+           "AND b.startTime > :now AND b.startTime <= :targetTime " +
+           "AND NOT EXISTS (SELECT 1 FROM Notification n WHERE n.referenceId = b.id AND n.type = :type)")
+    List<Booking> findEligibleBookingsForReminder(@Param("now") LocalDateTime now, 
+                                                  @Param("targetTime") LocalDateTime targetTime, 
+                                                  @Param("type") uz.uniSport.uni_sport.domain.notification.NotificationType type);
 }

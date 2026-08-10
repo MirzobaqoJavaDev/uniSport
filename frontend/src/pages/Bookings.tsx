@@ -1,5 +1,4 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { Calendar, Clock, MapPin } from 'lucide-react';
 // import apiClient from '../services/apiClient';
 
