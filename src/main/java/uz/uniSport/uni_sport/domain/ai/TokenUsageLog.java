@@ -7,7 +7,6 @@ import uz.uniSport.uni_sport.domain.auth.User;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Foydalanuvchilar tomonidan AI/LLM dan foydalanish tokenlari hisobini yurituvchi Entity.
@@ -18,23 +17,28 @@ import java.util.UUID;
 @Table(name = "token_usage_logs")
 public class TokenUsageLog extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+    /**
+     * Tokendan foydalangan foydalanuvchi.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     /**
-     * Masalan: 'DIET_GENERATION', 'WORKOUT_GENERATION', 'CHAT'
+     * So'rov turi: 'DIET_GENERATION', 'WORKOUT_GENERATION', 'CHAT'.
      */
     @Column(name = "request_type", nullable = false, length = 100)
     private String requestType;
 
+    /**
+     * Sarflangan tokenlar soni.
+     */
     @Column(name = "tokens_used", nullable = false)
     private Integer tokensUsed;
 
+    /**
+     * So'rov yuborilgan vaqt.
+     */
     @Column(nullable = false)
     private LocalDateTime timestamp;
 }

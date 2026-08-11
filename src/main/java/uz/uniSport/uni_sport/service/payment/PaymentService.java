@@ -37,7 +37,7 @@ public class PaymentService {
 
     @Transactional(readOnly = true)
     public PaymentTransactionResponseDTO getTransactionById(UUID id) {
-        PaymentTransaction transaction = paymentRepository.findById(id)
+        PaymentTransaction transaction = paymentRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("PaymentTransaction not found with id: " + id));
         return mapper.toDto(transaction);
     }
@@ -50,7 +50,7 @@ public class PaymentService {
             return mapper.toDto(existingTransaction.get());
         }
 
-        User user = userRepository.findById(createDTO.getUserId())
+        User user = userRepository.findByUuid(createDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + createDTO.getUserId()));
 
         PaymentTransaction transaction = mapper.toEntity(createDTO);
@@ -67,7 +67,7 @@ public class PaymentService {
 
     @Transactional
     public PaymentTransactionResponseDTO updateTransactionStatus(UUID id, PaymentTransactionUpdateDTO updateDTO) {
-        PaymentTransaction transaction = paymentRepository.findById(id)
+        PaymentTransaction transaction = paymentRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("PaymentTransaction not found with id: " + id));
                 
         if ("COMPLETED".equals(transaction.getStatus()) || "FAILED".equals(transaction.getStatus())) {

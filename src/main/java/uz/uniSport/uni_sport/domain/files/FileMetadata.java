@@ -6,8 +6,6 @@ import lombok.Setter;
 import uz.uniSport.uni_sport.domain.auth.User;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * Tizimga yuklangan fayllarning (hujjatlar, rasmlar) metama'lumotlarini (File Metadata) saqlovchi Entity klassi.
  * Haqiqiy fayllar MinIO (S3) da saqlanadi, bu jadvalda esa ularning qayerda joylashganligi (path) ko'rsatiladi.
@@ -17,13 +15,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "file_metadata")
 public class FileMetadata extends BaseEntity {
-
-    /**
-     * Fayl yozuvining yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Faylning asl nomi (masalan, 'profil_rasmi.jpg').

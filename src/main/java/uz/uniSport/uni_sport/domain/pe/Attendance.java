@@ -7,7 +7,6 @@ import uz.uniSport.uni_sport.domain.auth.User;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Talabalarning darsdagi davomatini (Attendance) ifodalovchi Entity klassi.
@@ -18,13 +17,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "attendances")
 public class Attendance extends BaseEntity {
-
-    /**
-     * Davomat yozuvining yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Davomati olinayotgan talaba (User).

@@ -1,6 +1,7 @@
 package uz.uniSport.uni_sport.controller.payment;
 
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import uz.uniSport.uni_sport.service.payment.PaymentService;
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "To'lovlar", description = "To'lov tranzaksiyalari va xizmatlarni sotib olishni boshqarish")
 @RestController
 @RequestMapping("/api/v1/payments")
 @RequiredArgsConstructor

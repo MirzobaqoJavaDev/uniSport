@@ -38,24 +38,24 @@ public class SubscriptionService {
 
     @Transactional(readOnly = true)
     public List<SubscriptionResponseDTO> getSubscriptionsByUser(UUID userId) {
-        return subscriptionRepository.findByUserId(userId).stream()
+        return subscriptionRepository.findByUserUuid(userId).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public SubscriptionResponseDTO getSubscriptionById(UUID id) {
-        Subscription subscription = subscriptionRepository.findById(id)
+        Subscription subscription = subscriptionRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Subscription not found with id: " + id));
         return mapper.toDto(subscription);
     }
 
     @Transactional
     public SubscriptionResponseDTO createSubscription(SubscriptionCreateDTO createDTO) {
-        User user = userRepository.findById(createDTO.getUserId())
+        User user = userRepository.findByUuid(createDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + createDTO.getUserId()));
                 
-        SubscriptionPlan plan = subscriptionPlanRepository.findById(createDTO.getSubscriptionPlanId())
+        SubscriptionPlan plan = subscriptionPlanRepository.findByUuid(createDTO.getSubscriptionPlanId())
                 .orElseThrow(() -> new ResourceNotFoundException("SubscriptionPlan not found with id: " + createDTO.getSubscriptionPlanId()));
 
         Subscription subscription = mapper.toEntity(createDTO);
@@ -71,7 +71,7 @@ public class SubscriptionService {
 
     @Transactional
     public SubscriptionResponseDTO updateSubscription(UUID id, SubscriptionUpdateDTO updateDTO) {
-        Subscription subscription = subscriptionRepository.findById(id)
+        Subscription subscription = subscriptionRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Subscription not found with id: " + id));
         mapper.updateEntity(updateDTO, subscription);
         Subscription saved = subscriptionRepository.save(subscription);
@@ -80,9 +80,9 @@ public class SubscriptionService {
 
     @Transactional
     public void deleteSubscription(UUID id) {
-        if (!subscriptionRepository.existsById(id)) {
+        if (!subscriptionRepository.findByUuid(id).isPresent()) {
             throw new ResourceNotFoundException("Subscription not found with id: " + id);
         }
-        subscriptionRepository.deleteById(id);
+        subscriptionRepository.findByUuid(id).ifPresent(subscriptionRepository::delete);
     }
 }

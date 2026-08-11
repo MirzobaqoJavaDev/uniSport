@@ -6,8 +6,6 @@ import lombok.Setter;
 import uz.uniSport.uni_sport.domain.auth.User;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * AI modeliga yuborilgan barcha so'rovlar va ularning javoblarini (AI Request Log) saqlovchi Entity klassi.
  * Ushbu jadval tahlil qilish, xatolarni qidirish va tizim sifatini oshirish uchun ishlatiladi.
@@ -17,13 +15,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "ai_request_logs")
 public class AIRequestLog extends BaseEntity {
-
-    /**
-     * AI so'rovi jurnalining yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * So'rovni amalga oshirgan foydalanuvchi.

@@ -34,21 +34,21 @@ public class InventoryItemService {
 
     @Transactional(readOnly = true)
     public InventoryItemResponseDTO getInventoryItemById(UUID id) {
-        InventoryItem item = repository.findById(id)
+        InventoryItem item = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("InventoryItem not found with id: " + id));
         return mapper.toDto(item);
     }
 
     @Transactional(readOnly = true)
     public List<InventoryItemResponseDTO> getInventoryItemsByFacilityId(UUID facilityId) {
-        return repository.findByFacilityId(facilityId).stream()
+        return repository.findByFacilityUuid(facilityId).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public InventoryItemResponseDTO createInventoryItem(InventoryItemCreateDTO createDTO) {
-        Facility facility = facilityRepository.findById(createDTO.getFacilityId())
+        Facility facility = facilityRepository.findByUuid(createDTO.getFacilityId())
                 .orElseThrow(() -> new ResourceNotFoundException("Facility not found with id: " + createDTO.getFacilityId()));
 
         InventoryItem item = mapper.toEntity(createDTO);
@@ -62,7 +62,7 @@ public class InventoryItemService {
 
     @Transactional
     public InventoryItemResponseDTO updateInventoryItem(UUID id, InventoryItemUpdateDTO updateDTO) {
-        InventoryItem item = repository.findById(id)
+        InventoryItem item = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("InventoryItem not found with id: " + id));
         
         Integer oldTotal = item.getTotalQuantity();
@@ -88,9 +88,9 @@ public class InventoryItemService {
 
     @Transactional
     public void deleteInventoryItem(UUID id) {
-        if (!repository.existsById(id)) {
+        if (!repository.findByUuid(id).isPresent()) {
             throw new ResourceNotFoundException("InventoryItem not found with id: " + id);
         }
-        repository.deleteById(id);
+        repository.findByUuid(id).ifPresent(repository::delete);
     }
 }

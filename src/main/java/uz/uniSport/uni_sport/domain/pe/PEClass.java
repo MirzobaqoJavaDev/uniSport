@@ -6,8 +6,6 @@ import lombok.Setter;
 import uz.uniSport.uni_sport.domain.auth.User;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * Jismoniy tarbiya (JT) darsini (PE Class) ifodalovchi Entity klassi.
  * Masalan: 'Umumiy jismoniy tayyorgarlik', 'Suzish asoslari'.
@@ -17,13 +15,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "pe_classes")
 public class PEClass extends BaseEntity {
-
-    /**
-     * JT darsining yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Darsni o'tadigan o'qituvchi (User - PE_FACULTY rolidagi foydalanuvchi).

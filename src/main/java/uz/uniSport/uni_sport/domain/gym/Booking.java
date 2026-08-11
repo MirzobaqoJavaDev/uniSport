@@ -20,13 +20,6 @@ import java.util.UUID;
 public class Booking extends BaseEntity {
 
     /**
-     * Band qilishning yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    /**
      * Kortni band qilgan foydalanuvchi (User).
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -60,7 +53,7 @@ public class Booking extends BaseEntity {
 
     /**
      * Raqobatni boshqarish (Optimistic Locking) uchun versiya raqami.
-     * Bir vaqtning o'zida ikkita foydalanuvchi bitta kortni band qilishga urinsa, 
+     * Bir vaqtning o'zida ikkita foydalanuvchi bitta kortni band qilishga urinsa,
      * ushbu maydon ziddiyatni (conflict) aniqlashga yordam beradi.
      */
     @Version
@@ -68,13 +61,15 @@ public class Booking extends BaseEntity {
     private Integer version;
 
     /**
-     * Ushbu bandlikni yaratgan administrator yoki xodim identifikatori (ixtiyoriy).
+     * Ushbu bandlikni yaratgan administrator yoki xodim uuid si (ixtiyoriy).
+     * User.uuid ga ishora qiladi.
      */
     @Column(name = "created_by")
     private UUID createdBy;
 
     /**
-     * Ushbu bandlikni oxirgi marta o'zgartirgan administrator yoki xodim identifikatori (ixtiyoriy).
+     * Ushbu bandlikni oxirgi marta o'zgartirgan administrator yoki xodim uuid si (ixtiyoriy).
+     * User.uuid ga ishora qiladi.
      */
     @Column(name = "updated_by")
     private UUID updatedBy;

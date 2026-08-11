@@ -11,7 +11,13 @@ import java.util.UUID;
  * AI prompt shablonlarini (PromptTemplate) boshqarish uchun Repository.
  */
 @Repository
-public interface PromptTemplateRepository extends JpaRepository<PromptTemplate, UUID> {
+public interface PromptTemplateRepository extends JpaRepository<PromptTemplate, Long> {
+
+    /**
+     * Prompt shablonini UUID bo'yicha qidirish.
+     */
+    Optional<PromptTemplate> findByUuid(UUID uuid);
+
     /**
      * Shablonni nomi orqali qidirish.
      * @param name shablon nomi (masalan, WORKOUT_PLAN)

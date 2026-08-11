@@ -16,23 +16,29 @@ import uz.uniSport.uni_sport.dto.wellness.WorkoutPlanUpdateDTO;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface WellnessMapper {
 
+    @Mapping(source = "uuid", target = "id")
     ExerciseResponseDTO toDto(Exercise exercise);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     Exercise toEntity(ExerciseCreateDTO dto);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     void updateEntity(ExerciseUpdateDTO dto, @MappingTarget Exercise exercise);
 
-    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "uuid", target = "id")
+    @Mapping(source = "user.uuid", target = "userId")
     WorkoutPlanResponseDTO toDto(WorkoutPlan plan);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "exercises", ignore = true) // Handled in Service
     WorkoutPlan toEntity(WorkoutPlanCreateDTO dto);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "exercises", ignore = true) // Handled in Service
     void updateEntity(WorkoutPlanUpdateDTO dto, @MappingTarget WorkoutPlan plan);

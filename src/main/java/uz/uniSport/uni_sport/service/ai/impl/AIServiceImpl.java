@@ -58,7 +58,7 @@ public class AIServiceImpl implements AIService {
     @Override
     @Transactional
     public String generateWorkoutPlan(UUID userId, String promptText) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findByUuid(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Foydalanuvchi topilmadi: " + userId));
 
         // 1. Promptni Xeshlash va Keshdan tekshirish (Token xarajatlarini kamaytirish uchun)
@@ -148,7 +148,7 @@ public class AIServiceImpl implements AIService {
     @Override
     @Transactional(readOnly = true)
     public List<AIRequestLogDto> getUserAILogs(UUID userId) {
-        return aiLogRepository.findByUserId(userId).stream()
+        return aiLogRepository.findByUserUuid(userId).stream()
                 .map(aiMapper::toDto)
                 .collect(Collectors.toList());
     }

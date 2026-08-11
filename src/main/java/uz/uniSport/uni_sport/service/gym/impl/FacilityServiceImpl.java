@@ -34,7 +34,7 @@ public class FacilityServiceImpl implements FacilityService {
     @Override
     @Transactional(readOnly = true)
     public FacilityDto getFacilityById(UUID id) {
-        Facility facility = facilityRepository.findById(id)
+        Facility facility = facilityRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Sport inshooti topilmadi: " + id));
         return gymMapper.toDto(facility);
     }

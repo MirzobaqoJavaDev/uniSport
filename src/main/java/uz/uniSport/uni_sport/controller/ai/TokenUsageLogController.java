@@ -1,6 +1,7 @@
 package uz.uniSport.uni_sport.controller.ai;
 
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import uz.uniSport.uni_sport.service.ai.TokenUsageLogService;
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "AI Tokenlar Sarfi", description = "Sun'iy intellekt xizmatlari uchun sarflangan tokenlar hisobini yuritish")
 @RestController
 @RequestMapping("/api/v1/token-usage-logs")
 @RequiredArgsConstructor

@@ -55,9 +55,9 @@ public class PermissionService {
 
     @Transactional
     public void deletePermission(Long id) {
-        if (!repository.existsById(id)) {
+        if (!repository.findById(id).isPresent()) {
             throw new ResourceNotFoundException("Permission not found with id: " + id);
         }
-        repository.deleteById(id);
+        repository.findById(id).ifPresent(repository::delete);
     }
 }

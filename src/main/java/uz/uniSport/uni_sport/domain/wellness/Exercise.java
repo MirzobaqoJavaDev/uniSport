@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * Mashqlar katalogini (Exercise) ifodalovchi Entity.
  */
@@ -16,19 +14,27 @@ import java.util.UUID;
 @Table(name = "exercises")
 public class Exercise extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+    /**
+     * Mashq nomi.
+     */
     @Column(nullable = false, length = 150)
     private String name;
 
+    /**
+     * Maqsadli mushak guruhi (masalan, 'Orqa', 'Qorin').
+     */
     @Column(name = "target_muscle_group", length = 100)
     private String targetMuscleGroup;
 
+    /**
+     * Mashq haqida batafsil tavsif.
+     */
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    /**
+     * Mashq videosi havolasi (YouTube yoki boshqa).
+     */
     @Column(name = "video_url", length = 500)
     private String videoUrl;
 }

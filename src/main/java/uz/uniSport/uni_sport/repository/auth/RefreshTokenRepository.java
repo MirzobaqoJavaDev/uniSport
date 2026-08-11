@@ -6,13 +6,14 @@ import uz.uniSport.uni_sport.domain.auth.RefreshToken;
 import uz.uniSport.uni_sport.domain.auth.User;
 
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Refresh tokenlarni boshqarish uchun Repository.
+ * RefreshToken BaseEntity dan voris olmaydi — shuning uchun Long id ishlatiladi.
  */
 @Repository
-public interface RefreshTokenRepository extends JpaRepository<RefreshToken, UUID> {
+public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
+
     /**
      * Token matni bo'yicha qidirish.
      * @param token token string

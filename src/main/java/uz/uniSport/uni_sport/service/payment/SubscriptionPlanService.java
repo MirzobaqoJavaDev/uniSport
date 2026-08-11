@@ -31,7 +31,7 @@ public class SubscriptionPlanService {
 
     @Transactional(readOnly = true)
     public SubscriptionPlanResponseDTO getPlanById(UUID id) {
-        SubscriptionPlan plan = repository.findById(id)
+        SubscriptionPlan plan = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("SubscriptionPlan not found with id: " + id));
         return mapper.toDto(plan);
     }
@@ -45,7 +45,7 @@ public class SubscriptionPlanService {
 
     @Transactional
     public SubscriptionPlanResponseDTO updatePlan(UUID id, SubscriptionPlanUpdateDTO updateDTO) {
-        SubscriptionPlan plan = repository.findById(id)
+        SubscriptionPlan plan = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("SubscriptionPlan not found with id: " + id));
         mapper.updateEntity(updateDTO, plan);
         SubscriptionPlan saved = repository.save(plan);
@@ -54,9 +54,9 @@ public class SubscriptionPlanService {
 
     @Transactional
     public void deletePlan(UUID id) {
-        if (!repository.existsById(id)) {
+        if (!repository.findByUuid(id).isPresent()) {
             throw new ResourceNotFoundException("SubscriptionPlan not found with id: " + id);
         }
-        repository.deleteById(id);
+        repository.findByUuid(id).ifPresent(repository::delete);
     }
 }

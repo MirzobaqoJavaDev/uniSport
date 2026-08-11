@@ -33,7 +33,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
             throw new BusinessLogicException("Boshlanish vaqti tugash vaqtidan oldin bo'lishi kerak.");
         }
 
-        PEClass peClass = peClassRepository.findById(classId)
+        PEClass peClass = peClassRepository.findByUuid(classId)
                 .orElseThrow(() -> new ResourceNotFoundException("Dars topilmadi: " + classId));
 
         ClassSchedule schedule = new ClassSchedule();

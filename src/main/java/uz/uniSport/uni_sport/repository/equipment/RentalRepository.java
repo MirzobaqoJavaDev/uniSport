@@ -5,17 +5,21 @@ import org.springframework.stereotype.Repository;
 import uz.uniSport.uni_sport.domain.equipment.Rental;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * Inventarlarni ijaraga berish jarayonlarini (Rental) boshqarish uchun Repository.
  */
 @Repository
-public interface RentalRepository extends JpaRepository<Rental, UUID> {
+public interface RentalRepository extends JpaRepository<Rental, Long> {
+
+    Optional<Rental> findByUuid(UUID uuid);
+
     /**
      * Foydalanuvchining ijaraga olgan barcha inventarlari tarixi.
-     * @param userId foydalanuvchi ID'si
+     * @param userId foydalanuvchi DB ichki id si
      * @return ijaralar ro'yxati
      */
-    List<Rental> findByUserId(UUID userId);
+    List<Rental> findByUserUuid(UUID userId);
 }

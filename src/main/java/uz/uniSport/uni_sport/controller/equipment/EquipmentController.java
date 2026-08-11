@@ -1,6 +1,7 @@
 package uz.uniSport.uni_sport.controller.equipment;
 
 import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import uz.uniSport.uni_sport.service.equipment.EquipmentService;
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "Uskunalar", description = "Zaldagi jihozlar va trenajyorlarni ro'yxatga olish")
 @RestController
 @RequestMapping("/api/v1/equipments")
 @RequiredArgsConstructor

@@ -1,6 +1,7 @@
 package uz.uniSport.uni_sport.controller.files;
 
 import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import uz.uniSport.uni_sport.service.files.FileService;
 import java.util.Map;
 import java.util.UUID;
 
+@Tag(name = "Fayllar", description = "Tizimga rasm, video va boshqa fayllarni yuklash hamda ularni ko'rish")
 @RestController
 @RequestMapping("/api/v1/files")
 @RequiredArgsConstructor

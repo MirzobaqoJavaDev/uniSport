@@ -6,8 +6,6 @@ import lombok.Setter;
 import uz.uniSport.uni_sport.domain.auth.Role;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * Band qilish kvotalarini (Quota) ifodalovchi Entity klassi.
  * Masalan: 'STUDENT' roli uchun bir vaqtning o'zida ko'pi bilan 2 ta faol bandlik (active bookings).
@@ -17,13 +15,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "quotas")
 public class Quota extends BaseEntity {
-
-    /**
-     * Kvotaning yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Ushbu kvota qaysi rolga tegishli ekanligi.

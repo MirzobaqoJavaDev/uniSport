@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * Sport inventarini (Equipment) ifodalovchi Entity klassi.
  * Masalan: Futbol to'pi, Tennis raketkasi, Gimnastika to'shagi.
@@ -16,13 +14,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "equipment")
 public class Equipment extends BaseEntity {
-
-    /**
-     * Inventarning yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Inventarning nomi (masalan, 'Voleybol to'pi').

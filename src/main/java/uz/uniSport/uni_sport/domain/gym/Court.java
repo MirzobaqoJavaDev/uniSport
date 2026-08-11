@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * Sport inshooti ichidagi aniq bir kortni (Court) ifodalovchi Entity klassi.
  * Masalan: Tennis korti #1, Basketbol maydonchasi A.
@@ -16,13 +14,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "courts")
 public class Court extends BaseEntity {
-
-    /**
-     * Kortning yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Ushbu kort joylashgan asosiy sport inshooti (Facility).

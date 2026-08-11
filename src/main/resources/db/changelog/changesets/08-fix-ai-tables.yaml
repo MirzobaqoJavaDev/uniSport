@@ -20,7 +20,19 @@ databaseChangeLog:
         - createTable:
             tableName: prompt_templates
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
               - column: { name: name, type: VARCHAR(100), constraints: { nullable: false, unique: true } }
               - column: { name: description, type: TEXT }
               - column: { name: template_text, type: TEXT, constraints: { nullable: false } }
@@ -35,9 +47,21 @@ databaseChangeLog:
         - createTable:
             tableName: ai_request_logs
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
-              - column: { name: user_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_aireqlogs_user, references: users(id) } }
-              - column: { name: prompt_template_id, type: UUID, constraints: { foreignKeyName: fk_aireqlogs_template, references: prompt_templates(id) } }
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column: { name: user_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_aireqlogs_user, references: users(id) } }
+              - column: { name: prompt_template_id, type: BIGINT, constraints: { foreignKeyName: fk_aireqlogs_template, references: prompt_templates(id) } }
               - column: { name: request_payload, type: TEXT, constraints: { nullable: false } }
               - column: { name: response_payload, type: TEXT }
               - column: { name: execution_time_ms, type: BIGINT }
@@ -52,8 +76,20 @@ databaseChangeLog:
         - createTable:
             tableName: prompt_versions
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
-              - column: { name: template_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_promptver_template, references: prompt_templates(id) } }
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column: { name: template_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_promptver_template, references: prompt_templates(id) } }
               - column: { name: version_number, type: VARCHAR(50), constraints: { nullable: false } }
               - column: { name: prompt_text, type: TEXT, constraints: { nullable: false } }
               - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }

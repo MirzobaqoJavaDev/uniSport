@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * Sport inshootini (Facility) ifodalovchi Entity klassi.
  * Masalan: Sport majmuasi, Stadion, Suv havzasi (Basseyn).
@@ -16,13 +14,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "facilities")
 public class Facility extends BaseEntity {
-
-    /**
-     * Inshootning yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Sport inshootining nomi (masalan, 'Markaziy sport zali').

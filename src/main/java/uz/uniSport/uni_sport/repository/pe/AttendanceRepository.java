@@ -5,24 +5,33 @@ import org.springframework.stereotype.Repository;
 import uz.uniSport.uni_sport.domain.pe.Attendance;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * Davomat (Attendance) yozuvlarini boshqarish uchun Repository.
  */
 @Repository
-public interface AttendanceRepository extends JpaRepository<Attendance, UUID> {
+public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
+
+    /**
+     * Davomatni UUID bo'yicha qidirish (API so'rovlarida ishlatiladi).
+     * @param uuid davomat tashqi identifikatori
+     * @return topilgan davomat
+     */
+    Optional<Attendance> findByUuid(UUID uuid);
+
     /**
      * Ma'lum bir dars jadvaliga (schedule) tegishli bo'lgan barcha davomatlarni qidirish.
-     * @param scheduleId dars jadvali ID'si
+     * @param scheduleId dars jadvali DB ichki id si
      * @return davomatlar ro'yxati
      */
-    List<Attendance> findByScheduleId(UUID scheduleId);
+    List<Attendance> findByScheduleUuid(UUID scheduleId);
 
     /**
      * Ma'lum bir talabaning (User) barcha davomatlarini qidirish.
-     * @param userId talaba ID'si
+     * @param userId talaba DB ichki id si
      * @return davomatlar ro'yxati
      */
-    List<Attendance> findByUserId(UUID userId);
+    List<Attendance> findByUserUuid(UUID userId);
 }

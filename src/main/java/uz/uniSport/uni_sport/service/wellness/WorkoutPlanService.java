@@ -39,28 +39,28 @@ public class WorkoutPlanService {
 
     @Transactional(readOnly = true)
     public WorkoutPlanResponseDTO getWorkoutPlanById(UUID id) {
-        WorkoutPlan plan = repository.findById(id)
+        WorkoutPlan plan = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("WorkoutPlan not found with id: " + id));
         return mapper.toDto(plan);
     }
 
     @Transactional(readOnly = true)
     public List<WorkoutPlanResponseDTO> getWorkoutPlansByUserId(UUID userId) {
-        return repository.findByUserId(userId).stream()
+        return repository.findByUserUuid(userId).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public WorkoutPlanResponseDTO createWorkoutPlan(WorkoutPlanCreateDTO createDTO) {
-        User user = userRepository.findById(createDTO.getUserId())
+        User user = userRepository.findByUuid(createDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + createDTO.getUserId()));
 
         WorkoutPlan plan = mapper.toEntity(createDTO);
         plan.setUser(user);
         
         if (createDTO.getExerciseIds() != null && !createDTO.getExerciseIds().isEmpty()) {
-            Set<Exercise> exercises = new HashSet<>(exerciseRepository.findAllById(createDTO.getExerciseIds()));
+            Set<Exercise> exercises = new HashSet<>(exerciseRepository.findByUuidIn(createDTO.getExerciseIds()));
             plan.setExercises(exercises);
         }
 
@@ -70,13 +70,13 @@ public class WorkoutPlanService {
 
     @Transactional
     public WorkoutPlanResponseDTO updateWorkoutPlan(UUID id, WorkoutPlanUpdateDTO updateDTO) {
-        WorkoutPlan plan = repository.findById(id)
+        WorkoutPlan plan = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("WorkoutPlan not found with id: " + id));
 
         mapper.updateEntity(updateDTO, plan);
         
         if (updateDTO.getExerciseIds() != null) {
-            Set<Exercise> exercises = new HashSet<>(exerciseRepository.findAllById(updateDTO.getExerciseIds()));
+            Set<Exercise> exercises = new HashSet<>(exerciseRepository.findByUuidIn(updateDTO.getExerciseIds()));
             plan.setExercises(exercises);
         }
 
@@ -86,9 +86,11 @@ public class WorkoutPlanService {
 
     @Transactional
     public void deleteWorkoutPlan(UUID id) {
-        if (!repository.existsById(id)) {
+        if (!repository.findByUuid(id).isPresent()) {
             throw new ResourceNotFoundException("WorkoutPlan not found with id: " + id);
         }
-        repository.deleteById(id);
+        WorkoutPlan plan = repository.findByUuid(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Workout plan not found"));
+        repository.delete(plan);
     }
 }

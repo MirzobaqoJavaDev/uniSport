@@ -3,14 +3,13 @@ package uz.uniSport.uni_sport.domain.auth;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Foydalanuvchining sessiyasini uzaytirish uchun ishlatiladigan Refresh Token larni ifodalovchi Entity klassi.
  * Qisqa muddatli JWT token yaroqsiz bo'lib qolganida yangisini olish uchun ishlatiladi.
+ * Bu entity BaseEntity dan voris olmaydi — id Long, uuid yo'q, audit maydonlar alohida.
  */
 @Getter
 @Setter
@@ -19,11 +18,11 @@ import java.util.UUID;
 public class RefreshToken {
 
     /**
-     * Refresh token yozuvining yagona identifikatori (ID).
+     * Refresh token yozuvining yagona identifikatori (Long, DB ichki).
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     /**
      * Ushbu tokenga tegishli bo'lgan foydalanuvchi.

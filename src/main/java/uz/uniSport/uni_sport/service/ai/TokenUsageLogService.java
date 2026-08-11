@@ -34,21 +34,21 @@ public class TokenUsageLogService {
 
     @Transactional(readOnly = true)
     public TokenUsageLogResponseDTO getLogById(UUID id) {
-        TokenUsageLog log = repository.findById(id)
+        TokenUsageLog log = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("TokenUsageLog not found with id: " + id));
         return mapper.toDto(log);
     }
 
     @Transactional(readOnly = true)
     public List<TokenUsageLogResponseDTO> getLogsByUserId(UUID userId) {
-        return repository.findByUserId(userId).stream()
+        return repository.findByUserUuid(userId).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public TokenUsageLogResponseDTO createLog(TokenUsageLogCreateDTO createDTO) {
-        User user = userRepository.findById(createDTO.getUserId())
+        User user = userRepository.findByUuid(createDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + createDTO.getUserId()));
 
         TokenUsageLog log = mapper.toEntity(createDTO);
@@ -61,9 +61,9 @@ public class TokenUsageLogService {
 
     @Transactional
     public void deleteLog(UUID id) {
-        if (!repository.existsById(id)) {
+        if (!repository.findByUuid(id).isPresent()) {
             throw new ResourceNotFoundException("TokenUsageLog not found with id: " + id);
         }
-        repository.deleteById(id);
+        repository.findByUuid(id).ifPresent(repository::delete);
     }
 }

@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * AI prompt shablonining aniq bir versiyasini (Prompt Version) ifodalovchi Entity klassi.
  * Bu jadvalda prompt matnlari versiyalanib saqlanadi, shunday qilib eskisini o'zgartirmasdan
@@ -17,13 +15,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "prompt_versions")
 public class PromptVersion extends BaseEntity {
-
-    /**
-     * Prompt versiyasining yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Qaysi shablonga tegishli ekanligini ko'rsatuvchi havola.

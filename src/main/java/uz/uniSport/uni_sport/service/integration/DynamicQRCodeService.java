@@ -34,21 +34,21 @@ public class DynamicQRCodeService {
 
     @Transactional(readOnly = true)
     public DynamicQRCodeResponseDTO getQRCodeById(UUID id) {
-        DynamicQRCode qrCode = repository.findById(id)
+        DynamicQRCode qrCode = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("DynamicQRCode not found with id: " + id));
         return mapper.toDto(qrCode);
     }
 
     @Transactional(readOnly = true)
     public List<DynamicQRCodeResponseDTO> getQRCodesByUserId(UUID userId) {
-        return repository.findByUserId(userId).stream()
+        return repository.findByUserUuid(userId).stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public DynamicQRCodeResponseDTO createQRCode(DynamicQRCodeCreateDTO createDTO) {
-        User user = userRepository.findById(createDTO.getUserId())
+        User user = userRepository.findByUuid(createDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + createDTO.getUserId()));
 
         DynamicQRCode qrCode = mapper.toEntity(createDTO);
@@ -61,7 +61,7 @@ public class DynamicQRCodeService {
 
     @Transactional
     public DynamicQRCodeResponseDTO updateQRCode(UUID id, DynamicQRCodeUpdateDTO updateDTO) {
-        DynamicQRCode qrCode = repository.findById(id)
+        DynamicQRCode qrCode = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("DynamicQRCode not found with id: " + id));
 
         mapper.updateEntity(updateDTO, qrCode);
@@ -71,9 +71,9 @@ public class DynamicQRCodeService {
 
     @Transactional
     public void deleteQRCode(UUID id) {
-        if (!repository.existsById(id)) {
+        if (!repository.findByUuid(id).isPresent()) {
             throw new ResourceNotFoundException("DynamicQRCode not found with id: " + id);
         }
-        repository.deleteById(id);
+        repository.findByUuid(id).ifPresent(repository::delete);
     }
 }

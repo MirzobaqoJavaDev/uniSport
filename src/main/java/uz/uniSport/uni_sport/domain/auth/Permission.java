@@ -16,13 +16,6 @@ import uz.uniSport.uni_sport.domain.common.BaseEntity;
 public class Permission extends BaseEntity {
 
     /**
-     * Huquqning yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    /**
      * Huquqning nomi.
      * Bu nom tizimda takrorlanmas (unique) bo'lishi shart.
      */

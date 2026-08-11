@@ -6,7 +6,6 @@ import lombok.Setter;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 /**
  * Obuna paketlarini (Subscription Plan) ifodalovchi Entity klassi.
@@ -18,19 +17,27 @@ import java.util.UUID;
 @Table(name = "subscription_plans")
 public class SubscriptionPlan extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+    /**
+     * Obuna paketi nomi.
+     */
     @Column(nullable = false, length = 100)
     private String name;
 
+    /**
+     * Obuna paketi tavsifi.
+     */
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    /**
+     * Obuna paketi narxi.
+     */
     @Column(nullable = false)
     private BigDecimal price;
 
+    /**
+     * Obuna davomiyligi (kunlarda).
+     */
     @Column(name = "duration_in_days", nullable = false)
     private Integer durationInDays;
 }

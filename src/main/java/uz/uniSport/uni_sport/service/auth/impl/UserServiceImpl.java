@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDto getUserById(UUID id) {
-        User user = userRepository.findById(id)
+        User user = userRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Foydalanuvchi topilmadi: " + id));
         return authMapper.toDto(user);
     }

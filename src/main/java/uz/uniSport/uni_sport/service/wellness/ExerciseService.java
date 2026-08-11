@@ -31,7 +31,7 @@ public class ExerciseService {
 
     @Transactional(readOnly = true)
     public ExerciseResponseDTO getExerciseById(UUID id) {
-        Exercise exercise = repository.findById(id)
+        Exercise exercise = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Exercise not found with id: " + id));
         return mapper.toDto(exercise);
     }
@@ -45,7 +45,7 @@ public class ExerciseService {
 
     @Transactional
     public ExerciseResponseDTO updateExercise(UUID id, ExerciseUpdateDTO updateDTO) {
-        Exercise exercise = repository.findById(id)
+        Exercise exercise = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Exercise not found with id: " + id));
         
         mapper.updateEntity(updateDTO, exercise);
@@ -55,9 +55,9 @@ public class ExerciseService {
 
     @Transactional
     public void deleteExercise(UUID id) {
-        if (!repository.existsById(id)) {
+        if (!repository.findByUuid(id).isPresent()) {
             throw new ResourceNotFoundException("Exercise not found with id: " + id);
         }
-        repository.deleteById(id);
+        repository.findByUuid(id).ifPresent(repository::delete);
     }
 }

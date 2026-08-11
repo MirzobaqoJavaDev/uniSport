@@ -38,7 +38,7 @@ public class FileServiceImpl implements FileService {
     @Override
     @Transactional
     public FileMetadataDto uploadFile(UUID userId, MultipartFile file) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findByUuid(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Foydalanuvchi topilmadi: " + userId));
 
         if (file.isEmpty()) {
@@ -86,14 +86,14 @@ public class FileServiceImpl implements FileService {
     @Override
     @Transactional(readOnly = true)
     public FileMetadataDto getFileById(UUID id) {
-        FileMetadata metadata = fileRepository.findById(id)
+        FileMetadata metadata = fileRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Fayl topilmadi: " + id));
         return filesMapper.toDto(metadata);
     }
 
     @Override
     public String getFileDownloadUrl(UUID id) {
-        FileMetadata metadata = fileRepository.findById(id)
+        FileMetadata metadata = fileRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Fayl topilmadi: " + id));
         
         try {

@@ -5,17 +5,26 @@ import org.springframework.stereotype.Repository;
 import uz.uniSport.uni_sport.domain.workout.MealLog;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * Ovqatlanish jurnalini (MealLog) boshqarish uchun Repository.
  */
 @Repository
-public interface MealLogRepository extends JpaRepository<MealLog, UUID> {
+public interface MealLogRepository extends JpaRepository<MealLog, Long> {
+
+    /**
+     * Ovqatlanish yozuvini UUID bo'yicha qidirish (API so'rovlarida ishlatiladi).
+     * @param uuid yozuv tashqi identifikatori
+     * @return topilgan yozuv
+     */
+    Optional<MealLog> findByUuid(UUID uuid);
+
     /**
      * Foydalanuvchining ovqatlanish tarixini qidirish.
-     * @param userId foydalanuvchi ID'si
+     * @param userId foydalanuvchi DB ichki id si
      * @return MealLog ro'yxati
      */
-    List<MealLog> findByUserId(UUID userId);
+    List<MealLog> findByUserUuid(UUID userId);
 }

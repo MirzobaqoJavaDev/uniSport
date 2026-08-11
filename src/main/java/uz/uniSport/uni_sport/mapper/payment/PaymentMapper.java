@@ -20,19 +20,24 @@ import uz.uniSport.uni_sport.dto.payment.SubscriptionPlanUpdateDTO;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface PaymentMapper {
     
+    @Mapping(source = "uuid", target = "id")
     SubscriptionPlanResponseDTO toDto(SubscriptionPlan plan);
     
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     SubscriptionPlan toEntity(SubscriptionPlanCreateDTO dto);
     
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     void updateEntity(SubscriptionPlanUpdateDTO dto, @MappingTarget SubscriptionPlan plan);
 
-    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "uuid", target = "id")
+    @Mapping(source = "user.uuid", target = "userId")
     @Mapping(source = "plan", target = "subscriptionPlan")
     SubscriptionResponseDTO toDto(Subscription sub);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "plan", ignore = true)
     @Mapping(target = "startDate", ignore = true)
@@ -41,17 +46,21 @@ public interface PaymentMapper {
     Subscription toEntity(SubscriptionCreateDTO dto);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     void updateEntity(SubscriptionUpdateDTO dto, @MappingTarget Subscription sub);
 
-    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "uuid", target = "id")
+    @Mapping(source = "user.uuid", target = "userId")
     PaymentTransactionResponseDTO toDto(PaymentTransaction transaction);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "providerTransactionId", ignore = true)
     PaymentTransaction toEntity(PaymentTransactionCreateDTO dto);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "uuid", ignore = true)
     void updateEntity(PaymentTransactionUpdateDTO dto, @MappingTarget PaymentTransaction transaction);
 }

@@ -1,6 +1,7 @@
 package uz.uniSport.uni_sport.controller.integration;
 
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import uz.uniSport.uni_sport.service.integration.DynamicQRCodeService;
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "QR Kodlar", description = "Dinamik QR kodlar yaratish va tekshirish")
 @RestController
 @RequestMapping("/api/v1/qr-codes")
 @RequiredArgsConstructor

@@ -1,6 +1,7 @@
 package uz.uniSport.uni_sport.controller.pe;
 
 import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import uz.uniSport.uni_sport.service.pe.PEClassService;
 import java.util.List;
 import java.util.UUID;
 
+@Tag(name = "Jismoniy Tarbiya Darslari", description = "Jismoniy tarbiya guruhlari va darslarni boshqarish")
 @RestController
 @RequestMapping("/api/v1/pe-classes")
 @RequiredArgsConstructor

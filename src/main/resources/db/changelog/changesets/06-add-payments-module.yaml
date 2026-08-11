@@ -8,9 +8,22 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: UUID
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
                     nullable: false
               - column:
                   name: name
@@ -50,20 +63,33 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: UUID
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
                     nullable: false
               - column:
                   name: user_id
-                  type: UUID
+                  type: BIGINT
                   constraints:
                     nullable: false
                     foreignKeyName: fk_subscriptions_user
                     references: users(id)
               - column:
                   name: plan_id
-                  type: UUID
+                  type: BIGINT
                   constraints:
                     nullable: false
                     foreignKeyName: fk_subscriptions_plan
@@ -103,13 +129,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: UUID
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
                     nullable: false
               - column:
                   name: user_id
-                  type: UUID
+                  type: BIGINT
                   constraints:
                     nullable: false
                     foreignKeyName: fk_payment_transactions_user

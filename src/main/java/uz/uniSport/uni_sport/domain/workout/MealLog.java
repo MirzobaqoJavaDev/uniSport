@@ -7,24 +7,16 @@ import uz.uniSport.uni_sport.domain.auth.User;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Foydalanuvchining ovqatlanish jurnali (Meal Log) va kaloriyalarni hisobga oluvchi Entity klassi.
- * Bu orqali talabaning kunlik ovqatlanishi qat'iy xavfsizlik kaloriyalari (ayollar > 1200, erkaklar > 1500) doirasida nazorat qilinadi.
+ * Bu orqali talabaning kunlik ovqatlanishi qat'iy xavfsizlik kaloriyalari doirasida nazorat qilinadi.
  */
 @Getter
 @Setter
 @Entity
 @Table(name = "meal_logs")
 public class MealLog extends BaseEntity {
-
-    /**
-     * Ovqatlanish yozuvining yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Ovqatlanish jurnalini to'ldirgan foydalanuvchi (User).

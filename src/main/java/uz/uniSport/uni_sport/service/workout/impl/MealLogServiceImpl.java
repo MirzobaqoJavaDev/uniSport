@@ -33,7 +33,7 @@ public class MealLogServiceImpl implements MealLogService {
             throw new BusinessLogicException("Kaloriya miqdori 0 dan katta bo'lishi kerak.");
         }
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findByUuid(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Foydalanuvchi topilmadi: " + userId));
 
         MealLog log = new MealLog();
@@ -48,7 +48,7 @@ public class MealLogServiceImpl implements MealLogService {
     @Override
     @Transactional(readOnly = true)
     public List<MealLogDto> getUserMealLogs(UUID userId) {
-        return mealLogRepository.findByUserId(userId).stream()
+        return mealLogRepository.findByUserUuid(userId).stream()
                 .map(workoutMapper::toDto)
                 .collect(Collectors.toList());
     }

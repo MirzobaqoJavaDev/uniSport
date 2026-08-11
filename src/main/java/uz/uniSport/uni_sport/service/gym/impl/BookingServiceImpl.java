@@ -36,17 +36,17 @@ public class BookingServiceImpl implements BookingService {
             throw new BusinessLogicException("Boshlanish vaqti tugash vaqtidan oldin bo'lishi kerak.");
         }
 
+        User user = userRepository.findByUuid(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Foydalanuvchi topilmadi: " + userId));
+        
+        Court court = courtRepository.findByUuid(courtId)
+                .orElseThrow(() -> new ResourceNotFoundException("Kort topilmadi: " + courtId));
+
         // Boshqa bandlik bilan ustma-ust tushishini (overlap) tekshirish
-        boolean isBooked = bookingRepository.isCourtBooked(courtId, startTime, endTime);
+        boolean isBooked = bookingRepository.isCourtBooked(court.getId(), startTime, endTime);
         if (isBooked) {
             throw new BusinessLogicException("Kechirasiz, tanlangan vaqtda kort allaqachon band qilingan.");
         }
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Foydalanuvchi topilmadi: " + userId));
-        
-        Court court = courtRepository.findById(courtId)
-                .orElseThrow(() -> new ResourceNotFoundException("Kort topilmadi: " + courtId));
 
         Booking booking = new Booking();
         booking.setUser(user);
@@ -62,7 +62,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional(readOnly = true)
     public List<BookingDto> getUserBookings(UUID userId) {
-        return bookingRepository.findByUserId(userId).stream()
+        return bookingRepository.findByUserUuid(userId).stream()
                 .map(gymMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -70,11 +70,11 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional
     public void cancelBooking(UUID bookingId, UUID userId) {
-        Booking booking = bookingRepository.findById(bookingId)
+        Booking booking = bookingRepository.findByUuid(bookingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Bandlik topilmadi: " + bookingId));
         
         // Faqat o'zining bandligini bekor qila oladi
-        if (!booking.getUser().getId().equals(userId)) {
+        if (!booking.getUser().getUuid().equals(userId)) {
             throw new BusinessLogicException("Siz faqat o'zingizning bandligingizni bekor qila olasiz.");
         }
 

@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * Tizim foydalanuvchisini ifodalovchi Entity klassi.
  * Barcha foydalanuvchilar (talabalar, xodimlar, adminlar) ushbu jadvalda saqlanadi.
@@ -16,13 +14,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
-
-    /**
-     * Foydalanuvchining yagona identifikatori (UUID formatida).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Foydalanuvchining elektron pochta manzili.

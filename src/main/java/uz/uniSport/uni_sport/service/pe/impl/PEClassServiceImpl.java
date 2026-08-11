@@ -27,7 +27,7 @@ public class PEClassServiceImpl implements PEClassService {
     @Override
     @Transactional
     public PEClassDto createClass(String name, UUID instructorId) {
-        User instructor = userRepository.findById(instructorId)
+        User instructor = userRepository.findByUuid(instructorId)
                 .orElseThrow(() -> new ResourceNotFoundException("O'qituvchi topilmadi: " + instructorId));
 
         PEClass peClass = new PEClass();
@@ -41,7 +41,7 @@ public class PEClassServiceImpl implements PEClassService {
     @Override
     @Transactional(readOnly = true)
     public PEClassDto getClassById(UUID id) {
-        PEClass peClass = peClassRepository.findById(id)
+        PEClass peClass = peClassRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Jismoniy tarbiya darsi topilmadi: " + id));
         return peMapper.toDto(peClass);
     }

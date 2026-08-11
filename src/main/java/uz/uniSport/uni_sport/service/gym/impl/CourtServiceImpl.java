@@ -27,7 +27,7 @@ public class CourtServiceImpl implements CourtService {
     @Override
     @Transactional
     public CourtDto createCourt(UUID facilityId, String name) {
-        Facility facility = facilityRepository.findById(facilityId)
+        Facility facility = facilityRepository.findByUuid(facilityId)
                 .orElseThrow(() -> new ResourceNotFoundException("Sport inshooti topilmadi: " + facilityId));
 
         Court court = new Court();
@@ -41,7 +41,7 @@ public class CourtServiceImpl implements CourtService {
     @Override
     @Transactional(readOnly = true)
     public List<CourtDto> getCourtsByFacility(UUID facilityId) {
-        return courtRepository.findByFacilityId(facilityId).stream()
+        return courtRepository.findByFacilityUuid(facilityId).stream()
                 .map(gymMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -49,7 +49,7 @@ public class CourtServiceImpl implements CourtService {
     @Override
     @Transactional(readOnly = true)
     public CourtDto getCourtById(UUID id) {
-        Court court = courtRepository.findById(id)
+        Court court = courtRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Kort topilmadi: " + id));
         return gymMapper.toDto(court);
     }

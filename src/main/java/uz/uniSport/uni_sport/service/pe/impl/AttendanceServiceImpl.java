@@ -31,10 +31,10 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     @Transactional
     public AttendanceDto markAttendance(UUID userId, UUID scheduleId, String status) {
-        User user = userRepository.findById(userId)
+        User user = userRepository.findByUuid(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Talaba topilmadi: " + userId));
 
-        ClassSchedule schedule = scheduleRepository.findById(scheduleId)
+        ClassSchedule schedule = scheduleRepository.findByUuid(scheduleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Dars jadvali topilmadi: " + scheduleId));
 
         Attendance attendance = new Attendance();
@@ -50,7 +50,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     @Transactional(readOnly = true)
     public List<AttendanceDto> getAttendanceByUser(UUID userId) {
-        return attendanceRepository.findByUserId(userId).stream()
+        return attendanceRepository.findByUserUuid(userId).stream()
                 .map(peMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -58,7 +58,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     @Transactional(readOnly = true)
     public List<AttendanceDto> getAttendanceBySchedule(UUID scheduleId) {
-        return attendanceRepository.findByScheduleId(scheduleId).stream()
+        return attendanceRepository.findByScheduleUuid(scheduleId).stream()
                 .map(peMapper::toDto)
                 .collect(Collectors.toList());
     }

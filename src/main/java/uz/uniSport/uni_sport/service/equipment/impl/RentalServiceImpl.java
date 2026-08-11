@@ -32,14 +32,14 @@ public class RentalServiceImpl implements RentalService {
     @Override
     @Transactional
     public RentalDto rentEquipment(UUID userId, UUID equipmentId) {
-        Equipment equipment = equipmentRepository.findById(equipmentId)
+        Equipment equipment = equipmentRepository.findByUuid(equipmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Inventar topilmadi: " + equipmentId));
 
         if (equipment.getTotalQuantity() <= 0) {
             throw new BusinessLogicException("Kechirasiz, ushbu inventar hozirda mavjud emas (tugagan).");
         }
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findByUuid(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Foydalanuvchi topilmadi: " + userId));
 
         // Inventar sonini kamaytirish
@@ -59,7 +59,7 @@ public class RentalServiceImpl implements RentalService {
     @Override
     @Transactional
     public RentalDto returnEquipment(UUID rentalId) {
-        Rental rental = rentalRepository.findById(rentalId)
+        Rental rental = rentalRepository.findByUuid(rentalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Ijara yozuvi topilmadi: " + rentalId));
 
         if (!"ACTIVE".equals(rental.getStatus())) {
@@ -81,7 +81,7 @@ public class RentalServiceImpl implements RentalService {
     @Override
     @Transactional(readOnly = true)
     public List<RentalDto> getUserRentals(UUID userId) {
-        return rentalRepository.findByUserId(userId).stream()
+        return rentalRepository.findByUserUuid(userId).stream()
                 .map(equipmentMapper::toDto)
                 .collect(Collectors.toList());
     }

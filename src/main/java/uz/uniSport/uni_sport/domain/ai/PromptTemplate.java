@@ -5,11 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
-import java.util.UUID;
-
 /**
  * AI prompt shablonlarini (Prompt Template) ifodalovchi Entity klassi.
- * Bu jadvalda turli xil AI vazifalari uchun (masalan, mashg'ulot rejasi tuzish) 
+ * Bu jadvalda turli xil AI vazifalari uchun (masalan, mashg'ulot rejasi tuzish)
  * asosiy prompt shablonlari saqlanadi.
  */
 @Getter
@@ -17,13 +15,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "prompt_templates")
 public class PromptTemplate extends BaseEntity {
-
-    /**
-     * Shablonning yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Shablon nomi (masalan, 'WORKOUT_PLAN_GENERATION').
@@ -36,7 +27,7 @@ public class PromptTemplate extends BaseEntity {
      */
     @Column(columnDefinition = "TEXT")
     private String description;
-    
+
     /**
      * Asosiy prompt matni (shablon o'zi).
      */

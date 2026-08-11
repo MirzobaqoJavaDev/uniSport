@@ -19,13 +19,6 @@ import java.util.Set;
 public class Role extends BaseEntity {
 
     /**
-     * Rolning yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    /**
      * Rolning nomi (masalan, 'STUDENT', 'PE_FACULTY').
      * Bu nom tizimda takrorlanmas (unique) bo'lishi shart.
      */

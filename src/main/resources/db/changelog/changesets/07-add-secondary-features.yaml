@@ -8,13 +8,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: UUID
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
                     nullable: false
               - column:
                   name: facility_id
-                  type: UUID
+                  type: BIGINT
                   constraints:
                     nullable: false
                     foreignKeyName: fk_inventory_items_facility
@@ -59,13 +72,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: UUID
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
                     nullable: false
               - column:
                   name: user_id
-                  type: UUID
+                  type: BIGINT
                   constraints:
                     nullable: false
                     foreignKeyName: fk_dynamic_qr_codes_user
@@ -105,9 +131,22 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: UUID
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
                     nullable: false
               - column:
                   name: name
@@ -143,13 +182,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: UUID
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
                     nullable: false
               - column:
                   name: user_id
-                  type: UUID
+                  type: BIGINT
                   constraints:
                     nullable: false
                     foreignKeyName: fk_workout_plans_user
@@ -185,14 +237,14 @@ databaseChangeLog:
             columns:
               - column:
                   name: workout_plan_id
-                  type: UUID
+                  type: BIGINT
                   constraints:
                     nullable: false
                     foreignKeyName: fk_wpe_workout_plan
                     references: workout_plans(id)
               - column:
                   name: exercise_id
-                  type: UUID
+                  type: BIGINT
                   constraints:
                     nullable: false
                     foreignKeyName: fk_wpe_exercise
@@ -207,13 +259,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: UUID
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
                     nullable: false
               - column:
                   name: user_id
-                  type: UUID
+                  type: BIGINT
                   constraints:
                     nullable: false
                     foreignKeyName: fk_token_usage_logs_user

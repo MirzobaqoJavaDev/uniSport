@@ -6,7 +6,6 @@ import lombok.Setter;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Jismoniy tarbiya darslarining jadvallarini (Class Schedule) ifodalovchi Entity klassi.
@@ -17,13 +16,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "class_schedules")
 public class ClassSchedule extends BaseEntity {
-
-    /**
-     * Dars jadvalining yagona identifikatori (ID).
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
     /**
      * Jadvalga tegishli bo'lgan asosiy JT darsi (PEClass).

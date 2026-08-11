@@ -35,7 +35,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     @Transactional(readOnly = true)
     public EquipmentDto getEquipmentById(UUID id) {
-        Equipment equipment = equipmentRepository.findById(id)
+        Equipment equipment = equipmentRepository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Inventar topilmadi: " + id));
         return equipmentMapper.toDto(equipment);
     }

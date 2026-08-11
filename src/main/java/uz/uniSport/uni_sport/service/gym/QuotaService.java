@@ -34,7 +34,7 @@ public class QuotaService {
 
     @Transactional(readOnly = true)
     public QuotaResponseDTO getQuotaById(UUID id) {
-        Quota quota = repository.findById(id)
+        Quota quota = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Quota not found with id: " + id));
         return mapper.toDto(quota);
     }
@@ -61,7 +61,7 @@ public class QuotaService {
 
     @Transactional
     public QuotaResponseDTO updateQuota(UUID id, QuotaUpdateDTO updateDTO) {
-        Quota quota = repository.findById(id)
+        Quota quota = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Quota not found with id: " + id));
         
         mapper.updateEntity(updateDTO, quota);
@@ -71,9 +71,9 @@ public class QuotaService {
 
     @Transactional
     public void deleteQuota(UUID id) {
-        if (!repository.existsById(id)) {
+        if (!repository.findByUuid(id).isPresent()) {
             throw new ResourceNotFoundException("Quota not found with id: " + id);
         }
-        repository.deleteById(id);
+        repository.findByUuid(id).ifPresent(repository::delete);
     }
 }

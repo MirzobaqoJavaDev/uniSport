@@ -7,7 +7,6 @@ import uz.uniSport.uni_sport.domain.auth.User;
 import uz.uniSport.uni_sport.domain.common.BaseEntity;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 /**
  * To'lov tranzaksiyalarini (Payment Transaction) ifodalovchi Entity.
@@ -18,22 +17,27 @@ import java.util.UUID;
 @Table(name = "payment_transactions")
 public class PaymentTransaction extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+    /**
+     * To'lov amalga oshirgan foydalanuvchi.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    /**
+     * To'lov summasi.
+     */
     @Column(nullable = false)
     private BigDecimal amount;
 
+    /**
+     * Valyuta kodi (masalan, UZS, USD).
+     */
     @Column(nullable = false, length = 3)
     private String currency;
 
     /**
-     * Masalan: 'PENDING', 'SUCCESS', 'FAILED'
+     * To'lov holati: 'PENDING', 'SUCCESS', 'FAILED'.
      */
     @Column(nullable = false, length = 50)
     private String status;
