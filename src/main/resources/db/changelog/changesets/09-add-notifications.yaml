@@ -6,22 +6,10 @@ databaseChangeLog:
         - createTable:
             tableName: notifications
             columns:
-              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
-              - column:
-                  name: uuid
-                  type: UUID
-                  constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: deleted
-                  type: BOOLEAN
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
-              - column: { name: recipient_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_notifications_user, references: users(id) } }
+              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
+              - column: { name: recipient_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_notifications_user, references: users(id) } }
               - column: { name: type, type: VARCHAR(50), constraints: { nullable: false } }
-              - column: { name: reference_id, type: BIGINT, constraints: { nullable: false } }
+              - column: { name: reference_id, type: UUID, constraints: { nullable: false } }
               - column: { name: channel, type: VARCHAR(50), constraints: { nullable: false } }
               - column: { name: status, type: VARCHAR(50), constraints: { nullable: false } }
               - column: { name: error_message, type: VARCHAR(1000) }

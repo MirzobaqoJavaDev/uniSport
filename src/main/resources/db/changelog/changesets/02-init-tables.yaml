@@ -13,18 +13,6 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: uuid
-                  type: UUID
-                  constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: deleted
-                  type: BOOLEAN
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
-              - column:
                   name: name
                   type: VARCHAR(50)
                   constraints:
@@ -38,22 +26,9 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: uuid
                   type: UUID
                   constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: deleted
-                  type: BOOLEAN
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
+                    primaryKey: true
               - column:
                   name: email
                   type: VARCHAR(255)
@@ -73,23 +48,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: uuid
                   type: UUID
                   constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: deleted
-                  type: BOOLEAN
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
-              - column: { name: user_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_tokens_user, references: users(id) } }
+                    primaryKey: true
+              - column: { name: user_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_tokens_user, references: users(id) } }
               - column: { name: token, type: VARCHAR(255), constraints: { nullable: false, unique: true } }
               - column: { name: expires_at, type: TIMESTAMP, constraints: { nullable: false } }
 
@@ -98,22 +60,9 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: uuid
                   type: UUID
                   constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: deleted
-                  type: BOOLEAN
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
+                    primaryKey: true
               - column: { name: name, type: VARCHAR(100), constraints: { nullable: false } }
               - column: { name: description, type: TEXT }
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
@@ -125,23 +74,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: uuid
                   type: UUID
                   constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: deleted
-                  type: BOOLEAN
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
-              - column: { name: facility_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_courts_facility, references: facilities(id) } }
+                    primaryKey: true
+              - column: { name: facility_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_courts_facility, references: facilities(id) } }
               - column: { name: name, type: VARCHAR(100), constraints: { nullable: false } }
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
               - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
@@ -152,24 +88,11 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: uuid
                   type: UUID
                   constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: deleted
-                  type: BOOLEAN
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
-              - column: { name: user_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_bookings_user, references: users(id) } }
-              - column: { name: court_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_bookings_court, references: courts(id) } }
+                    primaryKey: true
+              - column: { name: user_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_bookings_user, references: users(id) } }
+              - column: { name: court_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_bookings_court, references: courts(id) } }
               - column: { name: start_time, type: TIMESTAMP, constraints: { nullable: false } }
               - column: { name: end_time, type: TIMESTAMP, constraints: { nullable: false } }
               - column: { name: status, type: VARCHAR(50), constraints: { nullable: false } }
@@ -177,5 +100,5 @@ databaseChangeLog:
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
               - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
               - column: { name: updated_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
-              - column: { name: created_by, type: BIGINT }
-              - column: { name: updated_by, type: BIGINT }
+              - column: { name: created_by, type: UUID }
+              - column: { name: updated_by, type: UUID }

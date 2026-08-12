@@ -8,22 +8,9 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: uuid
                   type: UUID
                   constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: deleted
-                  type: BOOLEAN
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
+                    primaryKey: true
                     nullable: false
               - column:
                   name: role_id
