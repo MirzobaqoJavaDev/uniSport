@@ -58,7 +58,7 @@ class AuthServiceImplTest {
         role.setName("STUDENT");
 
         user = new User();
-        user.setId(UUID.randomUUID());
+        user.setUuid(UUID.randomUUID());
         user.setEmail("test@student.uz");
         user.setPasswordHash("hashedpassword");
         user.setFirstName("Test");

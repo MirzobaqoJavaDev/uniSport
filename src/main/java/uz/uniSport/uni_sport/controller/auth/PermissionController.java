@@ -12,6 +12,7 @@ import uz.uniSport.uni_sport.dto.auth.PermissionUpdateDTO;
 import uz.uniSport.uni_sport.service.auth.PermissionService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Tag(name = "Huquqlar", description = "Tizimdagi rol va huquqlarni boshqarish")
 @RestController
@@ -27,7 +28,7 @@ public class PermissionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PermissionResponseDTO> getPermissionById(@PathVariable Long id) {
+    public ResponseEntity<PermissionResponseDTO> getPermissionById(@PathVariable UUID id) {
         return ResponseEntity.ok(service.getPermissionById(id));
     }
 
@@ -37,12 +38,12 @@ public class PermissionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PermissionResponseDTO> updatePermission(@PathVariable Long id, @Valid @RequestBody PermissionUpdateDTO updateDTO) {
+    public ResponseEntity<PermissionResponseDTO> updatePermission(@PathVariable UUID id, @Valid @RequestBody PermissionUpdateDTO updateDTO) {
         return ResponseEntity.ok(service.updatePermission(id, updateDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePermission(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePermission(@PathVariable UUID id) {
         service.deletePermission(id);
         return ResponseEntity.noContent().build();
     }

@@ -37,13 +37,13 @@ class BookingReminderSchedulerTest {
     @Test
     void processReminders_shouldProcessAllReminderTypes() {
         Booking booking24h = new Booking();
-        booking24h.setId(UUID.randomUUID());
+        booking24h.setUuid(UUID.randomUUID());
 
         Booking booking2h = new Booking();
-        booking2h.setId(UUID.randomUUID());
+        booking2h.setUuid(UUID.randomUUID());
 
         Booking booking30m = new Booking();
-        booking30m.setId(UUID.randomUUID());
+        booking30m.setUuid(UUID.randomUUID());
 
         when(bookingRepository.findEligibleBookingsForReminder(any(LocalDateTime.class), any(LocalDateTime.class), eq(NotificationType.BOOKING_REMINDER_24_HOURS)))
                 .thenReturn(List.of(booking24h));
@@ -64,10 +64,10 @@ class BookingReminderSchedulerTest {
     @Test
     void processReminders_shouldContinueWhenOneFails() {
         Booking booking1 = new Booking();
-        booking1.setId(UUID.randomUUID());
+        booking1.setUuid(UUID.randomUUID());
 
         Booking booking2 = new Booking();
-        booking2.setId(UUID.randomUUID());
+        booking2.setUuid(UUID.randomUUID());
 
         when(bookingRepository.findEligibleBookingsForReminder(any(LocalDateTime.class), any(LocalDateTime.class), eq(NotificationType.BOOKING_REMINDER_24_HOURS)))
                 .thenReturn(List.of(booking1, booking2));

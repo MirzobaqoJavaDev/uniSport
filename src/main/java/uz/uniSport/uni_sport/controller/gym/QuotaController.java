@@ -33,7 +33,7 @@ public class QuotaController {
     }
 
     @GetMapping("/role/{roleId}")
-    public ResponseEntity<QuotaResponseDTO> getQuotaByRoleId(@PathVariable Long roleId) {
+    public ResponseEntity<QuotaResponseDTO> getQuotaByRoleId(@PathVariable UUID roleId) {
         return ResponseEntity.ok(service.getQuotaByRoleId(roleId));
     }
 

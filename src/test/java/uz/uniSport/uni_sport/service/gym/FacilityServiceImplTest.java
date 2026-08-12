@@ -42,12 +42,13 @@ class FacilityServiceImplTest {
         facilityId = UUID.randomUUID();
         
         facility = new Facility();
-        facility.setId(facilityId);
+        facility.setUuid(facilityId);
         facility.setName("Asosiy Sport Zali");
         facility.setDescription("Katta sport majmuasi");
 
         facilityDto = new FacilityDto();
         facilityDto.setId(facilityId);
+        // facilityId
         facilityDto.setName("Asosiy Sport Zali");
         facilityDto.setDescription("Katta sport majmuasi");
     }
@@ -70,7 +71,7 @@ class FacilityServiceImplTest {
     @Test
     void getFacilityById_Success() {
         // Arrange
-        when(facilityRepository.findById(facilityId)).thenReturn(Optional.of(facility));
+        when(facilityRepository.findByUuid(facilityId)).thenReturn(Optional.of(facility));
         when(gymMapper.toDto(facility)).thenReturn(facilityDto);
 
         // Act
@@ -85,7 +86,7 @@ class FacilityServiceImplTest {
     void getFacilityById_NotFound_ThrowsException() {
         // Arrange
         UUID wrongId = UUID.randomUUID();
-        when(facilityRepository.findById(wrongId)).thenReturn(Optional.empty());
+        when(facilityRepository.findByUuid(wrongId)).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> facilityService.getFacilityById(wrongId));

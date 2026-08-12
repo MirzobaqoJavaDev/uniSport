@@ -18,10 +18,4 @@ databaseChangeLog:
   - include:
       file: db/changelog/changesets/09-add-notifications.yaml
   - include:
-      file: db/changelog/changesets/10-add-missing-columns.yaml
-  - include:
       file: db/changelog/changesets/11-fix-file-metadata.yaml
-  - include:
-      file: db/changelog/changesets/12-add-missing-permissions.yaml
-  - include:
-      file: db/changelog/changesets/13-add-missing-roles.yaml

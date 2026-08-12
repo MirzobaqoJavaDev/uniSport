@@ -22,8 +22,8 @@ public interface QuotaRepository extends JpaRepository<Quota, Long> {
 
     /**
      * Muayyan rolga tegishli kvotani topish.
-     * @param roleId rol DB ichki id si
+     * @param roleUuid rol tashqi id si
      * @return topilgan kvota
      */
-    Optional<Quota> findByRoleId(Long roleId);
+    Optional<Quota> findByRole_Uuid(UUID roleUuid);
 }

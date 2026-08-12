@@ -13,6 +13,7 @@ import uz.uniSport.uni_sport.mapper.auth.AuthMapper;
 import uz.uniSport.uni_sport.repository.auth.PermissionRepository;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,8 +31,8 @@ public class PermissionService {
     }
 
     @Transactional(readOnly = true)
-    public PermissionResponseDTO getPermissionById(Long id) {
-        Permission permission = repository.findById(id)
+    public PermissionResponseDTO getPermissionById(UUID id) {
+        Permission permission = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Permission not found with id: " + id));
         return mapper.toDto(permission);
     }
@@ -45,8 +46,8 @@ public class PermissionService {
     }
 
     @Transactional
-    public PermissionResponseDTO updatePermission(Long id, PermissionUpdateDTO updateDTO) {
-        Permission permission = repository.findById(id)
+    public PermissionResponseDTO updatePermission(UUID id, PermissionUpdateDTO updateDTO) {
+        Permission permission = repository.findByUuid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Permission not found with id: " + id));
         mapper.updateEntity(updateDTO, permission);
         Permission saved = repository.save(permission);
@@ -54,10 +55,10 @@ public class PermissionService {
     }
 
     @Transactional
-    public void deletePermission(Long id) {
-        if (!repository.findById(id).isPresent()) {
+    public void deletePermission(UUID id) {
+        if (!repository.findByUuid(id).isPresent()) {
             throw new ResourceNotFoundException("Permission not found with id: " + id);
         }
-        repository.findById(id).ifPresent(repository::delete);
+        repository.findByUuid(id).ifPresent(repository::delete);
     }
 }

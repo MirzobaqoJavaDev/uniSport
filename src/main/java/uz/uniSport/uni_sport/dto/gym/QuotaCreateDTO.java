@@ -5,11 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class QuotaCreateDTO {
     @NotNull(message = "Role ID is required")
-    private Long roleId;
+    private UUID roleId;
 
     @NotNull(message = "Max active bookings is required")
     @Min(value = 1, message = "Max active bookings must be at least 1")

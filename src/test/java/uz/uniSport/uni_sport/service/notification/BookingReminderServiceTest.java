@@ -38,7 +38,8 @@ class BookingReminderServiceTest {
     @Test
     void processReminder_alreadyExists_skipsDelivery() {
         Booking booking = new Booking();
-        booking.setId(UUID.randomUUID());
+        booking.setId(1L);
+        booking.setUuid(UUID.randomUUID());
 
         when(notificationRepository.existsByReferenceIdAndType(booking.getId(), NotificationType.BOOKING_REMINDER_24_HOURS)).thenReturn(true);
 
@@ -51,9 +52,11 @@ class BookingReminderServiceTest {
     @Test
     void processReminder_raceCondition_handlesGracefully() {
         Booking booking = new Booking();
-        booking.setId(UUID.randomUUID());
+        booking.setId(1L);
+        booking.setUuid(UUID.randomUUID());
         User user = new User();
-        user.setId(UUID.randomUUID());
+        user.setId(1L);
+        user.setUuid(UUID.randomUUID());
         booking.setUser(user);
 
         when(notificationRepository.existsByReferenceIdAndType(any(), any())).thenReturn(false);
@@ -67,9 +70,11 @@ class BookingReminderServiceTest {
     @Test
     void processReminder_successfulDelivery() {
         Booking booking = new Booking();
-        booking.setId(UUID.randomUUID());
+        booking.setId(1L);
+        booking.setUuid(UUID.randomUUID());
         User user = new User();
-        user.setId(UUID.randomUUID());
+        user.setId(1L);
+        user.setUuid(UUID.randomUUID());
         booking.setUser(user);
         Court court = new Court();
         court.setName("Test Court");
@@ -93,9 +98,11 @@ class BookingReminderServiceTest {
     @Test
     void processReminder_failedDelivery() {
         Booking booking = new Booking();
-        booking.setId(UUID.randomUUID());
+        booking.setId(1L);
+        booking.setUuid(UUID.randomUUID());
         User user = new User();
-        user.setId(UUID.randomUUID());
+        user.setId(1L);
+        user.setUuid(UUID.randomUUID());
         booking.setUser(user);
         Court court = new Court();
         court.setName("Test Court");
@@ -103,7 +110,7 @@ class BookingReminderServiceTest {
         booking.setStartTime(LocalDateTime.now().plusHours(24));
 
         Notification initialSaved = new Notification();
-        initialSaved.setId(UUID.randomUUID()); // ensure it gets to the fallback update block
+        initialSaved.setUuid(UUID.randomUUID()); // ensure it gets to the fallback update block
         when(notificationRepository.existsByReferenceIdAndType(any(), any())).thenReturn(false);
         when(notificationRepository.saveAndFlush(any())).thenReturn(initialSaved);
         when(deliveryService.sendNotification(any(), any(), any())).thenReturn(false);

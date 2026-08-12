@@ -6,6 +6,19 @@ databaseChangeLog:
         - createTable:
             tableName: permissions
             columns:
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
               - column:
                   name: id
                   type: BIGINT
@@ -40,6 +53,19 @@ databaseChangeLog:
         - createTable:
             tableName: role_permissions
             columns:
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
               - column:
                   name: role_id
                   type: BIGINT

@@ -7,7 +7,14 @@ databaseChangeLog:
         - createTable:
             tableName: equipment
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
               - column: { name: name, type: VARCHAR(255), constraints: { nullable: false } }
               - column: { name: total_quantity, type: INTEGER, constraints: { nullable: false } }
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
@@ -17,9 +24,16 @@ databaseChangeLog:
         - createTable:
             tableName: rentals
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
-              - column: { name: user_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_rentals_user, references: users(id) } }
-              - column: { name: equipment_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_rentals_equipment, references: equipment(id) } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column: { name: user_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_rentals_user, references: users(id) } }
+              - column: { name: equipment_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_rentals_equipment, references: equipment(id) } }
               - column: { name: rented_at, type: TIMESTAMP, constraints: { nullable: false } }
               - column: { name: returned_at, type: TIMESTAMP }
               - column: { name: status, type: VARCHAR(50), constraints: { nullable: false } }
@@ -32,8 +46,15 @@ databaseChangeLog:
         - createTable:
             tableName: pe_classes
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
-              - column: { name: instructor_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_peclasses_user, references: users(id) } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column: { name: instructor_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_peclasses_user, references: users(id) } }
               - column: { name: name, type: VARCHAR(255), constraints: { nullable: false } }
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
               - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
@@ -42,8 +63,15 @@ databaseChangeLog:
         - createTable:
             tableName: class_schedules
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
-              - column: { name: class_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_schedules_class, references: pe_classes(id) } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column: { name: class_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_schedules_class, references: pe_classes(id) } }
               - column: { name: start_time, type: TIMESTAMP, constraints: { nullable: false } }
               - column: { name: end_time, type: TIMESTAMP, constraints: { nullable: false } }
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
@@ -53,9 +81,16 @@ databaseChangeLog:
         - createTable:
             tableName: attendances
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
-              - column: { name: user_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_attendances_user, references: users(id) } }
-              - column: { name: schedule_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_attendances_schedule, references: class_schedules(id) } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column: { name: user_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_attendances_user, references: users(id) } }
+              - column: { name: schedule_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_attendances_schedule, references: class_schedules(id) } }
               - column: { name: status, type: VARCHAR(50), constraints: { nullable: false } }
               - column: { name: recorded_at, type: TIMESTAMP, constraints: { nullable: false } }
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
@@ -66,8 +101,15 @@ databaseChangeLog:
         - createTable:
             tableName: meal_logs
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
-              - column: { name: user_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_meallogs_user, references: users(id) } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column: { name: user_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_meallogs_user, references: users(id) } }
               - column: { name: calories, type: INTEGER, constraints: { nullable: false } }
               - column: { name: logged_at, type: TIMESTAMP, constraints: { nullable: false } }
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
@@ -79,7 +121,14 @@ databaseChangeLog:
             schemaName: ai
             tableName: prompt_templates
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
               - column: { name: name, type: VARCHAR(255), constraints: { nullable: false, unique: true } }
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
               - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
@@ -89,8 +138,21 @@ databaseChangeLog:
             schemaName: ai
             tableName: prompt_versions
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
-              - column: { name: template_id, type: UUID, constraints: { nullable: false, foreignKeyName: fk_versions_template, references: ai.prompt_templates(id) } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column: { name: template_id, type: BIGINT, constraints: { nullable: false, foreignKeyName: fk_versions_template, references: ai.prompt_templates(id) } }
               - column: { name: content, type: TEXT, constraints: { nullable: false } }
               - column: { name: version_number, type: INTEGER, constraints: { nullable: false } }
               - column: { name: status, type: VARCHAR(50), constraints: { nullable: false } }
@@ -100,8 +162,21 @@ databaseChangeLog:
             schemaName: ai
             tableName: request_logs
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
-              - column: { name: user_id, type: UUID, constraints: { nullable: false } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
+              - column: { name: user_id, type: BIGINT, constraints: { nullable: false } }
               - column: { name: provider, type: VARCHAR(50), constraints: { nullable: false } }
               - column: { name: tokens_used, type: INTEGER, constraints: { nullable: false } }
               - column: { name: requested_at, type: TIMESTAMP, constraints: { nullable: false } }
@@ -111,12 +186,19 @@ databaseChangeLog:
             schemaName: files
             tableName: file_metadata
             columns:
-              - column: { name: id, type: UUID, constraints: { primaryKey: true } }
+
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column: { name: id, type: BIGINT, constraints: { primaryKey: true } }
               - column: { name: object_name, type: VARCHAR(255), constraints: { nullable: false } }
               - column: { name: original_name, type: VARCHAR(255), constraints: { nullable: false } }
               - column: { name: mime_type, type: VARCHAR(100), constraints: { nullable: false } }
               - column: { name: size_bytes, type: BIGINT, constraints: { nullable: false } }
-              - column: { name: uploaded_by, type: UUID, constraints: { nullable: false } }
+              - column: { name: uploaded_by, type: BIGINT, constraints: { nullable: false } }
               - column: { name: deleted, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
               - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
               - column: { name: updated_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }

@@ -40,15 +40,15 @@ public class QuotaService {
     }
 
     @Transactional(readOnly = true)
-    public QuotaResponseDTO getQuotaByRoleId(Long roleId) {
-        Quota quota = repository.findByRoleId(roleId)
+    public QuotaResponseDTO getQuotaByRoleId(UUID roleId) {
+        Quota quota = repository.findByRole_Uuid(roleId)
                 .orElseThrow(() -> new ResourceNotFoundException("Quota not found for role id: " + roleId));
         return mapper.toDto(quota);
     }
 
     @Transactional
     public QuotaResponseDTO createQuota(QuotaCreateDTO createDTO) {
-        Role role = roleRepository.findById(createDTO.getRoleId())
+        Role role = roleRepository.findByUuid(createDTO.getRoleId())
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + createDTO.getRoleId()));
 
         Quota quota = mapper.toEntity(createDTO);
