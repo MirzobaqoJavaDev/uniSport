@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.uniSport.uni_sport.dto.pe.ClassScheduleCreateRequest;
 import uz.uniSport.uni_sport.dto.pe.ClassScheduleDto;
@@ -21,6 +22,7 @@ public class ClassScheduleController {
     private final ClassScheduleService scheduleService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('CLASS_CREATE')")
     public ResponseEntity<ClassScheduleDto> createSchedule(@RequestBody ClassScheduleCreateRequest request) {
         ClassScheduleDto created = scheduleService.createSchedule(
                 request.getPeClassId(),
@@ -31,6 +33,7 @@ public class ClassScheduleController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('CLASS_READ')")
     public ResponseEntity<List<ClassScheduleDto>> getSchedules(
             @RequestParam LocalDateTime start,
             @RequestParam LocalDateTime end) {

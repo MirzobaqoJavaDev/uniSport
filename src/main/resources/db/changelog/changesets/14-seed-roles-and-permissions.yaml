@@ -1,0 +1,852 @@
+databaseChangeLog:
+- changeSet:
+    id: 14-seed-roles-permissions-test-users
+    author: antigravity
+    changes:
+    - sql:
+        sql: 'INSERT INTO permissions (uuid, name, description, deleted, created_at,
+          updated_at) SELECT ''58bff8a4-03b4-4fb4-bfbd-72426882c7ba'', ''USER_PROFILE_READ_SELF'',
+          ''USER_PROFILE_READ_SELF'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          WHERE NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''USER_PROFILE_READ_SELF'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''bc382da7-2508-4f4c-a722-cd5fdb215c88'', ''USER_PROFILE_UPDATE_SELF'',
+          ''USER_PROFILE_UPDATE_SELF'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          WHERE NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''USER_PROFILE_UPDATE_SELF'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''74d7f0c0-88f2-4878-95f9-1cacec7a1b70'', ''FACILITY_READ'', ''FACILITY_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''FACILITY_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''79a2cfcd-265b-40fe-b9c9-74212fab2939'', ''FACILITY_CREATE'', ''FACILITY_CREATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''FACILITY_CREATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''3bfa4edf-c897-412e-a8b2-8e162ee866bb'', ''FACILITY_UPDATE'', ''FACILITY_UPDATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''FACILITY_UPDATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''b488eac4-9f31-4915-9087-02a8161b07d7'', ''FACILITY_DELETE'', ''FACILITY_DELETE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''FACILITY_DELETE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''eb9cb451-b1d7-44e3-b157-c3494544a337'', ''BOOKING_CREATE'', ''BOOKING_CREATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''BOOKING_CREATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''4f58a268-3198-4e9f-bff2-ec32997370f3'', ''BOOKING_READ_SELF'',
+          ''BOOKING_READ_SELF'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''BOOKING_READ_SELF'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''77593f30-ce36-4287-a3a8-b8c6049b60b9'', ''BOOKING_READ'', ''BOOKING_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''BOOKING_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''f9b2b212-ba4a-4d35-abd4-66f6ecf4fbd5'', ''BOOKING_UPDATE'', ''BOOKING_UPDATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''BOOKING_UPDATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''a97d8525-fa50-4da8-8623-9f72dda60e55'', ''BOOKING_CANCEL'', ''BOOKING_CANCEL'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''BOOKING_CANCEL'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''d5cb746e-ec2a-4f8b-8026-8f34312f5e80'', ''BOOKING_MANAGE'', ''BOOKING_MANAGE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''BOOKING_MANAGE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''01d55fd4-1bf4-4cfb-801f-66cc378b8b24'', ''EQUIPMENT_READ'', ''EQUIPMENT_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''EQUIPMENT_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''ab01d6c8-ce72-40cd-a86d-a4c20569b291'', ''EQUIPMENT_CREATE'', ''EQUIPMENT_CREATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''EQUIPMENT_CREATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''047a5b54-eb3b-475b-95a9-6d461fa09547'', ''EQUIPMENT_UPDATE'', ''EQUIPMENT_UPDATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''EQUIPMENT_UPDATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''78096b67-0bbc-4026-886b-359fdeaae156'', ''EQUIPMENT_DELETE'', ''EQUIPMENT_DELETE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''EQUIPMENT_DELETE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''0412ef93-59ff-495d-92e4-767bc1312562'', ''EQUIPMENT_ISSUE'', ''EQUIPMENT_ISSUE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''EQUIPMENT_ISSUE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''885603d4-efe0-4256-bc59-cde102312186'', ''EQUIPMENT_RETURN'', ''EQUIPMENT_RETURN'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''EQUIPMENT_RETURN'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''c8910e52-dca6-4340-b788-f459085ebac9'', ''EQUIPMENT_SCAN'', ''EQUIPMENT_SCAN'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''EQUIPMENT_SCAN'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''498d90a2-8ca1-4f91-9e77-b12fdca32adc'', ''EQUIPMENT_MANAGE'', ''EQUIPMENT_MANAGE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''EQUIPMENT_MANAGE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''6f52f2c4-833a-4f32-9f8c-216ee4bb2cb0'', ''CLASS_READ'', ''CLASS_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''CLASS_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''658a3a71-577a-46a5-a822-62521323ac98'', ''CLASS_CREATE'', ''CLASS_CREATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''CLASS_CREATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''ade06275-b374-403e-a8ab-c8a25ace789e'', ''CLASS_UPDATE'', ''CLASS_UPDATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''CLASS_UPDATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''c493e0fa-d38c-48e3-a038-ae94d4f3476c'', ''CLASS_DELETE'', ''CLASS_DELETE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''CLASS_DELETE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''b5250d95-ccab-49e3-aa15-fe7e0d31b822'', ''TRAINING_READ'', ''TRAINING_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''TRAINING_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''fc8ba20e-aa90-486f-af12-1110f3a48c86'', ''TRAINING_CREATE'', ''TRAINING_CREATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''TRAINING_CREATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''ea073187-7e2e-40cb-8c26-cafa91f31a77'', ''TRAINING_UPDATE'', ''TRAINING_UPDATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''TRAINING_UPDATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''f6216b28-f20f-43d6-85a7-50f5b4b6f3e1'', ''TRAINING_DELETE'', ''TRAINING_DELETE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''TRAINING_DELETE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''97c8cec1-3fe2-4b66-a463-bb28b994c442'', ''ATTENDANCE_READ'', ''ATTENDANCE_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''ATTENDANCE_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''8753627b-bc9d-4515-a7b5-ed8d3df625e5'', ''ATTENDANCE_CREATE'',
+          ''ATTENDANCE_CREATE'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''ATTENDANCE_CREATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''ddd60714-9de4-4919-968d-8718c1aeafc7'', ''ATTENDANCE_MANAGE'',
+          ''ATTENDANCE_MANAGE'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''ATTENDANCE_MANAGE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''171b321b-965f-4fa6-abf9-ae789b7186f8'', ''ATTENDANCE_QR_SCAN'',
+          ''ATTENDANCE_QR_SCAN'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''ATTENDANCE_QR_SCAN'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''0d43afee-102f-4ffe-a7f4-3682ad365e39'', ''AI_RECOMMENDATION_USE'',
+          ''AI_RECOMMENDATION_USE'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''AI_RECOMMENDATION_USE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''ec6145e4-cbd0-411e-8a03-a9e234e11f7f'', ''AI_IMAGE_ANALYSIS_USE'',
+          ''AI_IMAGE_ANALYSIS_USE'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''AI_IMAGE_ANALYSIS_USE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''943a77e1-ad1c-4dd5-9974-76339148f72e'', ''NOTIFICATION_READ_SELF'',
+          ''NOTIFICATION_READ_SELF'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          WHERE NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''NOTIFICATION_READ_SELF'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''b8e8bf1b-7c6d-4ae4-9ad9-8a48a114209e'', ''NOTIFICATION_MANAGE'',
+          ''NOTIFICATION_MANAGE'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''NOTIFICATION_MANAGE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''d3d47547-fcf0-4f0c-a2d4-dd173e26c08a'', ''QUOTA_READ'', ''QUOTA_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''QUOTA_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''7ab99ae1-87ce-48a9-9a51-452c61d9d0b1'', ''QUOTA_MANAGE'', ''QUOTA_MANAGE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''QUOTA_MANAGE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''5e315ee3-4e2f-4fc0-b6d9-5baca0df2639'', ''FINANCIAL_REPORT_READ'',
+          ''FINANCIAL_REPORT_READ'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''FINANCIAL_REPORT_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''df704dc8-e3e1-46a5-b31f-8a7b157657f8'', ''FINANCIAL_REPORT_MANAGE'',
+          ''FINANCIAL_REPORT_MANAGE'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          WHERE NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''FINANCIAL_REPORT_MANAGE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''0bfee094-195c-4b64-b5b6-803abcd6f031'', ''SYSTEM_SETTINGS_READ'',
+          ''SYSTEM_SETTINGS_READ'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''SYSTEM_SETTINGS_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''50e5366b-83b1-402b-a218-f40965888820'', ''SYSTEM_SETTINGS_MANAGE'',
+          ''SYSTEM_SETTINGS_MANAGE'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          WHERE NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''SYSTEM_SETTINGS_MANAGE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''2121321a-ba2b-4012-8393-eb4e9b5da4b0'', ''USER_READ'', ''USER_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''USER_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''a711e21d-4ee4-4273-8b93-0236c7454c3b'', ''USER_CREATE'', ''USER_CREATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''USER_CREATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''38f10ea7-18ec-4f34-9e40-d370a5b61496'', ''USER_UPDATE'', ''USER_UPDATE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''USER_UPDATE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''2389681c-174c-47ad-9d6c-8f95b8d4ccd3'', ''USER_DELETE'', ''USER_DELETE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''USER_DELETE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''f039be23-aca6-4479-b39f-35b4858aac4f'', ''USER_ROLE_ASSIGN'', ''USER_ROLE_ASSIGN'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''USER_ROLE_ASSIGN'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''4966a734-bb47-4e24-aa0e-566482fd9a1f'', ''ROLE_READ'', ''ROLE_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''ROLE_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''7016fa89-f225-4bda-a71d-333e147af9cb'', ''ROLE_MANAGE'', ''ROLE_MANAGE'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''ROLE_MANAGE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''2acde787-6c99-457a-8b2d-f05c4efe2cbc'', ''PERMISSION_READ'', ''PERMISSION_READ'',
+          false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT 1 FROM
+          permissions WHERE name = ''PERMISSION_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''bada8f90-c7be-4976-99b9-123afa6ac7cb'', ''PERMISSION_MANAGE'',
+          ''PERMISSION_MANAGE'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''PERMISSION_MANAGE'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''acaf3a10-9f85-4e14-914d-15c393b14d8e'', ''MONITORING_DASHBOARD_READ'',
+          ''MONITORING_DASHBOARD_READ'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          WHERE NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''MONITORING_DASHBOARD_READ'');
+
+          INSERT INTO permissions (uuid, name, description, deleted, created_at, updated_at)
+          SELECT ''f184d39a-5b89-490a-87d7-753d03a9970e'', ''MONITORING_AGGREGATED_REPORT_READ'',
+          ''MONITORING_AGGREGATED_REPORT_READ'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          WHERE NOT EXISTS (SELECT 1 FROM permissions WHERE name = ''MONITORING_AGGREGATED_REPORT_READ'');
+
+          INSERT INTO roles (uuid, name, deleted, created_at, updated_at) SELECT ''0411a8c7-1d11-4f68-9703-4eacc1a31b2b'',
+          ''USER'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS (SELECT
+          1 FROM roles WHERE name = ''USER'');
+
+          INSERT INTO roles (uuid, name, deleted, created_at, updated_at) SELECT ''7d646464-08a3-48ec-abb5-f40ff634673b'',
+          ''COACH'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS
+          (SELECT 1 FROM roles WHERE name = ''COACH'');
+
+          INSERT INTO roles (uuid, name, deleted, created_at, updated_at) SELECT ''fbbf4316-ca48-4a0f-addc-b7a7245b9927'',
+          ''DESK_STAFF'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT EXISTS
+          (SELECT 1 FROM roles WHERE name = ''DESK_STAFF'');
+
+          INSERT INTO roles (uuid, name, deleted, created_at, updated_at) SELECT ''b12dd312-e8fb-418d-9040-15c36854989b'',
+          ''FACILITY_PARTNER_ADMIN'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          WHERE NOT EXISTS (SELECT 1 FROM roles WHERE name = ''FACILITY_PARTNER_ADMIN'');
+
+          INSERT INTO roles (uuid, name, deleted, created_at, updated_at) SELECT ''e353749d-d4a2-4800-b718-192ffe70bc6a'',
+          ''SPORT_DIRECTOR'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE NOT
+          EXISTS (SELECT 1 FROM roles WHERE name = ''SPORT_DIRECTOR'');
+
+          INSERT INTO roles (uuid, name, deleted, created_at, updated_at) SELECT ''49263991-6aa7-4e79-8f99-d5ec0e7b105b'',
+          ''MINISTRY_OBSERVER'', false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP WHERE
+          NOT EXISTS (SELECT 1 FROM roles WHERE name = ''MINISTRY_OBSERVER'');
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''6dbe53fb-1eee-4872-834d-95110acadfc2'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''USER_PROFILE_READ_SELF''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''ca5fe9e7-1041-4c6c-952b-c385b46df455'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''USER_PROFILE_UPDATE_SELF''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''3f96386b-a307-4f19-a531-0e3c9d97e0dd'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''FACILITY_READ'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''fef77a46-bef9-4309-9b29-3ab32572819d'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''BOOKING_CREATE'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''9f974387-ab43-4221-beab-a202493a2f0c'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''BOOKING_READ_SELF''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''52ea5bb4-b89d-41db-bda1-bc2a1133f179'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''BOOKING_UPDATE'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''94399cda-f391-4626-aa8a-6dd7042b7cf1'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''BOOKING_CANCEL'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''4aa88e19-e033-474d-9ac0-740f6cff2c7e'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''EQUIPMENT_READ'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''449d4c62-138d-4e76-9679-e65ace986528'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''CLASS_READ'' AND NOT
+          EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id
+          = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''7568c995-f87b-4613-a211-0b81a1cc319d'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''TRAINING_READ'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''a143949b-68e6-456d-b753-56cd4a4aab88'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''AI_RECOMMENDATION_USE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''856db283-90f2-4640-92d6-bb5518041491'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''AI_IMAGE_ANALYSIS_USE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''5ee0aaa6-9a2c-4507-a53e-c1f3250a671c'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''USER'' AND p.name = ''NOTIFICATION_READ_SELF''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''55671bc4-3a28-406e-a78f-91e6a76fa393'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''USER_PROFILE_READ_SELF''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''ca90613b-848a-49f9-9914-a2130d17ff32'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''USER_PROFILE_UPDATE_SELF''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''b1d6a6d0-1fb2-4cab-b66a-10668eb68d91'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''FACILITY_READ'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''7abb89dc-b140-40e6-a8b1-b22e4aaf51db'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''CLASS_READ'' AND NOT
+          EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id
+          = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''e7c188af-72dc-4c1a-bedf-bcaa5955b57c'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''CLASS_CREATE'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''9303ef6c-2408-4061-b269-c6095e6baa28'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''CLASS_UPDATE'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''2e419e51-03f1-4395-b9e2-8fc0317b8b17'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''TRAINING_READ'' AND
+          NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND
+          rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''68c5055f-5ca8-4d94-a15c-a50eb6da31a4'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''TRAINING_CREATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''0d5d25d4-6edb-4bba-9b5a-b0b777a7cce6'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''TRAINING_UPDATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''e4d27831-d9e7-4e33-af91-3e2f026b5a6b'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''ATTENDANCE_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''151537a0-6d18-45d6-86ae-f111149dc8c4'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''ATTENDANCE_CREATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''e11795ec-206c-4eea-9594-04feaf33ae85'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''ATTENDANCE_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''e6f546e0-b950-456e-b58d-b6da858d69ae'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''ATTENDANCE_QR_SCAN''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''cba932ab-b44a-4d85-ad92-165c59cb2986'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''AI_RECOMMENDATION_USE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''6d00f81b-24ca-4cc5-964f-a30be801d6a9'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''COACH'' AND p.name = ''NOTIFICATION_READ_SELF''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''441bf415-4fff-4c64-a709-e26944a9ba66'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''DESK_STAFF'' AND p.name = ''FACILITY_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''e33b855c-70d9-480f-a2c7-a67bf394123a'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''DESK_STAFF'' AND p.name = ''BOOKING_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''ef6faef5-2e0a-425a-af3b-42cf3dce7bae'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''DESK_STAFF'' AND p.name = ''EQUIPMENT_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''5440a73c-b00f-4a9e-a715-315fae9cf0c4'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''DESK_STAFF'' AND p.name = ''EQUIPMENT_ISSUE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''ca4b2e68-6362-4094-baa0-a09d2a012b39'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''DESK_STAFF'' AND p.name = ''EQUIPMENT_RETURN''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''c79ad977-82d0-4fa8-a632-69d5ec9fd515'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''DESK_STAFF'' AND p.name = ''EQUIPMENT_SCAN''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''062c107b-4ff0-42a0-aba9-4e41c2bfa073'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''DESK_STAFF'' AND p.name = ''ATTENDANCE_QR_SCAN''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''c61da58f-c211-498f-b99e-32793446b496'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''DESK_STAFF'' AND p.name = ''NOTIFICATION_READ_SELF''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''a68b406d-db8c-4302-aa3b-9026d2dda51c'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''FACILITY_PARTNER_ADMIN'' AND p.name = ''FACILITY_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''e76427ed-2238-483b-8b26-9bc467351ac6'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''FACILITY_PARTNER_ADMIN'' AND p.name = ''FACILITY_CREATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''a3c6477e-5766-4e01-801d-815426e6cfa3'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''FACILITY_PARTNER_ADMIN'' AND p.name = ''FACILITY_UPDATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''a1e12c9f-bc63-43fd-9399-abb260bd82c4'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''FACILITY_PARTNER_ADMIN'' AND p.name = ''BOOKING_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''82f5bd45-313c-42e0-a70b-0cc8b8e7b995'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''FACILITY_PARTNER_ADMIN'' AND p.name = ''BOOKING_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''350f98ae-0834-4145-a4b4-c4a2211bee8a'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''FACILITY_PARTNER_ADMIN'' AND p.name = ''EQUIPMENT_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''f50cba7e-849c-405e-b83d-63136666b0bc'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''FACILITY_PARTNER_ADMIN'' AND p.name = ''EQUIPMENT_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''80d6702f-0385-41fd-88cb-9a1ea596018e'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''FACILITY_PARTNER_ADMIN'' AND p.name = ''SYSTEM_SETTINGS_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''ea52cdf8-3f28-432b-ae64-b2107884dfd2'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''USER_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''dd1e150d-30f1-4fdd-87a9-8f97d150cfaf'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''USER_CREATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''03d6490c-30ce-43b6-8a73-27ca49ee36d7'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''USER_UPDATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''0ae2f085-8772-4d55-86e6-2b2e6da768d3'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''USER_DELETE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''cf0f3035-bb69-493d-abd1-8f817fb562ee'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''USER_ROLE_ASSIGN''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''6f5a36ec-8c73-44f2-a28c-1a06e85ddc3e'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''ROLE_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''93389321-6dd2-44a9-8699-0a6dd94c4643'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''ROLE_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''cf0d171b-9cc7-4353-acc0-5b4a92fbe5f5'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''PERMISSION_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''202cb021-de1b-4e00-a5ab-322c99f85d67'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''PERMISSION_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''1133b1c9-b99c-4091-943b-f38dae24136e'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''FACILITY_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''833ffdf3-fbc8-4a80-b7db-1715755f8cb5'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''FACILITY_CREATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''020fb970-d5e6-4973-b4d5-b1e8ba7c3bed'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''FACILITY_UPDATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''d042f904-8bc4-4c36-99b7-565b5ed34847'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''FACILITY_DELETE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''0a4d1ae0-b447-452f-9740-3eddbcc0688b'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''BOOKING_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''b2dd42c4-9b98-4d36-a649-c18738aab457'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''BOOKING_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''26fd9bfb-58b1-438a-83c3-cd9342d88000'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''EQUIPMENT_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''c423a0bf-f6e6-4d44-a2bc-b7c8acd59c6e'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''EQUIPMENT_CREATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''b83fb27e-f8ee-49fa-b18a-7018b802a8b9'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''EQUIPMENT_UPDATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''44e51d32-fbb1-41b1-9540-6c6ce852108a'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''EQUIPMENT_DELETE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''38f47233-9c04-4f22-bc6e-1922e273aa46'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''EQUIPMENT_ISSUE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''b0ef1243-8881-48fd-8a8c-664a7c66b68d'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''EQUIPMENT_RETURN''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''cc959636-8bbc-4a84-81c4-ac88cf58897a'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''EQUIPMENT_SCAN''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''0a919efb-53a4-422f-b671-b57fcb2cb7a8'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''CLASS_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''80a5f3b0-7f90-46ce-b209-b2f1009d6754'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''CLASS_CREATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''f31b4f1d-6d3d-4914-b1f2-5aaf01b5bbe8'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''CLASS_UPDATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''a02d413d-be71-42cd-b86c-0bd5665fcd50'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''CLASS_DELETE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''c6a3356c-373e-4c14-837a-7bc68de95ff7'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''TRAINING_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''21d2828e-dfc8-4527-a850-8ea8d7540a3e'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''TRAINING_CREATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''9c882481-ae34-421e-8714-889860a42c8b'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''TRAINING_UPDATE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''b057ee1b-5510-4d7e-8b3c-31fa5aec1a34'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''TRAINING_DELETE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''644788d0-8529-41e6-bcbd-d5a6a54e44a1'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''ATTENDANCE_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''84892151-4648-41cb-bb79-567b3ddc846d'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''ATTENDANCE_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''3b3c7381-41fc-48b9-91a6-a5bb1684f3ea'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''QUOTA_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''ce731683-c96e-4841-abca-cde7655be655'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''QUOTA_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''92701e91-5c7c-4c0c-9b5e-7777260f854b'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''FINANCIAL_REPORT_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''aaf401c1-4d20-4769-bb24-ff616ed40e53'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''FINANCIAL_REPORT_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''4e71e284-d8ce-4758-b585-70f175656f6b'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''SYSTEM_SETTINGS_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''32ff899b-994c-404d-b5dc-7591863680ae'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''SYSTEM_SETTINGS_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''b1347f95-d3a0-4246-8c31-6c6a78804fd2'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''SPORT_DIRECTOR'' AND p.name = ''NOTIFICATION_MANAGE''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''962cfe88-840a-4960-8985-d81f65b38a06'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''MINISTRY_OBSERVER'' AND p.name = ''MONITORING_DASHBOARD_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''9c45237b-0d70-4380-8795-37cd9426b2af'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''MINISTRY_OBSERVER'' AND p.name = ''MONITORING_AGGREGATED_REPORT_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO role_permissions (uuid, role_id, permission_id, deleted) SELECT
+          ''3f34f420-2322-4f87-b66b-dcd70bf55e31'', r.id, p.id, false FROM roles r,
+          permissions p WHERE r.name = ''MINISTRY_OBSERVER'' AND p.name = ''FACILITY_READ''
+          AND NOT EXISTS (SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id
+          AND rp.permission_id = p.id);
+
+          INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id,
+          deleted, created_at, updated_at) SELECT ''8b9457a5-06c2-4d46-9a7e-5081bf08d09a'',
+          ''test.user'', ''$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO'',
+          ''Test'', ''User'', r.id, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM
+          roles r WHERE r.name = ''USER'' AND NOT EXISTS (SELECT 1 FROM users us WHERE
+          us.email = ''test.user'');
+
+          INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id,
+          deleted, created_at, updated_at) SELECT ''f407c051-964c-477d-a81b-d8b54ddb7c1f'',
+          ''test.coach'', ''$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO'',
+          ''Test'', ''Coach'', r.id, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM
+          roles r WHERE r.name = ''COACH'' AND NOT EXISTS (SELECT 1 FROM users us
+          WHERE us.email = ''test.coach'');
+
+          INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id,
+          deleted, created_at, updated_at) SELECT ''0c4753f9-5f41-496c-a8a2-cc22add8d782'',
+          ''test.desk'', ''$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO'',
+          ''Test'', ''Desk'', r.id, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM
+          roles r WHERE r.name = ''DESK_STAFF'' AND NOT EXISTS (SELECT 1 FROM users
+          us WHERE us.email = ''test.desk'');
+
+          INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id,
+          deleted, created_at, updated_at) SELECT ''cae80569-79d2-4856-9d46-818cda3dc3db'',
+          ''test.facility.admin'', ''$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO'',
+          ''Test'', ''Facility'', r.id, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          FROM roles r WHERE r.name = ''FACILITY_PARTNER_ADMIN'' AND NOT EXISTS (SELECT
+          1 FROM users us WHERE us.email = ''test.facility.admin'');
+
+          INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id,
+          deleted, created_at, updated_at) SELECT ''46101205-60b6-4936-b77c-4431738953eb'',
+          ''test.sport.director'', ''$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO'',
+          ''Test'', ''Director'', r.id, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          FROM roles r WHERE r.name = ''SPORT_DIRECTOR'' AND NOT EXISTS (SELECT 1
+          FROM users us WHERE us.email = ''test.sport.director'');
+
+          INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id,
+          deleted, created_at, updated_at) SELECT ''81119825-b8b1-419f-b777-2c324aa4b7d5'',
+          ''test.ministry.observer'', ''$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO'',
+          ''Test'', ''Observer'', r.id, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+          FROM roles r WHERE r.name = ''MINISTRY_OBSERVER'' AND NOT EXISTS (SELECT
+          1 FROM users us WHERE us.email = ''test.ministry.observer'');'

@@ -11,6 +11,7 @@ import uz.uniSport.uni_sport.service.gym.BookingService;
 
 import java.util.List;
 import java.util.UUID;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @Tag(name = "Band qilish", description = "Sport maydonchalarini band qilish va bronlarni boshqarish")
 @RestController
@@ -21,6 +22,7 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('BOOKING_CREATE')")
     public ResponseEntity<BookingDto> bookCourt(@RequestBody BookingCreateRequest request) {
         BookingDto booking = bookingService.bookCourt(
                 request.getUserId(),
@@ -32,11 +34,13 @@ public class BookingController {
     }
 
     @GetMapping("/user/{userId}")
+    @PreAuthorize("hasAuthority('BOOKING_READ_SELF') or hasAuthority('BOOKING_READ')")
     public ResponseEntity<List<BookingDto>> getUserBookings(@PathVariable UUID userId) {
         return ResponseEntity.ok(bookingService.getUserBookings(userId));
     }
 
     @DeleteMapping("/{id}/user/{userId}")
+    @PreAuthorize("hasAuthority('BOOKING_CANCEL') or hasAuthority('BOOKING_MANAGE')")
     public ResponseEntity<Void> cancelBooking(@PathVariable UUID id, @PathVariable UUID userId) {
         bookingService.cancelBooking(id, userId);
         return ResponseEntity.noContent().build();

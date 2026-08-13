@@ -8,6 +8,7 @@ import uz.uniSport.uni_sport.dto.auth.UserDto;
 import uz.uniSport.uni_sport.service.auth.UserService;
 
 import java.util.UUID;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * Foydalanuvchilar ma'lumotlarini boshqarish uchun API.
@@ -21,6 +22,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('USER_READ') or hasAuthority('USER_PROFILE_READ_SELF')")
     public ResponseEntity<UserDto> getUserById(@PathVariable UUID id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
