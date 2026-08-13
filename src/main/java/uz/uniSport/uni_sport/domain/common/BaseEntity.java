@@ -1,8 +1,13 @@
 package uz.uniSport.uni_sport.domain.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,7 +23,12 @@ import java.util.UUID;
  */
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
+@JsonIgnoreProperties(
+        value = {"createdAt", "updatedAt"},
+        allowGetters = true
+)
 public abstract class BaseEntity {
 
     /**
@@ -40,12 +50,16 @@ public abstract class BaseEntity {
     /**
      * Yozuv yaratilgan vaqtni saqlovchi ustun (column).
      */
+    @CreationTimestamp
+    @JsonIgnore
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     /**
      * Yozuv oxirgi marta o'zgartirilgan vaqtni saqlovchi ustun.
      */
+    @LastModifiedDate
+    @JsonIgnore
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
