@@ -2,6 +2,7 @@ package uz.uniSport.uni_sport;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * UniSport loyihasining asosiy ishga tushirish (Main) klassi.
@@ -17,6 +18,9 @@ public class UniSportApplication {
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(UniSportApplication.class, args);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		System.out.println(encoder.encode("Admin123!"));
 	}
 
 }
