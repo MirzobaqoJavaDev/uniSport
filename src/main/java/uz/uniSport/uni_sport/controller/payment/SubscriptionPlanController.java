@@ -27,9 +27,9 @@ public class SubscriptionPlanController {
         return ResponseEntity.ok(service.getAllPlans());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SubscriptionPlanResponseDTO> getPlanById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getPlanById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<SubscriptionPlanResponseDTO> getPlanById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(service.getPlanById(uuid));
     }
 
     @PostMapping
@@ -37,14 +37,14 @@ public class SubscriptionPlanController {
         return new ResponseEntity<>(service.createPlan(createDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SubscriptionPlanResponseDTO> updatePlan(@PathVariable UUID id, @Valid @RequestBody SubscriptionPlanUpdateDTO updateDTO) {
-        return ResponseEntity.ok(service.updatePlan(id, updateDTO));
+    @PutMapping("/{uuid}")
+    public ResponseEntity<SubscriptionPlanResponseDTO> updatePlan(@PathVariable UUID uuid, @Valid @RequestBody SubscriptionPlanUpdateDTO updateDTO) {
+        return ResponseEntity.ok(service.updatePlan(uuid, updateDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePlan(@PathVariable UUID id) {
-        service.deletePlan(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> deletePlan(@PathVariable UUID uuid) {
+        service.deletePlan(uuid);
         return ResponseEntity.noContent().build();
     }
 }

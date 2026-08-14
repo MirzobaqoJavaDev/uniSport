@@ -33,16 +33,16 @@ public class BookingController {
         return new ResponseEntity<>(booking, HttpStatus.CREATED);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/user/{userUuid}")
     @PreAuthorize("hasAuthority('BOOKING_READ_SELF') or hasAuthority('BOOKING_READ')")
-    public ResponseEntity<List<BookingDto>> getUserBookings(@PathVariable UUID userId) {
-        return ResponseEntity.ok(bookingService.getUserBookings(userId));
+    public ResponseEntity<List<BookingDto>> getUserBookings(@PathVariable UUID userUuid) {
+        return ResponseEntity.ok(bookingService.getUserBookings(userUuid));
     }
 
-    @DeleteMapping("/{id}/user/{userId}")
+    @DeleteMapping("/{uuid}/user/{userUuid}")
     @PreAuthorize("hasAuthority('BOOKING_CANCEL') or hasAuthority('BOOKING_MANAGE')")
-    public ResponseEntity<Void> cancelBooking(@PathVariable UUID id, @PathVariable UUID userId) {
-        bookingService.cancelBooking(id, userId);
+    public ResponseEntity<Void> cancelBooking(@PathVariable UUID uuid, @PathVariable UUID userUuid) {
+        bookingService.cancelBooking(uuid, userUuid);
         return ResponseEntity.noContent().build();
     }
 }

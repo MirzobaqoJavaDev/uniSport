@@ -29,14 +29,14 @@ public class FileController {
         return new ResponseEntity<>(metadata, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FileMetadataDto> getFileMetadata(@PathVariable UUID id) {
-        return ResponseEntity.ok(fileService.getFileById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<FileMetadataDto> getFileMetadata(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(fileService.getFileById(uuid));
     }
 
-    @GetMapping("/{id}/download")
-    public ResponseEntity<Map<String, String>> getDownloadUrl(@PathVariable UUID id) {
-        String url = fileService.getFileDownloadUrl(id);
+    @GetMapping("/{uuid}/download")
+    public ResponseEntity<Map<String, String>> getDownloadUrl(@PathVariable UUID uuid) {
+        String url = fileService.getFileDownloadUrl(uuid);
         return ResponseEntity.ok(Map.of("downloadUrl", url));
     }
 }

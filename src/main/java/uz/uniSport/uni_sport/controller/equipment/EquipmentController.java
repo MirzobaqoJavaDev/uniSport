@@ -30,8 +30,8 @@ public class EquipmentController {
         return ResponseEntity.ok(equipmentService.getAllEquipment());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<EquipmentDto> getEquipmentById(@PathVariable UUID id) {
-        return ResponseEntity.ok(equipmentService.getEquipmentById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<EquipmentDto> getEquipmentById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(equipmentService.getEquipmentById(uuid));
     }
 }

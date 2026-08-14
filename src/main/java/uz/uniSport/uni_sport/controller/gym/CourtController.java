@@ -28,15 +28,15 @@ public class CourtController {
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @GetMapping("/facility/{facilityId}")
+    @GetMapping("/facility/{facilityUuid}")
     @PreAuthorize("hasAuthority('FACILITY_READ')")
-    public ResponseEntity<List<CourtDto>> getCourtsByFacility(@PathVariable UUID facilityId) {
-        return ResponseEntity.ok(courtService.getCourtsByFacility(facilityId));
+    public ResponseEntity<List<CourtDto>> getCourtsByFacility(@PathVariable UUID facilityUuid) {
+        return ResponseEntity.ok(courtService.getCourtsByFacility(facilityUuid));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     @PreAuthorize("hasAuthority('FACILITY_READ')")
-    public ResponseEntity<CourtDto> getCourtById(@PathVariable UUID id) {
-        return ResponseEntity.ok(courtService.getCourtById(id));
+    public ResponseEntity<CourtDto> getCourtById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(courtService.getCourtById(uuid));
     }
 }

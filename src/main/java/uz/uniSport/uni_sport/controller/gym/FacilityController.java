@@ -33,9 +33,9 @@ public class FacilityController {
         return ResponseEntity.ok(facilityService.getAllFacilities());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     @PreAuthorize("hasAuthority('FACILITY_READ')")
-    public ResponseEntity<FacilityDto> getFacilityById(@PathVariable UUID id) {
-        return ResponseEntity.ok(facilityService.getFacilityById(id));
+    public ResponseEntity<FacilityDto> getFacilityById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(facilityService.getFacilityById(uuid));
     }
 }

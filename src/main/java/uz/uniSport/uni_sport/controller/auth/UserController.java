@@ -21,9 +21,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     @PreAuthorize("hasAuthority('USER_READ') or hasAuthority('USER_PROFILE_READ_SELF')")
-    public ResponseEntity<UserDto> getUserById(@PathVariable UUID id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+    public ResponseEntity<UserDto> getUserById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(userService.getUserById(uuid));
     }
 }

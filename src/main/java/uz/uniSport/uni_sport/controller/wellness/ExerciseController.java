@@ -27,9 +27,9 @@ public class ExerciseController {
         return ResponseEntity.ok(service.getAllExercises());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ExerciseResponseDTO> getExerciseById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getExerciseById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<ExerciseResponseDTO> getExerciseById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(service.getExerciseById(uuid));
     }
 
     @PostMapping
@@ -37,14 +37,14 @@ public class ExerciseController {
         return new ResponseEntity<>(service.createExercise(createDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ExerciseResponseDTO> updateExercise(@PathVariable UUID id, @Valid @RequestBody ExerciseUpdateDTO updateDTO) {
-        return ResponseEntity.ok(service.updateExercise(id, updateDTO));
+    @PutMapping("/{uuid}")
+    public ResponseEntity<ExerciseResponseDTO> updateExercise(@PathVariable UUID uuid, @Valid @RequestBody ExerciseUpdateDTO updateDTO) {
+        return ResponseEntity.ok(service.updateExercise(uuid, updateDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExercise(@PathVariable UUID id) {
-        service.deleteExercise(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> deleteExercise(@PathVariable UUID uuid) {
+        service.deleteExercise(uuid);
         return ResponseEntity.noContent().build();
     }
 }

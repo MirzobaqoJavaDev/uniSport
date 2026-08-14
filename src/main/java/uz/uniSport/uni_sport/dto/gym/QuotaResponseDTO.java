@@ -9,7 +9,7 @@ import java.util.UUID;
 @Setter
 public class QuotaResponseDTO {
     private UUID id;
-    private Long roleId;
+    private UUID roleUuid;
     private Integer maxActiveBookings;
     private Integer maxBookingsPerWeek;
     private Integer version;

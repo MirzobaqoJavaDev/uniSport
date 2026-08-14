@@ -32,15 +32,15 @@ public class AttendanceController {
         return new ResponseEntity<>(marked, HttpStatus.CREATED);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/user/{userUuid}")
     @PreAuthorize("hasAuthority('ATTENDANCE_READ')")
-    public ResponseEntity<List<AttendanceDto>> getAttendanceByUser(@PathVariable UUID userId) {
-        return ResponseEntity.ok(attendanceService.getAttendanceByUser(userId));
+    public ResponseEntity<List<AttendanceDto>> getAttendanceByUser(@PathVariable UUID userUuid) {
+        return ResponseEntity.ok(attendanceService.getAttendanceByUser(userUuid));
     }
 
-    @GetMapping("/schedule/{scheduleId}")
+    @GetMapping("/schedule/{scheduleUuid}")
     @PreAuthorize("hasAuthority('ATTENDANCE_READ')")
-    public ResponseEntity<List<AttendanceDto>> getAttendanceBySchedule(@PathVariable UUID scheduleId) {
-        return ResponseEntity.ok(attendanceService.getAttendanceBySchedule(scheduleId));
+    public ResponseEntity<List<AttendanceDto>> getAttendanceBySchedule(@PathVariable UUID scheduleUuid) {
+        return ResponseEntity.ok(attendanceService.getAttendanceBySchedule(scheduleUuid));
     }
 }

@@ -25,8 +25,8 @@ public class AIController {
         return ResponseEntity.ok(plan);
     }
 
-    @GetMapping("/logs/user/{userId}")
-    public ResponseEntity<List<AIRequestLogDto>> getUserAILogs(@PathVariable UUID userId) {
-        return ResponseEntity.ok(aiService.getUserAILogs(userId));
+    @GetMapping("/logs/user/{userUuid}")
+    public ResponseEntity<List<AIRequestLogDto>> getUserAILogs(@PathVariable UUID userUuid) {
+        return ResponseEntity.ok(aiService.getUserAILogs(userUuid));
     }
 }

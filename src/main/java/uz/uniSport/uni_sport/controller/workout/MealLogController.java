@@ -26,8 +26,8 @@ public class MealLogController {
         return new ResponseEntity<>(logged, HttpStatus.CREATED);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<MealLogDto>> getUserMealLogs(@PathVariable UUID userId) {
-        return ResponseEntity.ok(mealLogService.getUserMealLogs(userId));
+    @GetMapping("/user/{userUuid}")
+    public ResponseEntity<List<MealLogDto>> getUserMealLogs(@PathVariable UUID userUuid) {
+        return ResponseEntity.ok(mealLogService.getUserMealLogs(userUuid));
     }
 }

@@ -27,14 +27,14 @@ public class DynamicQRCodeController {
         return ResponseEntity.ok(service.getAllQRCodes());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DynamicQRCodeResponseDTO> getQRCodeById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getQRCodeById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<DynamicQRCodeResponseDTO> getQRCodeById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(service.getQRCodeById(uuid));
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<DynamicQRCodeResponseDTO>> getQRCodesByUserId(@PathVariable UUID userId) {
-        return ResponseEntity.ok(service.getQRCodesByUserId(userId));
+    @GetMapping("/user/{userUuid}")
+    public ResponseEntity<List<DynamicQRCodeResponseDTO>> getQRCodesByUserId(@PathVariable UUID userUuid) {
+        return ResponseEntity.ok(service.getQRCodesByUserId(userUuid));
     }
 
     @PostMapping
@@ -42,14 +42,14 @@ public class DynamicQRCodeController {
         return new ResponseEntity<>(service.createQRCode(createDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<DynamicQRCodeResponseDTO> updateQRCode(@PathVariable UUID id, @Valid @RequestBody DynamicQRCodeUpdateDTO updateDTO) {
-        return ResponseEntity.ok(service.updateQRCode(id, updateDTO));
+    @PutMapping("/{uuid}")
+    public ResponseEntity<DynamicQRCodeResponseDTO> updateQRCode(@PathVariable UUID uuid, @Valid @RequestBody DynamicQRCodeUpdateDTO updateDTO) {
+        return ResponseEntity.ok(service.updateQRCode(uuid, updateDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteQRCode(@PathVariable UUID id) {
-        service.deleteQRCode(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> deleteQRCode(@PathVariable UUID uuid) {
+        service.deleteQRCode(uuid);
         return ResponseEntity.noContent().build();
     }
 }

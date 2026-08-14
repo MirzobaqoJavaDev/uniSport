@@ -27,14 +27,14 @@ public class SubscriptionController {
         return ResponseEntity.ok(service.getAllSubscriptions());
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<SubscriptionResponseDTO>> getSubscriptionsByUser(@PathVariable UUID userId) {
-        return ResponseEntity.ok(service.getSubscriptionsByUser(userId));
+    @GetMapping("/user/{userUuid}")
+    public ResponseEntity<List<SubscriptionResponseDTO>> getSubscriptionsByUser(@PathVariable UUID userUuid) {
+        return ResponseEntity.ok(service.getSubscriptionsByUser(userUuid));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SubscriptionResponseDTO> getSubscriptionById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getSubscriptionById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<SubscriptionResponseDTO> getSubscriptionById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(service.getSubscriptionById(uuid));
     }
 
     @PostMapping
@@ -42,14 +42,14 @@ public class SubscriptionController {
         return new ResponseEntity<>(service.createSubscription(createDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SubscriptionResponseDTO> updateSubscription(@PathVariable UUID id, @Valid @RequestBody SubscriptionUpdateDTO updateDTO) {
-        return ResponseEntity.ok(service.updateSubscription(id, updateDTO));
+    @PutMapping("/{uuid}")
+    public ResponseEntity<SubscriptionResponseDTO> updateSubscription(@PathVariable UUID uuid, @Valid @RequestBody SubscriptionUpdateDTO updateDTO) {
+        return ResponseEntity.ok(service.updateSubscription(uuid, updateDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSubscription(@PathVariable UUID id) {
-        service.deleteSubscription(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> deleteSubscription(@PathVariable UUID uuid) {
+        service.deleteSubscription(uuid);
         return ResponseEntity.noContent().build();
     }
 }

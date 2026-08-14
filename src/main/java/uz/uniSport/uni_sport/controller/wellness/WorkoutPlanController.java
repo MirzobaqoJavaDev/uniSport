@@ -27,14 +27,14 @@ public class WorkoutPlanController {
         return ResponseEntity.ok(service.getAllWorkoutPlans());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<WorkoutPlanResponseDTO> getWorkoutPlanById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getWorkoutPlanById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<WorkoutPlanResponseDTO> getWorkoutPlanById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(service.getWorkoutPlanById(uuid));
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<WorkoutPlanResponseDTO>> getWorkoutPlansByUserId(@PathVariable UUID userId) {
-        return ResponseEntity.ok(service.getWorkoutPlansByUserId(userId));
+    @GetMapping("/user/{userUuid}")
+    public ResponseEntity<List<WorkoutPlanResponseDTO>> getWorkoutPlansByUserId(@PathVariable UUID userUuid) {
+        return ResponseEntity.ok(service.getWorkoutPlansByUserId(userUuid));
     }
 
     @PostMapping
@@ -42,14 +42,14 @@ public class WorkoutPlanController {
         return new ResponseEntity<>(service.createWorkoutPlan(createDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<WorkoutPlanResponseDTO> updateWorkoutPlan(@PathVariable UUID id, @Valid @RequestBody WorkoutPlanUpdateDTO updateDTO) {
-        return ResponseEntity.ok(service.updateWorkoutPlan(id, updateDTO));
+    @PutMapping("/{uuid}")
+    public ResponseEntity<WorkoutPlanResponseDTO> updateWorkoutPlan(@PathVariable UUID uuid, @Valid @RequestBody WorkoutPlanUpdateDTO updateDTO) {
+        return ResponseEntity.ok(service.updateWorkoutPlan(uuid, updateDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteWorkoutPlan(@PathVariable UUID id) {
-        service.deleteWorkoutPlan(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> deleteWorkoutPlan(@PathVariable UUID uuid) {
+        service.deleteWorkoutPlan(uuid);
         return ResponseEntity.noContent().build();
     }
 }

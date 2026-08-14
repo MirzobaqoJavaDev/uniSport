@@ -15,27 +15,33 @@ import uz.uniSport.uni_sport.dto.auth.UserDto;
 
 /**
  * MapStruct orqali Entity'larni DTO'larga aylantirish uchun interfeys.
+ * Qoida: entity.uuid → dto.uuid (public identifier)
+ *        entity.id   → hech qachon frontendga chiqmasin
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AuthMapper {
-    
-    // Role uchun id Long type'da ekan, uuid shart emas
+
+    // Role: uuid → RoleDto.uuid
+    @Mapping(source = "uuid", target = "uuid")
     RoleDto toDto(Role role);
-    
+
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     Role toEntity(RoleDto roleDto);
 
-    @Mapping(source = "uuid", target = "id")
-    @Mapping(source = "role", target = "role") // role.id (Long) RoleDto.id (Long) ga to'g'ri keladi
+    // User: uuid → UserDto.uuid
+    @Mapping(source = "uuid", target = "uuid")
+    @Mapping(source = "role", target = "role")
     UserDto toDto(User user);
 
-    // Permission uchun ham id Long bo'lsa
+    // Permission: uuid → PermissionResponseDTO.uuid
+    @Mapping(source = "uuid", target = "uuid")
     PermissionResponseDTO toDto(Permission permission);
-    
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     Permission toEntity(PermissionCreateDTO dto);
-    
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     void updateEntity(PermissionUpdateDTO dto, @MappingTarget Permission permission);

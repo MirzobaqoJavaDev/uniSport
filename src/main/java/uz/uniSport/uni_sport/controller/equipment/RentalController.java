@@ -26,13 +26,13 @@ public class RentalController {
         return new ResponseEntity<>(rental, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{id}/return")
-    public ResponseEntity<RentalDto> returnEquipment(@PathVariable UUID id) {
-        return ResponseEntity.ok(rentalService.returnEquipment(id));
+    @PostMapping("/{uuid}/return")
+    public ResponseEntity<RentalDto> returnEquipment(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(rentalService.returnEquipment(uuid));
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<RentalDto>> getUserRentals(@PathVariable UUID userId) {
-        return ResponseEntity.ok(rentalService.getUserRentals(userId));
+    @GetMapping("/user/{userUuid}")
+    public ResponseEntity<List<RentalDto>> getUserRentals(@PathVariable UUID userUuid) {
+        return ResponseEntity.ok(rentalService.getUserRentals(userUuid));
     }
 }

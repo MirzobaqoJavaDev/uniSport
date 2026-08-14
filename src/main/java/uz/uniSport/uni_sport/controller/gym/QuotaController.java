@@ -29,16 +29,16 @@ public class QuotaController {
         return ResponseEntity.ok(service.getAllQuotas());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     @PreAuthorize("hasAuthority('QUOTA_READ')")
-    public ResponseEntity<QuotaResponseDTO> getQuotaById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getQuotaById(id));
+    public ResponseEntity<QuotaResponseDTO> getQuotaById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(service.getQuotaById(uuid));
     }
 
-    @GetMapping("/role/{roleId}")
+    @GetMapping("/role/{roleUuid}")
     @PreAuthorize("hasAuthority('QUOTA_READ')")
-    public ResponseEntity<QuotaResponseDTO> getQuotaByRoleId(@PathVariable UUID roleId) {
-        return ResponseEntity.ok(service.getQuotaByRoleId(roleId));
+    public ResponseEntity<QuotaResponseDTO> getQuotaByRoleId(@PathVariable UUID roleUuid) {
+        return ResponseEntity.ok(service.getQuotaByRoleId(roleUuid));
     }
 
     @PostMapping
@@ -47,16 +47,16 @@ public class QuotaController {
         return new ResponseEntity<>(service.createQuota(createDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{uuid}")
     @PreAuthorize("hasAuthority('QUOTA_MANAGE')")
-    public ResponseEntity<QuotaResponseDTO> updateQuota(@PathVariable UUID id, @Valid @RequestBody QuotaUpdateDTO updateDTO) {
-        return ResponseEntity.ok(service.updateQuota(id, updateDTO));
+    public ResponseEntity<QuotaResponseDTO> updateQuota(@PathVariable UUID uuid, @Valid @RequestBody QuotaUpdateDTO updateDTO) {
+        return ResponseEntity.ok(service.updateQuota(uuid, updateDTO));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{uuid}")
     @PreAuthorize("hasAuthority('QUOTA_MANAGE')")
-    public ResponseEntity<Void> deleteQuota(@PathVariable UUID id) {
-        service.deleteQuota(id);
+    public ResponseEntity<Void> deleteQuota(@PathVariable UUID uuid) {
+        service.deleteQuota(uuid);
         return ResponseEntity.noContent().build();
     }
 }

@@ -32,7 +32,7 @@ public interface GymMapper {
     BookingDto toDto(Booking booking);
 
     @Mapping(source = "uuid", target = "id")
-    @Mapping(source = "role.id", target = "roleId") // Role id is Long
+    @Mapping(source = "role.uuid", target = "roleUuid")
     QuotaResponseDTO toDto(Quota quota);
 
     @Mapping(target = "id", ignore = true)

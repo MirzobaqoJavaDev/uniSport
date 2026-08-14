@@ -27,9 +27,9 @@ public class PaymentController {
         return ResponseEntity.ok(service.getAllTransactions());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PaymentTransactionResponseDTO> getTransactionById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getTransactionById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<PaymentTransactionResponseDTO> getTransactionById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(service.getTransactionById(uuid));
     }
 
     @PostMapping
@@ -37,10 +37,10 @@ public class PaymentController {
         return new ResponseEntity<>(service.processPayment(createDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}/status")
+    @PutMapping("/{uuid}/status")
     public ResponseEntity<PaymentTransactionResponseDTO> updateTransactionStatus(
-            @PathVariable UUID id, 
+            @PathVariable UUID uuid, 
             @Valid @RequestBody PaymentTransactionUpdateDTO updateDTO) {
-        return ResponseEntity.ok(service.updateTransactionStatus(id, updateDTO));
+        return ResponseEntity.ok(service.updateTransactionStatus(uuid, updateDTO));
     }
 }

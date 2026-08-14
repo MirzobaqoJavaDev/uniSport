@@ -31,8 +31,8 @@ public class PEClassController {
         return ResponseEntity.ok(peClassService.getAllClasses());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PEClassDto> getClassById(@PathVariable UUID id) {
-        return ResponseEntity.ok(peClassService.getClassById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<PEClassDto> getClassById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(peClassService.getClassById(uuid));
     }
 }

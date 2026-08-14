@@ -27,9 +27,9 @@ public class PermissionController {
         return ResponseEntity.ok(service.getAllPermissions());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PermissionResponseDTO> getPermissionById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getPermissionById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<PermissionResponseDTO> getPermissionById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(service.getPermissionById(uuid));
     }
 
     @PostMapping
@@ -37,14 +37,14 @@ public class PermissionController {
         return new ResponseEntity<>(service.createPermission(createDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PermissionResponseDTO> updatePermission(@PathVariable UUID id, @Valid @RequestBody PermissionUpdateDTO updateDTO) {
-        return ResponseEntity.ok(service.updatePermission(id, updateDTO));
+    @PutMapping("/{uuid}")
+    public ResponseEntity<PermissionResponseDTO> updatePermission(@PathVariable UUID uuid, @Valid @RequestBody PermissionUpdateDTO updateDTO) {
+        return ResponseEntity.ok(service.updatePermission(uuid, updateDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePermission(@PathVariable UUID id) {
-        service.deletePermission(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> deletePermission(@PathVariable UUID uuid) {
+        service.deletePermission(uuid);
         return ResponseEntity.noContent().build();
     }
 }

@@ -26,14 +26,14 @@ public class TokenUsageLogController {
         return ResponseEntity.ok(service.getAllLogs());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<TokenUsageLogResponseDTO> getLogById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getLogById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<TokenUsageLogResponseDTO> getLogById(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(service.getLogById(uuid));
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<TokenUsageLogResponseDTO>> getLogsByUserId(@PathVariable UUID userId) {
-        return ResponseEntity.ok(service.getLogsByUserId(userId));
+    @GetMapping("/user/{userUuid}")
+    public ResponseEntity<List<TokenUsageLogResponseDTO>> getLogsByUserId(@PathVariable UUID userUuid) {
+        return ResponseEntity.ok(service.getLogsByUserId(userUuid));
     }
 
     @PostMapping
@@ -41,9 +41,9 @@ public class TokenUsageLogController {
         return new ResponseEntity<>(service.createLog(createDTO), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteLog(@PathVariable UUID id) {
-        service.deleteLog(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> deleteLog(@PathVariable UUID uuid) {
+        service.deleteLog(uuid);
         return ResponseEntity.noContent().build();
     }
 }
