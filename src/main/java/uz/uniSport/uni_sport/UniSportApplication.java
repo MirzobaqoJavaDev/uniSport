@@ -18,9 +18,6 @@ public class UniSportApplication {
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(UniSportApplication.class, args);
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-		System.out.println(encoder.encode("Admin123!"));
 	}
 
 }

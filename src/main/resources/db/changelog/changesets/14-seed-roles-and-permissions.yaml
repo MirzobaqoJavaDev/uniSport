@@ -852,83 +852,85 @@ databaseChangeLog:
           1 FROM users us WHERE us.email = ''test.ministry.observer'');'
 
 - changeSet:
-          id: 15-create-admin-role-and-user
-          author: system
-          changes:
+      id: 15-create-admin-role-and-user
+      author: system
+      changes:
 
-              # ============================================================
-              # 1. ADMIN ROLE
-              # ============================================================
-              - sql:
-                    sql: |
-                        INSERT INTO roles (
-                            uuid,
-                            name,
-                            deleted,
-                            created_at,
-                            updated_at
-                        )
-                        SELECT
-                            gen_random_uuid(),
-                            'ADMIN',
-                            false,
-                            CURRENT_TIMESTAMP,
-                            CURRENT_TIMESTAMP
-                        WHERE NOT EXISTS (
-                            SELECT 1
-                            FROM roles
-                            WHERE name = 'ADMIN'
-                        );
+          - sql:
+                sql: |
+                    INSERT INTO roles (
+                        uuid,
+                        name,
+                        deleted,
+                        created_at,
+                        updated_at
+                    )
+                    SELECT
+                        gen_random_uuid(),
+                        'ADMIN',
+                        false,
+                        CURRENT_TIMESTAMP,
+                        CURRENT_TIMESTAMP
+                    WHERE NOT EXISTS (
+                        SELECT 1
+                        FROM roles
+                        WHERE name = 'ADMIN'
+                    );
 
-              # ============================================================
-              # 2. ADMIN -> ALL PERMISSIONS
-              # ============================================================
-              - sql:
-                    sql: |
-                        INSERT INTO role_permissions (role_id, permission_id)
-                        SELECT
-                            r.id,
-                            p.id
-                        FROM roles r
-                        CROSS JOIN permissions p
-                        WHERE r.name = 'ADMIN'
-                          AND NOT EXISTS (
-                              SELECT 1
-                              FROM role_permissions rp
-                              WHERE rp.role_id = r.id
-                                AND rp.permission_id = p.id
-                          );
+          - sql:
+                sql: |
+                    INSERT INTO role_permissions (
+                        uuid,
+                        role_id,
+                        permission_id,
+                        deleted,
+                        created_at,
+                        updated_at
+                    )
+                    SELECT
+                        gen_random_uuid(),
+                        r.id,
+                        p.id,
+                        false,
+                        CURRENT_TIMESTAMP,
+                        CURRENT_TIMESTAMP
+                    FROM roles r
+                    CROSS JOIN permissions p
+                    WHERE r.name = 'ADMIN'
+                      AND NOT EXISTS (
+                          SELECT 1
+                          FROM role_permissions rp
+                          WHERE rp.role_id = r.id
+                            AND rp.permission_id = p.id
+                      );
 
-              # ============================================================
-              # 3. ADMIN USER
-              # ============================================================
-              - sql:
-                    sql: |
-                        INSERT INTO users (
-                            uuid,
-                            email,
-                            password_hash,
-                            first_name,
-                            last_name,
-                            role_id,
-                            deleted,
-                            created_at,
-                            updated_at
-                        )
-                        SELECT
-                            gen_random_uuid(),
-                            'admin@unisport.uz',
-                            '$2a$10$qwqZrBh6djKmK9VMPAPMle6TX8loYIAInQaMRkenfjrZVdUMRlm4O',
-                            'Admin',
-                            'User',
-                            r.id,
-                            false,
-                            CURRENT_TIMESTAMP,
-                            CURRENT_TIMESTAMP
-                        FROM roles r
-                        WHERE r.name = 'ADMIN'
-                          AND NOT EXISTS (
-                              SELECT 1
-                              FROM users
-                              WHERE email = 'admin@unisport.uz'
-                          );
+          - sql:
+                sql: |
+                    INSERT INTO users (
+                        uuid,
+                        email,
+                        password_hash,
+                        first_name,
+                        last_name,
+                        role_id,
+                        deleted,
+                        created_at,
+                        updated_at
+                    )
+                    SELECT
+                        gen_random_uuid(),
+                        'admin@unisport.uz',
+                        '$2a$10$qwqZrBh6djKmK9VMPAPMle6TX8loYIAInQaMRkenfjrZVdUMRlm4O.',
+                        'Admin',
+                        'User',
+                        r.id,
+                        false,
+                        CURRENT_TIMESTAMP,
+                        CURRENT_TIMESTAMP
+                    FROM roles r
+                    WHERE r.name = 'ADMIN'
+                      AND NOT EXISTS (
+                          SELECT 1
+                          FROM users
+                          WHERE email = 'admin@unisport.uz'
+                      );
