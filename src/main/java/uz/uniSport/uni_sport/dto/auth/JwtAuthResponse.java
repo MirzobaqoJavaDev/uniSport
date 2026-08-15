@@ -1,13 +1,10 @@
 package uz.uniSport.uni_sport.dto.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
+@Getter
 public class JwtAuthResponse {
     private String accessToken;
     private String tokenType;

@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import uz.uniSport.uni_sport.domain.auth.Role;
 import uz.uniSport.uni_sport.domain.auth.User;
+import uz.uniSport.uni_sport.dto.auth.JwtAuthResponse;
+import uz.uniSport.uni_sport.dto.auth.LoginRequest;
 import uz.uniSport.uni_sport.dto.auth.UserDto;
 import uz.uniSport.uni_sport.exception.BusinessLogicException;
 import uz.uniSport.uni_sport.exception.ResourceNotFoundException;
@@ -129,7 +131,11 @@ class AuthServiceImplTest {
         when(jwtTokenProvider.generateToken(authentication)).thenReturn("mocked.jwt.token");
 
         // Act
-        String token = authService.login(email, password);
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail(email);
+        loginRequest.setPassword(password);
+        JwtAuthResponse jwtAuthResponse = authService.login(loginRequest);
+        String token = jwtAuthResponse.getAccessToken();
 
         // Assert
         assertEquals("mocked.jwt.token", token);
@@ -143,6 +149,10 @@ class AuthServiceImplTest {
                 .thenThrow(new BadCredentialsException("Bad credentials"));
 
         // Act & Assert
-        assertThrows(BadCredentialsException.class, () -> authService.login("test", "wrong"));
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("test");
+        loginRequest.setPassword("wrong");
+        JwtAuthResponse jwtAuthResponse = authService.login(loginRequest);
+        assertThrows(BadCredentialsException.class, jwtAuthResponse::getAccessToken);
     }
 }

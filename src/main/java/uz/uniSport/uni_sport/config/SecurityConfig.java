@@ -13,8 +13,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import uz.uniSport.uni_sport.security.JwtAuthenticationEntryPoint;
 import uz.uniSport.uni_sport.security.JwtAuthenticationFilter;
+
+import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
@@ -30,26 +37,94 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration configuration
+    ) throws Exception {
         return configuration.getAuthenticationManager();
+    }
+
+    // =========================
+    // CORS CONFIGURATION
+    // =========================
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // Frontend manzillari
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:4200"
+        ));
+
+        // Ruxsat berilgan HTTP metodlar
+        configuration.setAllowedMethods(List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE",
+                "OPTIONS"
+        ));
+
+        // Barcha kerakli headerlarga ruxsat
+        configuration.setAllowedHeaders(List.of("*"));
+
+        // Cookie / Authorization bilan ishlashga ruxsat
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(AbstractHttpConfigurer::disable)
-            .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(authorize -> authorize
-                    // Ochiq API lar
-                    .requestMatchers("/api/v1/auth/**").permitAll()
-                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                    .requestMatchers("/actuator/**").permitAll() // Observability endpoints
-                    // Qolgan barchasi autentifikatsiya talab qiladi
-                    .anyRequest().authenticated()
-            )
-            .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                // CORS
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
+                // CSRF
+                .csrf(AbstractHttpConfigurer::disable)
+
+                // Authentication xatolari
+                .exceptionHandling(exception ->
+                        exception.authenticationEntryPoint(authenticationEntryPoint)
+                )
+
+                // JWT ishlatilgani uchun STATELESS
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
+                // API permissions
+                .authorizeHttpRequests(authorize -> authorize
+
+                        // Ochiq API lar
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+
+                        // Swagger
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+
+                        // Actuator
+                        .requestMatchers("/actuator/**").permitAll()
+
+                        // Qolgan barcha API lar JWT talab qiladi
+                        .anyRequest().authenticated()
+                )
+
+                // JWT filter
+                .addFilterBefore(
+                        authenticationFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                );
 
         return http.build();
     }

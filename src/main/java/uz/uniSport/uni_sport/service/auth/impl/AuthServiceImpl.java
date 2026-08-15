@@ -8,8 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.LocaleResolver;
 import uz.uniSport.uni_sport.domain.auth.Role;
 import uz.uniSport.uni_sport.domain.auth.User;
+import uz.uniSport.uni_sport.dto.auth.JwtAuthResponse;
+import uz.uniSport.uni_sport.dto.auth.LoginRequest;
 import uz.uniSport.uni_sport.dto.auth.UserDto;
 import uz.uniSport.uni_sport.exception.BusinessLogicException;
 import uz.uniSport.uni_sport.exception.ResourceNotFoundException;
@@ -52,13 +55,18 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String login(String email, String password) {
+    public JwtAuthResponse login(LoginRequest loginRequest) {
+
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, password)
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return jwtTokenProvider.generateToken(authentication);
+        String accessToken = jwtTokenProvider.generateToken(authentication);
+        return JwtAuthResponse.builder()
+                .accessToken(accessToken)
+                .tokenType("Bearer")
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package uz.uniSport.uni_sport.service.integration;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.uniSport.uni_sport.domain.auth.User;
@@ -23,6 +24,7 @@ public class DynamicQRCodeService {
 
     private final DynamicQRCodeRepository repository;
     private final UserRepository userRepository;
+    @Qualifier("integrationMapper")
     private final IntegrationMapper mapper;
 
     @Transactional(readOnly = true)

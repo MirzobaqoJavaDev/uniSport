@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.uniSport.uni_sport.dto.gym.FacilityDto;
+import uz.uniSport.uni_sport.dto.gym.FacilityRequestDto;
 import uz.uniSport.uni_sport.service.gym.FacilityService;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class FacilityController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('FACILITY_CREATE')")
-    public ResponseEntity<FacilityDto> createFacility(@RequestBody FacilityDto request) {
+    public ResponseEntity<FacilityDto> createFacility(@RequestBody FacilityRequestDto request) {
         FacilityDto created = facilityService.createFacility(request.getName(), request.getDescription());
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
