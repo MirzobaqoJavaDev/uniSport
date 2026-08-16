@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
             throw new BusinessLogicException("Bu email orqali avval ro'yxatdan o'tilgan: " + email);
         }
 
-        Role studentRole = roleRepository.findByName("STUDENT")
+        Role studentRole = roleRepository.findByName("USER")
                 .orElseThrow(() -> new ResourceNotFoundException("STUDENT roli bazada topilmadi"));
 
         User newUser = new User();
