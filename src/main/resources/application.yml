@@ -12,15 +12,6 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
-  profiles:
-    active: local
-
-#logging:
-#  level:
-#    uz.uniSport: DEBUG
-#    org.springframework.web: INFO
-#    org.hibernate.SQL: DEBUG
-
 management:
   endpoints:
     web:
@@ -43,5 +34,11 @@ server:
     include-message: never
     include-stacktrace: never
     include-binding-errors: never
+ai:
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    url: ${OPENAI_API_URL:https://api.openai.com/v1/chat/completions}
 
-
+  gemini:
+    api-key: ${GEMINI_API_KEY:}
+    url: ${GEMINI_API_URL:https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent}
