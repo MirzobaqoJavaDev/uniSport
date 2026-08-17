@@ -26,4 +26,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
      * @return topilgan rol
      */
     Optional<Role> findByName(String name);
+
+    boolean existsByName(String name);
+
 }

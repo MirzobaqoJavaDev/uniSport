@@ -19,6 +19,7 @@ import uz.uniSport.uni_sport.exception.ResourceNotFoundException;
 import uz.uniSport.uni_sport.mapper.auth.AuthMapper;
 import uz.uniSport.uni_sport.repository.auth.RoleRepository;
 import uz.uniSport.uni_sport.repository.auth.UserRepository;
+import uz.uniSport.uni_sport.security.CustomUserDetails;
 import uz.uniSport.uni_sport.security.JwtTokenProvider;
 import uz.uniSport.uni_sport.service.auth.AuthService;
 
@@ -40,15 +41,17 @@ public class AuthServiceImpl implements AuthService {
             throw new BusinessLogicException("Bu email orqali avval ro'yxatdan o'tilgan: " + email);
         }
 
-        Role studentRole = roleRepository.findByName("USER")
-                .orElseThrow(() -> new ResourceNotFoundException("STUDENT roli bazada topilmadi"));
-
+        Role userRole = roleRepository.findByName("USER")
+                .orElseThrow(() -> new ResourceNotFoundException("User roli bazada topilmadi"));
+        if (password.length()<5){
+            new BusinessLogicException("Password too short");
+        }
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setPasswordHash(passwordEncoder.encode(password)); 
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
-        newUser.setRole(studentRole);
+        newUser.setRole(userRole);
 
         User savedUser = userRepository.save(newUser);
         return authMapper.toDto(savedUser);
@@ -64,9 +67,14 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String accessToken = jwtTokenProvider.generateToken(authentication);
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+
         return JwtAuthResponse.builder()
                 .accessToken(accessToken)
                 .tokenType("Bearer")
+                .name(customUserDetails.getUser().getFirstName())
+                .role(customUserDetails.getUser().getRole().getName())
+                .uuid(customUserDetails.getUser().getUuid())
                 .build();
     }
 }

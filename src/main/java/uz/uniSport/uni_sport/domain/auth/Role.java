@@ -28,7 +28,7 @@ public class Role extends BaseEntity {
     /**
      * Ushbu rolga biriktirilgan huquqlar (Permissions).
      */
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "role_permissions",
             joinColumns = @JoinColumn(name = "role_id"),

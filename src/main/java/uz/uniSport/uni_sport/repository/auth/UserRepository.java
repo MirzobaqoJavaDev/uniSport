@@ -37,4 +37,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return mavjud bo'lsa true, aks holda false
      */
     boolean existsByEmail(String email);
+
 }

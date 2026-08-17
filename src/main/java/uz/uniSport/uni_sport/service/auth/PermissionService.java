@@ -1,6 +1,7 @@
 package uz.uniSport.uni_sport.service.auth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uz.uniSport.uni_sport.domain.auth.Permission;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class PermissionService {
 
     private final PermissionRepository repository;
+    @Qualifier("authMapper")
     private final AuthMapper mapper;
 
     @Transactional(readOnly = true)

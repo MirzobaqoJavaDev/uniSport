@@ -918,3 +918,11 @@ databaseChangeLog:
                           WHERE rp.role_id = r.id
                             AND rp.permission_id = p.id
                       );
+
+- changeSet:
+          id: remove-role-permissions-uuid
+          author: Mirzobaqo
+          changes:
+              - dropColumn:
+                    tableName: role_permissions
+                    columnName: uuid
