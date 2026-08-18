@@ -926,3 +926,10 @@ databaseChangeLog:
               - dropColumn:
                     tableName: role_permissions
                     columnName: uuid
+- changeSet:
+      id: 15-drop-refresh-token-uuid
+      author: mirzobaqo
+      changes:
+          - dropColumn:
+                tableName: refresh_tokens
+                columnName: uuid
