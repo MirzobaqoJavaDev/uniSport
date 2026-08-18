@@ -9,11 +9,6 @@ import java.util.UUID;
 @Getter
 public class JwtAuthResponse {
     private String accessToken;
-    private String tokenType;
-    private String name;
-    private String role;
-    private UUID uuid;
-
-
+    private String refreshToken;
 
 }

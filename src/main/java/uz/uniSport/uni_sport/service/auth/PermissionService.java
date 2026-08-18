@@ -24,6 +24,7 @@ public class PermissionService {
     private final PermissionRepository repository;
     @Qualifier("authMapper")
     private final AuthMapper mapper;
+    private final PermissionRepository permissionRepository;
 
     @Transactional(readOnly = true)
     public List<PermissionResponseDTO> getAllPermissions() {
@@ -42,6 +43,9 @@ public class PermissionService {
     @Transactional
     public PermissionResponseDTO createPermission(PermissionCreateDTO createDTO) {
         // Here we could add a check if a permission with the same name already exists
+        if(permissionRepository.existsByName(createDTO.getName())) {
+            throw new BusinessLogicException("Permission name already exists");
+        }
         Permission permission = mapper.toEntity(createDTO);
         Permission saved = repository.save(permission);
         return mapper.toDto(saved);

@@ -24,4 +24,5 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
     List<Permission> findAllByUuidIn(Set<UUID> permissions);
 
+    boolean existsByName(String name);
 }

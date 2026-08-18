@@ -9,14 +9,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.LocaleResolver;
+import uz.uniSport.uni_sport.domain.auth.RefreshToken;
 import uz.uniSport.uni_sport.domain.auth.Role;
 import uz.uniSport.uni_sport.domain.auth.User;
 import uz.uniSport.uni_sport.dto.auth.JwtAuthResponse;
 import uz.uniSport.uni_sport.dto.auth.LoginRequest;
+import uz.uniSport.uni_sport.dto.auth.RefreshTokenRequestDto;
 import uz.uniSport.uni_sport.dto.auth.UserDto;
 import uz.uniSport.uni_sport.exception.BusinessLogicException;
 import uz.uniSport.uni_sport.exception.ResourceNotFoundException;
 import uz.uniSport.uni_sport.mapper.auth.AuthMapper;
+import uz.uniSport.uni_sport.repository.auth.RefreshTokenRepository;
 import uz.uniSport.uni_sport.repository.auth.RoleRepository;
 import uz.uniSport.uni_sport.repository.auth.UserRepository;
 import uz.uniSport.uni_sport.security.CustomUserDetails;
@@ -33,6 +36,8 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final RefreshTokenServiceImpl refreshTokenServiceImpl;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
     @Transactional
@@ -67,14 +72,37 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String accessToken = jwtTokenProvider.generateToken(authentication);
-        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        User user = userDetails.getUser();
+        RefreshToken refreshToken =
+                refreshTokenServiceImpl.createRefreshToken(user);
 
         return JwtAuthResponse.builder()
                 .accessToken(accessToken)
-                .tokenType("Bearer")
-                .name(customUserDetails.getUser().getFirstName())
-                .role(customUserDetails.getUser().getRole().getName())
-                .uuid(customUserDetails.getUser().getUuid())
+                .refreshToken(refreshToken.getToken())
                 .build();
     }
+
+    @Override
+    public JwtAuthResponse refresh(RefreshTokenRequestDto dto) {
+        RefreshToken refreshToken = refreshTokenRepository.findByToken(dto.getRefreshToken())
+                .orElseThrow(() -> new ResourceNotFoundException("Refresh token not found"));
+
+        refreshTokenServiceImpl.verifyExpiration(refreshToken);
+
+        User user = refreshToken.getUser();
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPasswordHash())
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String accessToken = jwtTokenProvider.generateToken(authentication);
+        return JwtAuthResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken.getToken())
+                .build();
+    }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.UUID;
 
 @Component
 public class JwtTokenProvider {
@@ -16,17 +17,24 @@ public class JwtTokenProvider {
     @Value("${app.jwt.secret:dGhpcy1pcy1hLXZlcnktc2VjdXJlLWFuZC1sb25nLXNlY3JldC1rZXktdGhhdC1tdXN0LWJlLWF0LWxlYXN0LTMyLWJ5dGVzLWxvbmc=}")
     private String jwtSecret;
 
-    @Value("${app.jwt.expiration-milliseconds:86400000}")
+    @Value("${jwt.expiration-minutes:8640000045566644}")
     private long jwtExpirationDate;
 
     // Token yaratish (Login qilinganda)
     public String generateToken(Authentication authentication) {
         String username = authentication.getName(); // Bu yerda email keladi
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        String firstName = userDetails.getUser().getFirstName();
+        String role = userDetails.getUser().getRole().getName();
+        UUID uuid = userDetails.getUser().getUuid();
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + jwtExpirationDate);
 
         return Jwts.builder()
                 .subject(username)
+                .claim("firstName", firstName)
+                .claim("role", role)
+                .claim("uuid", uuid.toString())
                 .issuedAt(new Date())
                 .expiration(expireDate)
                 .signWith(key())

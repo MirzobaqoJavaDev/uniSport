@@ -5,11 +5,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import uz.uniSport.uni_sport.dto.auth.JwtAuthResponse;
-import uz.uniSport.uni_sport.dto.auth.LoginRequest;
-import uz.uniSport.uni_sport.dto.auth.RegisterRequest;
-import uz.uniSport.uni_sport.dto.auth.UserDto;
+import uz.uniSport.uni_sport.dto.auth.*;
 import uz.uniSport.uni_sport.service.auth.AuthService;
+import uz.uniSport.uni_sport.service.auth.impl.RefreshTokenServiceImpl;
 
 /**
  * Autentifikatsiya qilish (Ro'yxatdan o'tish, Login) uchun API.
@@ -21,6 +19,7 @@ import uz.uniSport.uni_sport.service.auth.AuthService;
 public class AuthController {
 
     private final AuthService authService;
+    private final RefreshTokenServiceImpl refreshTokenServiceImpl;
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody RegisterRequest request) {
@@ -35,7 +34,16 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginRequest request) {
-
         return ResponseEntity.ok(authService.login(request));
     }
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtAuthResponse> refresh(@RequestBody RefreshTokenRequestDto dto){
+        return ResponseEntity.ok(authService.refresh(dto));
+    }
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestBody RefreshTokenRequestDto request) {
+        refreshTokenServiceImpl.deleteByToken(request.getRefreshToken());
+        return ResponseEntity.noContent().build();
+    }
+
 }

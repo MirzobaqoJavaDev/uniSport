@@ -1,9 +1,6 @@
 package uz.uniSport.uni_sport.mapper.auth;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import uz.uniSport.uni_sport.domain.auth.Permission;
 import uz.uniSport.uni_sport.domain.auth.Role;
 import uz.uniSport.uni_sport.domain.auth.User;
@@ -21,27 +18,22 @@ import uz.uniSport.uni_sport.dto.auth.UserDto;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AuthMapper {
 
-    // Role: uuid → RoleDto.uuid
-    @Mapping(source = "uuid", target = "uuid")
     RoleDto toDto(Role role);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     Role toEntity(RoleDto roleDto);
 
-    // User: uuid → UserDto.uuid
-    @Mapping(source = "uuid", target = "uuid")
     @Mapping(source = "role", target = "role")
     UserDto toDto(User user);
 
-    // Permission: uuid → PermissionResponseDTO.uuid
-    @Mapping(source = "uuid", target = "uuid")
     PermissionResponseDTO toDto(Permission permission);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     Permission toEntity(PermissionCreateDTO dto);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     void updateEntity(PermissionUpdateDTO dto, @MappingTarget Permission permission);

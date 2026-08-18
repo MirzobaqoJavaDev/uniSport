@@ -11,7 +11,8 @@ spring:
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
-
+  profiles:
+      active: local
 management:
   endpoints:
     web:
