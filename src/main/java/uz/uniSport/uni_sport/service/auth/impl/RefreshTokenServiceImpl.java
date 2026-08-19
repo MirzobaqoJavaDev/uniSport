@@ -3,6 +3,7 @@ package uz.uniSport.uni_sport.service.auth.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uz.uniSport.uni_sport.domain.auth.RefreshToken;
 import uz.uniSport.uni_sport.domain.auth.User;
 import uz.uniSport.uni_sport.repository.auth.RefreshTokenRepository;
@@ -10,7 +11,6 @@ import uz.uniSport.uni_sport.repository.auth.RefreshTokenRepository;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +19,7 @@ public class RefreshTokenServiceImpl {
 
     @Value("${jwt.refresh-expiration-days:7}")
     private long refreshTokenExpiration;
-
+    @Transactional
     public RefreshToken createRefreshToken(User user) {
         refreshTokenRepository.deleteByUser(user);
         RefreshToken refreshToken = new RefreshToken();
