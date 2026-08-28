@@ -1,9 +1,6 @@
 package uz.uniSport.uni_sport.mapper.gym;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import uz.uniSport.uni_sport.domain.gym.Booking;
 import uz.uniSport.uni_sport.domain.gym.Court;
 import uz.uniSport.uni_sport.domain.gym.Facility;
@@ -41,6 +38,7 @@ public interface GymMapper {
     @Mapping(target = "version", ignore = true)
     Quota toEntity(QuotaCreateDTO dto);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "role", ignore = true)

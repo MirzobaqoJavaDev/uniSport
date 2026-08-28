@@ -1,9 +1,6 @@
 package uz.uniSport.uni_sport.mapper.integration;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import uz.uniSport.uni_sport.domain.integration.DynamicQRCode;
 import uz.uniSport.uni_sport.dto.integration.DynamicQRCodeCreateDTO;
 import uz.uniSport.uni_sport.dto.integration.DynamicQRCodeResponseDTO;
@@ -22,6 +19,8 @@ public interface IntegrationMapper {
     @Mapping(target = "isUsed", ignore = true) // default false
     DynamicQRCode toEntity(DynamicQRCodeCreateDTO dto);
 
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "user", ignore = true)

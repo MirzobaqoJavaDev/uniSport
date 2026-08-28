@@ -21,3 +21,5 @@ databaseChangeLog:
       file: db/changelog/changesets/11-fix-file-metadata.yaml
   - include:
       file: db/changelog/changesets/14-seed-roles-and-permissions.yaml
+  - include:
+      file: db/changelog/seed/seed-mock-data.yaml

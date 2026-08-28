@@ -24,7 +24,6 @@ public interface AuthMapper {
     @Mapping(target = "uuid", ignore = true)
     Role toEntity(RoleDto roleDto);
 
-    @Mapping(source = "role", target = "role")
     UserDto toDto(User user);
 
     PermissionResponseDTO toDto(Permission permission);

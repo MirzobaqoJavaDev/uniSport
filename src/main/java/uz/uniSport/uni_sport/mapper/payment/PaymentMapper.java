@@ -1,9 +1,6 @@
 package uz.uniSport.uni_sport.mapper.payment;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import uz.uniSport.uni_sport.domain.payment.PaymentTransaction;
 import uz.uniSport.uni_sport.domain.payment.Subscription;
 import uz.uniSport.uni_sport.domain.payment.SubscriptionPlan;
@@ -26,7 +23,8 @@ public interface PaymentMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     SubscriptionPlan toEntity(SubscriptionPlanCreateDTO dto);
-    
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     void updateEntity(SubscriptionPlanUpdateDTO dto, @MappingTarget SubscriptionPlan plan);
@@ -45,6 +43,7 @@ public interface PaymentMapper {
     @Mapping(target = "status", ignore = true)
     Subscription toEntity(SubscriptionCreateDTO dto);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     void updateEntity(SubscriptionUpdateDTO dto, @MappingTarget Subscription sub);
@@ -60,6 +59,7 @@ public interface PaymentMapper {
     @Mapping(target = "providerTransactionId", ignore = true)
     PaymentTransaction toEntity(PaymentTransactionCreateDTO dto);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "uuid", ignore = true)
     void updateEntity(PaymentTransactionUpdateDTO dto, @MappingTarget PaymentTransaction transaction);
