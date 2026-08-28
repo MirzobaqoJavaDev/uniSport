@@ -1,0 +1,1567 @@
+databaseChangeLog:
+
+  # ─────────────────────────────────────────────────────────────────
+  # 1. FACILITIES  (no FK dependencies)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-facilities
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000001', 'Asosiy Sport Zali', 'Universitetning markaziy ko''p tarmoqli sport zali, 2000 kv.m.', false, '2025-01-10 08:00:00', '2025-01-10 08:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000002', 'Suzish Havzasi', 'Olimpiya o''lchamidagi 50m havza, 8 yo''lak.', false, '2025-01-10 08:00:00', '2025-01-10 08:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000003', 'Ochiq Tennis Kortu', '6 ta qoplamali tennis maydoni', false, '2025-01-12 09:00:00', '2025-01-12 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000004', 'Yengil Atletika Stadionu', '400m trek, sakrash va uloqtirish maydonlari bilan.', false, '2025-01-15 09:00:00', '2025-01-15 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000005', 'Kurash va Boks Zali', 'Yangi kurash, boks va judo shugullantish uchun maxsus zal.', false, '2025-01-20 10:00:00', '2025-01-20 10:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000006', 'Basketbol Maydoni', 'Krysha ostidagi parquet qoplangan 3 ta basketbol maydoni.', false, '2025-02-01 08:00:00', '2025-02-01 08:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000007', 'Voleybol Maydoni', '2 ta standart ichki voleybol maydoni.', false, '2025-02-05 08:00:00', '2025-02-05 08:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000008', 'Fitness va Trenajyor Zali', '150 ta zamonaviy trenajyor jihozi bilan jihozlangan zal.', false, '2025-02-10 09:00:00', '2025-02-10 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000009', 'Futbol Maydoni', 'Sun''iy ot qoplangan futbol maydoni, ibratli yoritish tizimi bilan.', false, '2025-02-15 09:00:00', '2025-02-15 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000010', 'Gimnastika Zali', 'Badiiy va sport gimnastikasi uchun jihozlangan zal.', false, '2025-03-01 09:00:00', '2025-03-01 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO facilities (uuid, name, description, deleted, created_at, updated_at)
+              SELECT 'a1000001-0000-0000-0000-000000000011', 'Stol Tennisi Xonasi', '12 ta raqobat stol tennisi stoli bilan jihozlangan xona.', false, '2025-03-05 09:00:00', '2025-03-05 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM facilities WHERE uuid = 'a1000001-0000-0000-0000-000000000011'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 2. COURTS  (FK -> facilities)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-courts
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000001', f.id, 'Kort A - Badminton', false, '2025-01-11 08:00:00', '2025-01-11 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000002', f.id, 'Kort B - Badminton', false, '2025-01-11 08:00:00', '2025-01-11 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000003', f.id, 'Kop tarmoqli maydon 1', false, '2025-01-11 08:00:00', '2025-01-11 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000004', f.id, 'Tennis Kort 1', false, '2025-01-13 08:00:00', '2025-01-13 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000005', f.id, 'Tennis Kort 2', false, '2025-01-13 08:00:00', '2025-01-13 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000006', f.id, 'Tennis Kort 3', false, '2025-01-13 08:00:00', '2025-01-13 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000007', f.id, 'Basketbol Maydoni 1', false, '2025-02-02 08:00:00', '2025-02-02 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000006'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000008', f.id, 'Basketbol Maydoni 2', false, '2025-02-02 08:00:00', '2025-02-02 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000006'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000009', f.id, 'Voleybol Maydoni 1', false, '2025-02-06 08:00:00', '2025-02-06 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000007'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000010', f.id, 'Voleybol Maydoni 2', false, '2025-02-06 08:00:00', '2025-02-06 08:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000007'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000011', f.id, 'Stol Tennisi 1-xona', false, '2025-03-06 09:00:00', '2025-03-06 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000011'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000011'::uuid);
+
+              INSERT INTO courts (uuid, facility_id, name, deleted, created_at, updated_at)
+              SELECT 'b2000001-0000-0000-0000-000000000012', f.id, 'Stol Tennisi 2-xona', false, '2025-03-06 09:00:00', '2025-03-06 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000011'::uuid
+              AND NOT EXISTS (SELECT 1 FROM courts WHERE uuid = 'b2000001-0000-0000-0000-000000000012'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 3. EQUIPMENT  (no FK dependencies)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-equipment
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000001', 'Badminton Raketkasi', 30, false, '2025-01-11 09:00:00', '2025-01-11 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000002', 'Basketbol Topi', 20, false, '2025-01-11 09:00:00', '2025-01-11 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000003', 'Voleybol Topi', 25, false, '2025-01-15 09:00:00', '2025-01-15 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000004', 'Tennis Raketkasi', 16, false, '2025-01-15 09:00:00', '2025-01-15 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000005', 'Suzish Kozligi', 40, false, '2025-01-20 09:00:00', '2025-01-20 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000006', 'Boks Qolqopi', 24, false, '2025-01-22 09:00:00', '2025-01-22 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000007', 'Futbol Topi', 30, false, '2025-02-15 09:00:00', '2025-02-15 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000008', 'Ganteli 5 kg', 50, false, '2025-02-18 09:00:00', '2025-02-18 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000009', 'Gimnastika Matrassi', 20, false, '2025-03-01 09:00:00', '2025-03-01 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000010', 'Stol Tennisi Raketkasi', 20, false, '2025-03-06 09:00:00', '2025-03-06 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000011', 'Atletika Tayoqchasi', 12, false, '2025-03-10 09:00:00', '2025-03-10 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000011'::uuid);
+
+              INSERT INTO equipment (uuid, name, total_quantity, deleted, created_at, updated_at)
+              SELECT 'c3000001-0000-0000-0000-000000000012', 'Sakrash Arqoni', 35, false, '2025-03-12 09:00:00', '2025-03-12 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM equipment WHERE uuid = 'c3000001-0000-0000-0000-000000000012'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 4. EXERCISES  (no FK dependencies)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-exercises
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000001', 'Squat', 'Oyoq va dumba', 'Klassik squat harakat - oyoq va dumba mushaklarini rivojlantiradi.', 'https://youtube.com/watch?v=squat_demo', false, '2025-02-01 09:00:00', '2025-02-01 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000002', 'Push-up', 'Kokrak, yelka, qol', 'Kokrak va uchboshli mushakni rivojlantiruvchi keng tarqalgan mashq.', 'https://youtube.com/watch?v=pushup_demo', false, '2025-02-01 09:00:00', '2025-02-01 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000003', 'Pull-up', 'Orqa, ikki boshli mushak', 'Qol va orqa mushaklarini rivojlantiruvchi kuchli mashq.', 'https://youtube.com/watch?v=pullup_demo', false, '2025-02-02 09:00:00', '2025-02-02 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000004', 'Plank', 'Qorin va yadro', '60 soniya plank - barqarorlikni va qorin mushaklarini mustahkamlaydi.', NULL, false, '2025-02-02 09:00:00', '2025-02-02 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000005', 'Deadlift', 'Orqa, dumba, oyoq', 'Murakkab mashq - orqa va pastki tana mushaklarini bir vaqtda ishlатади.', 'https://youtube.com/watch?v=deadlift_demo', false, '2025-02-03 09:00:00', '2025-02-03 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000006', 'Burpee', 'Toliq tana', 'Yurak-tomir va kuch uchun toliq tana mashqi.', 'https://youtube.com/watch?v=burpee_demo', false, '2025-02-04 09:00:00', '2025-02-04 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000007', 'Lunges', 'Oyoq va dumba', 'Muvozanat va oyoq mushaklarini rivojlantiruvchi mashq.', NULL, false, '2025-02-05 09:00:00', '2025-02-05 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000008', 'Bench Press', 'Kokrak, yelka', 'Ganteli yoki shtanga bilan kokrak mushagini rivojlantiruvchi mashq.', 'https://youtube.com/watch?v=benchpress_demo', false, '2025-02-06 09:00:00', '2025-02-06 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000009', 'Mountain Climber', 'Qorin, yelka', 'Jadal kardio va yadro mashqi.', NULL, false, '2025-02-07 09:00:00', '2025-02-07 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000010', 'Bicep Curl', 'Ikki boshli mushak', 'Ganteli bilan ikki boshli mushakni izolyatsiyali rivojlantirish.', 'https://youtube.com/watch?v=bicepcurl_demo', false, '2025-02-08 09:00:00', '2025-02-08 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000011', 'Tricep Dips', 'Uch boshli mushak', 'Parallel shtangada yoki stulda uch boshli mushak mashqi.', NULL, false, '2025-02-09 09:00:00', '2025-02-09 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000011'::uuid);
+
+              INSERT INTO exercises (uuid, name, target_muscle_group, description, video_url, deleted, created_at, updated_at)
+              SELECT 'd4000001-0000-0000-0000-000000000012', 'Russian Twist', 'Qorin, ichki qiyshiq mushaklar', 'Otirgan holatda ganteli bilan dumaloq harakatlar.', NULL, false, '2025-02-10 09:00:00', '2025-02-10 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM exercises WHERE uuid = 'd4000001-0000-0000-0000-000000000012'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 5. PROMPT_TEMPLATES  (no FK dependencies)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-prompt-templates
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO prompt_templates (uuid, name, description, template_text, deleted, created_at, updated_at)
+              SELECT 'e5000001-0000-0000-0000-000000000001', 'WORKOUT_PLAN_GENERATION',
+                'Talaba uchun mashgulot rejasini generatsiya qiluvchi shablon.',
+                'Siz sport mutaxassisisiz. Quyidagi malumotlar asosida talabaning 4 haftalik mashgulot rejasini tuzing: {user_profile}. Daraja: {level}.',
+                false, '2025-03-01 09:00:00', '2025-03-01 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM prompt_templates WHERE name = 'WORKOUT_PLAN_GENERATION');
+
+              INSERT INTO prompt_templates (uuid, name, description, template_text, deleted, created_at, updated_at)
+              SELECT 'e5000001-0000-0000-0000-000000000002', 'DIET_PLAN_GENERATION',
+                'Talaba uchun ovqatlanish rejasini generatsiya qiluvchi shablon.',
+                'Siz dietolog mutaxassisisiz. Quyidagi sport profili asosida haftalik ovqatlanish rejasini tavsiya eting: {user_profile}. Kaloriya maqsadi: {calorie_goal}.',
+                false, '2025-03-02 09:00:00', '2025-03-02 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM prompt_templates WHERE name = 'DIET_PLAN_GENERATION');
+
+              INSERT INTO prompt_templates (uuid, name, description, template_text, deleted, created_at, updated_at)
+              SELECT 'e5000001-0000-0000-0000-000000000003', 'INJURY_PREVENTION_ADVICE',
+                'Jarohatlanishning oldini olish boyicha maslahat shabloni.',
+                'Sport shifokor sifatida quyidagi talaba profili uchun jarohatlanishning oldini olish boyicha 5 ta amaliy maslahat bering: {user_activity}.',
+                false, '2025-03-03 09:00:00', '2025-03-03 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM prompt_templates WHERE name = 'INJURY_PREVENTION_ADVICE');
+
+              INSERT INTO prompt_templates (uuid, name, description, template_text, deleted, created_at, updated_at)
+              SELECT 'e5000001-0000-0000-0000-000000000004', 'PERFORMANCE_ANALYSIS',
+                'Sport korsatkichlarini tahlil qiluvchi shablon.',
+                'Quyidagi talabaning songi {period} davomidagi sport korsatkichlarini tahlil eting va osish sohalarini aniqlang: {performance_data}.',
+                false, '2025-03-04 09:00:00', '2025-03-04 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM prompt_templates WHERE name = 'PERFORMANCE_ANALYSIS');
+
+              INSERT INTO prompt_templates (uuid, name, description, template_text, deleted, created_at, updated_at)
+              SELECT 'e5000001-0000-0000-0000-000000000005', 'SPORT_CATEGORY_RECOMMENDATION',
+                'Foydalanuvchiga mos sport turini tavsiya etuvchi shablon.',
+                'Quyidagi talabaning fizik imkoniyatlari va qiziqishlari asosida 3 ta mos sport turini tavsiya eting: {user_bio}.',
+                false, '2025-03-05 09:00:00', '2025-03-05 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM prompt_templates WHERE name = 'SPORT_CATEGORY_RECOMMENDATION');
+
+  # ─────────────────────────────────────────────────────────────────
+  # 6. SUBSCRIPTION_PLANS  (no FK dependencies)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-subscription-plans
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO subscription_plans (uuid, name, description, price, duration_in_days, deleted, created_at, updated_at)
+              SELECT 'f6000001-0000-0000-0000-000000000001', 'Oylik Talaba Obunasi',
+                'Barcha sport inshootlariga cheksiz kirish (30 kun)', 99000.00, 30,
+                false, '2025-01-05 09:00:00', '2025-01-05 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM subscription_plans WHERE uuid = 'f6000001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO subscription_plans (uuid, name, description, price, duration_in_days, deleted, created_at, updated_at)
+              SELECT 'f6000001-0000-0000-0000-000000000002', 'Choraklik Talaba Obunasi',
+                'Barcha sport inshootlariga cheksiz kirish (90 kun) - 15% chegirma', 249000.00, 90,
+                false, '2025-01-05 09:00:00', '2025-01-05 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM subscription_plans WHERE uuid = 'f6000001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO subscription_plans (uuid, name, description, price, duration_in_days, deleted, created_at, updated_at)
+              SELECT 'f6000001-0000-0000-0000-000000000003', 'Yillik Premium Obuna',
+                'Barcha imkoniyatlar + AI coaching + shaxsiy trener seansi (365 kun)', 890000.00, 365,
+                false, '2025-01-05 09:00:00', '2025-01-05 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM subscription_plans WHERE uuid = 'f6000001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO subscription_plans (uuid, name, description, price, duration_in_days, deleted, created_at, updated_at)
+              SELECT 'f6000001-0000-0000-0000-000000000004', 'Oqituvchi Obunasi',
+                'Oqituvchilar va tarbiyachilar uchun maxsus tarif (30 kun)', 0.00, 30,
+                false, '2025-01-06 09:00:00', '2025-01-06 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM subscription_plans WHERE uuid = 'f6000001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO subscription_plans (uuid, name, description, price, duration_in_days, deleted, created_at, updated_at)
+              SELECT 'f6000001-0000-0000-0000-000000000005', 'Haftalik Sinov Obunasi',
+                'Barcha sport inshootlariga 7 kunlik sinov kirishi', 25000.00, 7,
+                false, '2025-01-07 09:00:00', '2025-01-07 09:00:00'
+              WHERE NOT EXISTS (SELECT 1 FROM subscription_plans WHERE uuid = 'f6000001-0000-0000-0000-000000000005'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 7. ADDITIONAL USERS  (FK -> roles)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-users
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000001', 'asilbek.karimov@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Asilbek', 'Karimov', r.id, false, '2025-02-01 09:00:00', '2025-02-01 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'asilbek.karimov@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000002', 'malika.toshmatova@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Malika', 'Toshmatova', r.id, false, '2025-02-02 09:00:00', '2025-02-02 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'malika.toshmatova@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000003', 'jasur.yusupov@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Jasur', 'Yusupov', r.id, false, '2025-02-03 09:00:00', '2025-02-03 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'jasur.yusupov@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000004', 'nilufar.rahimova@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Nilufar', 'Rahimova', r.id, false, '2025-02-04 09:00:00', '2025-02-04 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'nilufar.rahimova@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000005', 'bobur.mirzayev@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Bobur', 'Mirzayev', r.id, false, '2025-02-05 09:00:00', '2025-02-05 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'bobur.mirzayev@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000006', 'zulfiya.nazarova@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Zulfiya', 'Nazarova', r.id, false, '2025-02-06 09:00:00', '2025-02-06 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'zulfiya.nazarova@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000007', 'sardor.xolmatov@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Sardor', 'Xolmatov', r.id, false, '2025-02-07 09:00:00', '2025-02-07 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'sardor.xolmatov@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000008', 'dilorom.saidova@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Dilorom', 'Saidova', r.id, false, '2025-02-08 09:00:00', '2025-02-08 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'dilorom.saidova@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000009', 'sherzod.abdullayev@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Sherzod', 'Abdullayev', r.id, false, '2025-02-09 09:00:00', '2025-02-09 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'sherzod.abdullayev@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000010', 'kamola.hasanova@student.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Kamola', 'Hasanova', r.id, false, '2025-02-10 09:00:00', '2025-02-10 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'kamola.hasanova@student.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000011', 'alisher.qodirov@coach.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Alisher', 'Qodirov', r.id, false, '2025-01-15 09:00:00', '2025-01-15 09:00:00'
+              FROM roles r WHERE r.name = 'COACH'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'alisher.qodirov@coach.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000012', 'murod.ergashev@coach.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Murod', 'Ergashev', r.id, false, '2025-01-15 09:00:00', '2025-01-15 09:00:00'
+              FROM roles r WHERE r.name = 'COACH'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'murod.ergashev@coach.unisport.uz');
+
+              INSERT INTO users (uuid, email, password_hash, first_name, last_name, role_id, deleted, created_at, updated_at)
+              SELECT '11100001-0000-0000-0000-000000000013', 'sabohat.jurayeva@coach.unisport.uz',
+                '$2a$10$3b5oTbsCpWYJjUuIb8n5veEbViC/yuXMangX33AlOZdAk7ElDE4yO',
+                'Sabohat', 'Jurayeva', r.id, false, '2025-01-16 09:00:00', '2025-01-16 09:00:00'
+              FROM roles r WHERE r.name = 'COACH'
+              AND NOT EXISTS (SELECT 1 FROM users WHERE email = 'sabohat.jurayeva@coach.unisport.uz');
+
+  # ─────────────────────────────────────────────────────────────────
+  # 8. INVENTORY_ITEMS  (FK -> facilities)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-inventory-items
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000001', f.id, 'Badminton Toplami', 20, 18, 'ACTIVE', false, '2025-01-12 09:00:00', '2025-01-12 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000002', f.id, 'Suzish Kiyimi (L)', 15, 12, 'ACTIVE', false, '2025-01-21 09:00:00', '2025-01-21 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000003', f.id, 'Tennis Topi Qutisi', 30, 27, 'ACTIVE', false, '2025-01-14 09:00:00', '2025-01-14 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000004', f.id, 'Startoviy Blok', 8, 8, 'ACTIVE', false, '2025-01-16 09:00:00', '2025-01-16 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000005', f.id, 'Boks Sansasi', 10, 9, 'ACTIVE', false, '2025-01-21 09:00:00', '2025-01-21 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000005'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000006', f.id, 'Basketbol Halqasi Tarmoq', 6, 6, 'ACTIVE', false, '2025-02-03 09:00:00', '2025-02-03 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000006'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000007', f.id, 'Voleybol Tori', 4, 3, 'ACTIVE', false, '2025-02-06 09:00:00', '2025-02-06 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000007'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000008', f.id, 'Yugurish Trenajyori', 12, 10, 'MAINTENANCE', false, '2025-02-11 09:00:00', '2025-02-11 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000008'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000009', f.id, 'Futbol Darvozasi', 4, 4, 'ACTIVE', false, '2025-02-16 09:00:00', '2025-02-16 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000009'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000010', f.id, 'Gimnastika Halqasi', 6, 5, 'ACTIVE', false, '2025-03-02 09:00:00', '2025-03-02 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000010'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO inventory_items (uuid, facility_id, name, total_quantity, available_quantity, status, deleted, created_at, updated_at)
+              SELECT 'a8000001-0000-0000-0000-000000000011', f.id, 'Stol Tennisi Topi', 50, 45, 'ACTIVE', false, '2025-03-06 09:00:00', '2025-03-06 09:00:00'
+              FROM facilities f WHERE f.uuid = 'a1000001-0000-0000-0000-000000000011'::uuid
+              AND NOT EXISTS (SELECT 1 FROM inventory_items WHERE uuid = 'a8000001-0000-0000-0000-000000000011'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 9. PE_CLASSES  (FK -> users as instructor)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-pe-classes
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000001', u.id, 'Umumiy Jismoniy Tayyorgarlik 1-guruh',
+                false, '2025-02-15 09:00:00', '2025-02-15 09:00:00'
+              FROM users u WHERE u.email = 'alisher.qodirov@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000002', u.id, 'Umumiy Jismoniy Tayyorgarlik 2-guruh',
+                false, '2025-02-15 09:00:00', '2025-02-15 09:00:00'
+              FROM users u WHERE u.email = 'alisher.qodirov@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000003', u.id, 'Suzish Asoslari Boshlangich',
+                false, '2025-02-16 09:00:00', '2025-02-16 09:00:00'
+              FROM users u WHERE u.email = 'murod.ergashev@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000004', u.id, 'Suzish Asoslari Orta Daraja',
+                false, '2025-02-16 09:00:00', '2025-02-16 09:00:00'
+              FROM users u WHERE u.email = 'murod.ergashev@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000005', u.id, 'Aerobika va Fitnes',
+                false, '2025-02-17 09:00:00', '2025-02-17 09:00:00'
+              FROM users u WHERE u.email = 'sabohat.jurayeva@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000006', u.id, 'Yengil Atletika Trek va Dala',
+                false, '2025-02-18 09:00:00', '2025-02-18 09:00:00'
+              FROM users u WHERE u.email = 'alisher.qodirov@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000007', u.id, 'Basketbol Oquv Guruh',
+                false, '2025-02-19 09:00:00', '2025-02-19 09:00:00'
+              FROM users u WHERE u.email = 'murod.ergashev@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000008', u.id, 'Voleybol Oquv Guruh',
+                false, '2025-02-20 09:00:00', '2025-02-20 09:00:00'
+              FROM users u WHERE u.email = 'sabohat.jurayeva@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000009', u.id, 'Kurash Milliy Sport',
+                false, '2025-02-21 09:00:00', '2025-02-21 09:00:00'
+              FROM users u WHERE u.email = 'alisher.qodirov@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO pe_classes (uuid, instructor_id, name, deleted, created_at, updated_at)
+              SELECT 'bb100001-0000-0000-0000-000000000010', u.id, 'Soglamlashtirish Gimnastikasi',
+                false, '2025-02-22 09:00:00', '2025-02-22 09:00:00'
+              FROM users u WHERE u.email = 'sabohat.jurayeva@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM pe_classes WHERE uuid = 'bb100001-0000-0000-0000-000000000010'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 10. CLASS_SCHEDULES  (FK -> pe_classes)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-class-schedules
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000001', c.id, '2025-09-01 08:00:00', '2025-09-01 09:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000002', c.id, '2025-09-03 08:00:00', '2025-09-03 09:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000003', c.id, '2025-09-01 10:00:00', '2025-09-01 11:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000004', c.id, '2025-09-02 07:00:00', '2025-09-02 08:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000005', c.id, '2025-09-04 07:00:00', '2025-09-04 08:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000006', c.id, '2025-09-02 12:00:00', '2025-09-02 13:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000005'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000007', c.id, '2025-09-01 14:00:00', '2025-09-01 15:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000006'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000008', c.id, '2025-09-03 14:00:00', '2025-09-03 15:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000007'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000009', c.id, '2025-09-04 16:00:00', '2025-09-04 17:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000008'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000010', c.id, '2025-09-05 10:00:00', '2025-09-05 11:30:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000009'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000011', c.id, '2025-09-01 16:00:00', '2025-09-01 17:00:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000010'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000011'::uuid);
+
+              INSERT INTO class_schedules (uuid, class_id, start_time, end_time, deleted, created_at, updated_at)
+              SELECT 'cc200001-0000-0000-0000-000000000012', c.id, '2025-09-03 16:00:00', '2025-09-03 17:00:00', false, '2025-06-01 09:00:00', '2025-06-01 09:00:00'
+              FROM pe_classes c WHERE c.uuid = 'bb100001-0000-0000-0000-000000000010'::uuid
+              AND NOT EXISTS (SELECT 1 FROM class_schedules WHERE uuid = 'cc200001-0000-0000-0000-000000000012'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 11. BOOKINGS  (FK -> users, courts)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-bookings
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000001', u.id, ct.id, '2025-09-01 09:00:00', '2025-09-01 10:00:00', 'COMPLETED', 0, false, '2025-08-25 10:00:00', '2025-09-01 10:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000002', u.id, ct.id, '2025-09-02 14:00:00', '2025-09-02 15:00:00', 'COMPLETED', 0, false, '2025-08-26 10:00:00', '2025-09-02 15:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'malika.toshmatova@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000003', u.id, ct.id, '2025-09-03 10:00:00', '2025-09-03 11:00:00', 'ACTIVE', 0, false, '2025-08-28 09:00:00', '2025-08-28 09:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'jasur.yusupov@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000007'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000004', u.id, ct.id, '2025-09-04 08:00:00', '2025-09-04 09:00:00', 'ACTIVE', 0, false, '2025-08-28 10:00:00', '2025-08-28 10:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'nilufar.rahimova@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000009'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000005', u.id, ct.id, '2025-09-05 16:00:00', '2025-09-05 17:00:00', 'ACTIVE', 0, false, '2025-08-28 11:00:00', '2025-08-28 11:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'bobur.mirzayev@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000005'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000006', u.id, ct.id, '2025-08-20 10:00:00', '2025-08-20 11:00:00', 'CANCELLED', 0, false, '2025-08-15 09:00:00', '2025-08-20 11:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'zulfiya.nazarova@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000007', u.id, ct.id, '2025-09-06 09:00:00', '2025-09-06 10:00:00', 'ACTIVE', 0, false, '2025-08-28 12:00:00', '2025-08-28 12:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'sardor.xolmatov@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000011'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000008', u.id, ct.id, '2025-08-18 14:00:00', '2025-08-18 15:00:00', 'COMPLETED', 0, false, '2025-08-10 10:00:00', '2025-08-18 15:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'dilorom.saidova@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000008'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000009', u.id, ct.id, '2025-09-07 11:00:00', '2025-09-07 12:00:00', 'ACTIVE', 0, false, '2025-08-28 13:00:00', '2025-08-28 13:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'sherzod.abdullayev@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000010', u.id, ct.id, '2025-09-08 15:00:00', '2025-09-08 16:00:00', 'ACTIVE', 0, false, '2025-08-28 14:00:00', '2025-08-28 14:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'kamola.hasanova@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000006'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000011', u.id, ct.id, '2025-09-09 08:00:00', '2025-09-09 09:00:00', 'ACTIVE', 0, false, '2025-08-28 15:00:00', '2025-08-28 15:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000010'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000011'::uuid);
+
+              INSERT INTO bookings (uuid, user_id, court_id, start_time, end_time, status, version, deleted, created_at, updated_at)
+              SELECT 'dd300001-0000-0000-0000-000000000012', u.id, ct.id, '2025-09-10 12:00:00', '2025-09-10 13:00:00', 'ACTIVE', 0, false, '2025-08-28 16:00:00', '2025-08-28 16:00:00'
+              FROM users u, courts ct
+              WHERE u.email = 'malika.toshmatova@student.unisport.uz' AND ct.uuid = 'b2000001-0000-0000-0000-000000000012'::uuid
+              AND NOT EXISTS (SELECT 1 FROM bookings WHERE uuid = 'dd300001-0000-0000-0000-000000000012'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 12. RENTALS  (FK -> users, equipment)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-rentals
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000001', u.id, e.id, '2025-09-01 08:30:00', '2025-09-01 10:30:00', 'RETURNED', 0, false, '2025-09-01 08:30:00', '2025-09-01 10:30:00'
+              FROM users u, equipment e WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000002', u.id, e.id, '2025-09-02 14:00:00', NULL, 'RENTED', 0, false, '2025-09-02 14:00:00', '2025-09-02 14:00:00'
+              FROM users u, equipment e WHERE u.email = 'malika.toshmatova@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000003', u.id, e.id, '2025-09-03 10:00:00', NULL, 'RENTED', 0, false, '2025-09-03 10:00:00', '2025-09-03 10:00:00'
+              FROM users u, equipment e WHERE u.email = 'jasur.yusupov@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000004', u.id, e.id, '2025-08-15 09:00:00', '2025-08-15 11:00:00', 'RETURNED', 0, false, '2025-08-15 09:00:00', '2025-08-15 11:00:00'
+              FROM users u, equipment e WHERE u.email = 'nilufar.rahimova@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000005'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000005', u.id, e.id, '2025-09-04 07:30:00', NULL, 'RENTED', 0, false, '2025-09-04 07:30:00', '2025-09-04 07:30:00'
+              FROM users u, equipment e WHERE u.email = 'bobur.mirzayev@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000006'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000006', u.id, e.id, '2025-07-10 10:00:00', '2025-07-10 12:00:00', 'RETURNED', 0, false, '2025-07-10 10:00:00', '2025-07-10 12:00:00'
+              FROM users u, equipment e WHERE u.email = 'zulfiya.nazarova@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000007', u.id, e.id, '2025-09-05 09:00:00', NULL, 'RENTED', 0, false, '2025-09-05 09:00:00', '2025-09-05 09:00:00'
+              FROM users u, equipment e WHERE u.email = 'sardor.xolmatov@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000010'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000008', u.id, e.id, '2025-08-20 14:00:00', '2025-08-25 14:00:00', 'OVERDUE', 0, false, '2025-08-20 14:00:00', '2025-08-25 14:00:00'
+              FROM users u, equipment e WHERE u.email = 'dilorom.saidova@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000008'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000009', u.id, e.id, '2025-09-06 08:00:00', NULL, 'RENTED', 0, false, '2025-09-06 08:00:00', '2025-09-06 08:00:00'
+              FROM users u, equipment e WHERE u.email = 'sherzod.abdullayev@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000007'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000010', u.id, e.id, '2025-09-07 10:00:00', '2025-09-07 12:00:00', 'RETURNED', 0, false, '2025-09-07 10:00:00', '2025-09-07 12:00:00'
+              FROM users u, equipment e WHERE u.email = 'kamola.hasanova@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000009'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO rentals (uuid, user_id, equipment_id, rented_at, returned_at, status, version, deleted, created_at, updated_at)
+              SELECT 'ee400001-0000-0000-0000-000000000011', u.id, e.id, '2025-09-08 09:00:00', NULL, 'RENTED', 0, false, '2025-09-08 09:00:00', '2025-09-08 09:00:00'
+              FROM users u, equipment e WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND e.uuid = 'c3000001-0000-0000-0000-000000000012'::uuid
+              AND NOT EXISTS (SELECT 1 FROM rentals WHERE uuid = 'ee400001-0000-0000-0000-000000000011'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 13. ATTENDANCES  (FK -> users, class_schedules)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-attendances
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000001', u.id, s.id, 'PRESENT', '2025-09-01 08:05:00', false, '2025-09-01 08:05:00', '2025-09-01 08:05:00'
+              FROM users u, class_schedules s WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000002', u.id, s.id, 'PRESENT', '2025-09-01 08:07:00', false, '2025-09-01 08:07:00', '2025-09-01 08:07:00'
+              FROM users u, class_schedules s WHERE u.email = 'malika.toshmatova@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000003', u.id, s.id, 'ABSENT', '2025-09-01 09:00:00', false, '2025-09-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, class_schedules s WHERE u.email = 'jasur.yusupov@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000004', u.id, s.id, 'PRESENT', '2025-09-02 07:03:00', false, '2025-09-02 07:03:00', '2025-09-02 07:03:00'
+              FROM users u, class_schedules s WHERE u.email = 'nilufar.rahimova@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000005', u.id, s.id, 'LATE', '2025-09-02 07:20:00', false, '2025-09-02 07:20:00', '2025-09-02 07:20:00'
+              FROM users u, class_schedules s WHERE u.email = 'bobur.mirzayev@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000006', u.id, s.id, 'PRESENT', '2025-09-02 12:02:00', false, '2025-09-02 12:02:00', '2025-09-02 12:02:00'
+              FROM users u, class_schedules s WHERE u.email = 'zulfiya.nazarova@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000006'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000007', u.id, s.id, 'PRESENT', '2025-09-03 14:01:00', false, '2025-09-03 14:01:00', '2025-09-03 14:01:00'
+              FROM users u, class_schedules s WHERE u.email = 'sardor.xolmatov@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000008'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000008', u.id, s.id, 'ABSENT', '2025-09-03 15:00:00', false, '2025-09-03 15:00:00', '2025-09-03 15:00:00'
+              FROM users u, class_schedules s WHERE u.email = 'dilorom.saidova@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000008'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000009', u.id, s.id, 'PRESENT', '2025-09-04 16:02:00', false, '2025-09-04 16:02:00', '2025-09-04 16:02:00'
+              FROM users u, class_schedules s WHERE u.email = 'sherzod.abdullayev@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000009'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000010', u.id, s.id, 'PRESENT', '2025-09-04 16:05:00', false, '2025-09-04 16:05:00', '2025-09-04 16:05:00'
+              FROM users u, class_schedules s WHERE u.email = 'kamola.hasanova@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000009'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000011', u.id, s.id, 'LATE', '2025-09-05 10:12:00', false, '2025-09-05 10:12:00', '2025-09-05 10:12:00'
+              FROM users u, class_schedules s WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000010'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000011'::uuid);
+
+              INSERT INTO attendances (uuid, user_id, schedule_id, status, recorded_at, deleted, created_at, updated_at)
+              SELECT 'ff500001-0000-0000-0000-000000000012', u.id, s.id, 'PRESENT', '2025-09-01 16:01:00', false, '2025-09-01 16:01:00', '2025-09-01 16:01:00'
+              FROM users u, class_schedules s WHERE u.email = 'malika.toshmatova@student.unisport.uz' AND s.uuid = 'cc200001-0000-0000-0000-000000000011'::uuid
+              AND NOT EXISTS (SELECT 1 FROM attendances WHERE uuid = 'ff500001-0000-0000-0000-000000000012'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 14. MEAL_LOGS  (FK -> users)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-meal-logs
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000001', u.id, 2150, '2025-09-01 13:00:00', false, '2025-09-01 13:00:00', '2025-09-01 13:00:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000002', u.id, 1850, '2025-09-01 13:00:00', false, '2025-09-01 13:00:00', '2025-09-01 13:00:00'
+              FROM users u WHERE u.email = 'malika.toshmatova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000003', u.id, 2400, '2025-09-02 13:00:00', false, '2025-09-02 13:00:00', '2025-09-02 13:00:00'
+              FROM users u WHERE u.email = 'jasur.yusupov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000004', u.id, 1750, '2025-09-02 12:30:00', false, '2025-09-02 12:30:00', '2025-09-02 12:30:00'
+              FROM users u WHERE u.email = 'nilufar.rahimova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000005', u.id, 2800, '2025-09-03 13:15:00', false, '2025-09-03 13:15:00', '2025-09-03 13:15:00'
+              FROM users u WHERE u.email = 'bobur.mirzayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000006', u.id, 1920, '2025-09-03 12:45:00', false, '2025-09-03 12:45:00', '2025-09-03 12:45:00'
+              FROM users u WHERE u.email = 'zulfiya.nazarova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000007', u.id, 2200, '2025-09-04 13:00:00', false, '2025-09-04 13:00:00', '2025-09-04 13:00:00'
+              FROM users u WHERE u.email = 'sardor.xolmatov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000008', u.id, 1680, '2025-09-04 12:30:00', false, '2025-09-04 12:30:00', '2025-09-04 12:30:00'
+              FROM users u WHERE u.email = 'dilorom.saidova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000009', u.id, 2550, '2025-09-05 13:30:00', false, '2025-09-05 13:30:00', '2025-09-05 13:30:00'
+              FROM users u WHERE u.email = 'sherzod.abdullayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000010', u.id, 1820, '2025-09-05 12:00:00', false, '2025-09-05 12:00:00', '2025-09-05 12:00:00'
+              FROM users u WHERE u.email = 'kamola.hasanova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000011', u.id, 2100, '2025-09-01 19:00:00', false, '2025-09-01 19:00:00', '2025-09-01 19:00:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000011'::uuid);
+
+              INSERT INTO meal_logs (uuid, user_id, calories, logged_at, deleted, created_at, updated_at)
+              SELECT 'aa600001-0000-0000-0000-000000000012', u.id, 1900, '2025-09-06 13:00:00', false, '2025-09-06 13:00:00', '2025-09-06 13:00:00'
+              FROM users u WHERE u.email = 'jasur.yusupov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM meal_logs WHERE uuid = 'aa600001-0000-0000-0000-000000000012'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 15. PROMPT_VERSIONS  (FK -> prompt_templates)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-prompt-versions
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO prompt_versions (uuid, template_id, version_number, prompt_text, is_active, deleted, created_at, updated_at)
+              SELECT 'ab700001-0000-0000-0000-000000000001', t.id, '1.0',
+                'Sen sport mutaxassisiSAN. Berilgan foydalanuvchi profili: {user_profile} va daraja: {level} asosida 4 haftalik mashgulot rejasi tuz.',
+                true, false, '2025-03-01 10:00:00', '2025-03-01 10:00:00'
+              FROM prompt_templates t WHERE t.uuid = 'e5000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM prompt_versions WHERE uuid = 'ab700001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO prompt_versions (uuid, template_id, version_number, prompt_text, is_active, deleted, created_at, updated_at)
+              SELECT 'ab700001-0000-0000-0000-000000000002', t.id, '1.1',
+                'Sen tajribali sport murabbiyiSAN. Foydalanuvchi: {user_profile}, daraja: {level}. 4 haftalik progressiv mashgulot rejasini individual moslashtirilgan holda tayyorla.',
+                false, false, '2025-04-01 10:00:00', '2025-04-01 10:00:00'
+              FROM prompt_templates t WHERE t.uuid = 'e5000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM prompt_versions WHERE uuid = 'ab700001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO prompt_versions (uuid, template_id, version_number, prompt_text, is_active, deleted, created_at, updated_at)
+              SELECT 'ab700001-0000-0000-0000-000000000003', t.id, '1.0',
+                'Sen malakali dietologSAN. Foydalanuvchi sport profili: {user_profile}, kaloriya maqsadi: {calorie_goal}. Haftalik ovqatlanish rejasini tavsiya et.',
+                true, false, '2025-03-02 10:00:00', '2025-03-02 10:00:00'
+              FROM prompt_templates t WHERE t.uuid = 'e5000001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM prompt_versions WHERE uuid = 'ab700001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO prompt_versions (uuid, template_id, version_number, prompt_text, is_active, deleted, created_at, updated_at)
+              SELECT 'ab700001-0000-0000-0000-000000000004', t.id, '1.0',
+                'Sen sport tibbiyoti shifokorisaN. Faoliyat: {user_activity} asosida jarohatlanishning oldini olish uchun 5 ta amaliy maslahat ber.',
+                true, false, '2025-03-03 10:00:00', '2025-03-03 10:00:00'
+              FROM prompt_templates t WHERE t.uuid = 'e5000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM prompt_versions WHERE uuid = 'ab700001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO prompt_versions (uuid, template_id, version_number, prompt_text, is_active, deleted, created_at, updated_at)
+              SELECT 'ab700001-0000-0000-0000-000000000005', t.id, '1.0',
+                'Ko''rsatkichlar ma''lumotlari: {performance_data} ni {period} davomida tahlil qil. Osish sohalari va keyingi qadam tavsiyalarini yoz.',
+                true, false, '2025-03-04 10:00:00', '2025-03-04 10:00:00'
+              FROM prompt_templates t WHERE t.uuid = 'e5000001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM prompt_versions WHERE uuid = 'ab700001-0000-0000-0000-000000000005'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 16. QUOTAS  (FK -> roles)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-quotas
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO quotas (uuid, role_id, max_active_bookings, max_bookings_per_week, version, deleted, created_at, updated_at)
+              SELECT 'ba800001-0000-0000-0000-000000000001', r.id, 2, 5, 0, false, '2025-01-08 09:00:00', '2025-01-08 09:00:00'
+              FROM roles r WHERE r.name = 'USER'
+              AND NOT EXISTS (SELECT 1 FROM quotas WHERE uuid = 'ba800001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO quotas (uuid, role_id, max_active_bookings, max_bookings_per_week, version, deleted, created_at, updated_at)
+              SELECT 'ba800001-0000-0000-0000-000000000002', r.id, 5, 14, 0, false, '2025-01-08 09:00:00', '2025-01-08 09:00:00'
+              FROM roles r WHERE r.name = 'COACH'
+              AND NOT EXISTS (SELECT 1 FROM quotas WHERE uuid = 'ba800001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO quotas (uuid, role_id, max_active_bookings, max_bookings_per_week, version, deleted, created_at, updated_at)
+              SELECT 'ba800001-0000-0000-0000-000000000003', r.id, 10, 30, 0, false, '2025-01-08 09:00:00', '2025-01-08 09:00:00'
+              FROM roles r WHERE r.name = 'FACILITY_PARTNER_ADMIN'
+              AND NOT EXISTS (SELECT 1 FROM quotas WHERE uuid = 'ba800001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO quotas (uuid, role_id, max_active_bookings, max_bookings_per_week, version, deleted, created_at, updated_at)
+              SELECT 'ba800001-0000-0000-0000-000000000004', r.id, 3, 7, 0, false, '2025-01-08 09:00:00', '2025-01-08 09:00:00'
+              FROM roles r WHERE r.name = 'DESK_STAFF'
+              AND NOT EXISTS (SELECT 1 FROM quotas WHERE uuid = 'ba800001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO quotas (uuid, role_id, max_active_bookings, max_bookings_per_week, version, deleted, created_at, updated_at)
+              SELECT 'ba800001-0000-0000-0000-000000000005', r.id, 20, 60, 0, false, '2025-01-08 09:00:00', '2025-01-08 09:00:00'
+              FROM roles r WHERE r.name = 'SPORT_DIRECTOR'
+              AND NOT EXISTS (SELECT 1 FROM quotas WHERE uuid = 'ba800001-0000-0000-0000-000000000005'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 17. SUBSCRIPTIONS  (FK -> users, subscription_plans)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-subscriptions
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000001', u.id, p.id, '2025-09-01 00:00:00', '2025-10-01 00:00:00', 'ACTIVE', false, '2025-09-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000002', u.id, p.id, '2025-06-01 00:00:00', '2025-09-01 00:00:00', 'EXPIRED', false, '2025-06-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'malika.toshmatova@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000003', u.id, p.id, '2025-09-01 00:00:00', '2026-09-01 00:00:00', 'ACTIVE', false, '2025-09-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'jasur.yusupov@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000004', u.id, p.id, '2025-08-25 00:00:00', '2025-09-01 00:00:00', 'CANCELLED', false, '2025-08-25 09:00:00', '2025-08-25 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'nilufar.rahimova@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000005'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000005', u.id, p.id, '2025-09-01 00:00:00', '2025-10-01 00:00:00', 'ACTIVE', false, '2025-09-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'bobur.mirzayev@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000006', u.id, p.id, '2025-09-01 00:00:00', '2025-10-01 00:00:00', 'ACTIVE', false, '2025-09-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'zulfiya.nazarova@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000007', u.id, p.id, '2025-01-15 00:00:00', '2025-02-15 00:00:00', 'ACTIVE', false, '2025-01-15 09:00:00', '2025-01-15 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'alisher.qodirov@coach.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000008', u.id, p.id, '2025-06-01 00:00:00', '2025-09-01 00:00:00', 'EXPIRED', false, '2025-06-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'sardor.xolmatov@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000009', u.id, p.id, '2025-09-01 00:00:00', '2025-10-01 00:00:00', 'ACTIVE', false, '2025-09-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'dilorom.saidova@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000010', u.id, p.id, '2025-09-01 00:00:00', '2026-09-01 00:00:00', 'ACTIVE', false, '2025-09-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'sherzod.abdullayev@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO subscriptions (uuid, user_id, plan_id, start_date, end_date, status, deleted, created_at, updated_at)
+              SELECT 'ca900001-0000-0000-0000-000000000011', u.id, p.id, '2025-09-01 00:00:00', '2025-10-01 00:00:00', 'ACTIVE', false, '2025-09-01 09:00:00', '2025-09-01 09:00:00'
+              FROM users u, subscription_plans p WHERE u.email = 'kamola.hasanova@student.unisport.uz' AND p.uuid = 'f6000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM subscriptions WHERE uuid = 'ca900001-0000-0000-0000-000000000011'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 18. PAYMENT_TRANSACTIONS  (FK -> users)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-payment-transactions
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000001', u.id, 99000.00, 'UZS', 'SUCCESS', 'idem-key-001', 'CLICK-TXN-10001', false, '2025-09-01 09:05:00', '2025-09-01 09:05:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-001');
+
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000002', u.id, 249000.00, 'UZS', 'SUCCESS', 'idem-key-002', 'PAYME-TXN-20002', false, '2025-06-01 09:05:00', '2025-06-01 09:05:00'
+              FROM users u WHERE u.email = 'malika.toshmatova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-002');
+
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000003', u.id, 890000.00, 'UZS', 'SUCCESS', 'idem-key-003', 'CLICK-TXN-10003', false, '2025-09-01 09:10:00', '2025-09-01 09:10:00'
+              FROM users u WHERE u.email = 'jasur.yusupov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-003');
+
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000004', u.id, 25000.00, 'UZS', 'FAILED', 'idem-key-004', NULL, false, '2025-08-25 09:05:00', '2025-08-25 09:05:00'
+              FROM users u WHERE u.email = 'nilufar.rahimova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-004');
+
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000005', u.id, 99000.00, 'UZS', 'SUCCESS', 'idem-key-005', 'PAYME-TXN-20005', false, '2025-09-01 09:15:00', '2025-09-01 09:15:00'
+              FROM users u WHERE u.email = 'bobur.mirzayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-005');
+
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000006', u.id, 99000.00, 'UZS', 'SUCCESS', 'idem-key-006', 'CLICK-TXN-10006', false, '2025-09-01 09:20:00', '2025-09-01 09:20:00'
+              FROM users u WHERE u.email = 'zulfiya.nazarova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-006');
+
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000007', u.id, 249000.00, 'UZS', 'PENDING', 'idem-key-007', NULL, false, '2025-09-01 09:25:00', '2025-09-01 09:25:00'
+              FROM users u WHERE u.email = 'sardor.xolmatov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-007');
+
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000008', u.id, 99000.00, 'UZS', 'SUCCESS', 'idem-key-008', 'PAYME-TXN-20008', false, '2025-09-01 09:30:00', '2025-09-01 09:30:00'
+              FROM users u WHERE u.email = 'dilorom.saidova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-008');
+
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000009', u.id, 890000.00, 'UZS', 'SUCCESS', 'idem-key-009', 'CLICK-TXN-10009', false, '2025-09-01 09:35:00', '2025-09-01 09:35:00'
+              FROM users u WHERE u.email = 'sherzod.abdullayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-009');
+
+              INSERT INTO payment_transactions (uuid, user_id, amount, currency, status, idempotency_key, provider_transaction_id, deleted, created_at, updated_at)
+              SELECT 'da100001-0000-0000-0000-000000000010', u.id, 99000.00, 'UZS', 'SUCCESS', 'idem-key-010', 'PAYME-TXN-20010', false, '2025-09-01 09:40:00', '2025-09-01 09:40:00'
+              FROM users u WHERE u.email = 'kamola.hasanova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM payment_transactions WHERE idempotency_key = 'idem-key-010');
+
+  # ─────────────────────────────────────────────────────────────────
+  # 19. WORKOUT_PLANS  (FK -> users)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-workout-plans
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000001', u.id, 'Kuch va Bardoshlilik 4 hafta',
+                'Oylik progressiv kuch va kardio trenirovka rejasi talabalar uchun.', 'BEGINNER', false, '2025-09-01 10:00:00', '2025-09-01 10:00:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000002', u.id, 'Vazn Yoqotish va Ton',
+                'Yog yoqish va mushaklarni tonusga keltirish maqsadidagi 6 haftalik reja.', 'INTERMEDIATE', false, '2025-09-02 10:00:00', '2025-09-02 10:00:00'
+              FROM users u WHERE u.email = 'malika.toshmatova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000003', u.id, 'Atletik Tayyorgarlik',
+                'Yuqori intensivlikdagi atletik tayyorgarlik, masofa yugurish va kuch mashqlari kombinatsiyasi.', 'ADVANCED', false, '2025-09-03 10:00:00', '2025-09-03 10:00:00'
+              FROM users u WHERE u.email = 'jasur.yusupov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000004', u.id, 'Suzish Trenirovkasi',
+                'Suzish texnikasini yaxshilash va chidamlilikni oshirishga mojallangan reja.', 'BEGINNER', false, '2025-09-04 10:00:00', '2025-09-04 10:00:00'
+              FROM users u WHERE u.email = 'nilufar.rahimova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000005', u.id, 'Basketbol Uchun Tayyorgarlik',
+                'Basketbol oyinchilari uchun tezlik, sakrash va reaktsiya mashqlari.', 'INTERMEDIATE', false, '2025-09-05 10:00:00', '2025-09-05 10:00:00'
+              FROM users u WHERE u.email = 'bobur.mirzayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000006', u.id, 'Yoga va Moslashuvchanlik',
+                'Moslashuvchanlik va stressni kamaytirish uchun yoga va cozilish mashqlari.', 'BEGINNER', false, '2025-09-06 10:00:00', '2025-09-06 10:00:00'
+              FROM users u WHERE u.email = 'zulfiya.nazarova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000007', u.id, 'Yadro va Barqarorlik',
+                'Qorin va yadro mushaklarini mustahkamlashga mojallangan reja.', 'INTERMEDIATE', false, '2025-09-07 10:00:00', '2025-09-07 10:00:00'
+              FROM users u WHERE u.email = 'sardor.xolmatov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000008', u.id, 'Umumiy Soglamlashtirish',
+                'Kundalik faollik uchun engil va umumiy soglamlashtirish mashqlari rejasi.', 'BEGINNER', false, '2025-09-08 10:00:00', '2025-09-08 10:00:00'
+              FROM users u WHERE u.email = 'dilorom.saidova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000009', u.id, 'Yugurish va Masofa',
+                'Masofa yugurish va chidamlilik uchun 8 haftalik bosqichli reja.', 'ADVANCED', false, '2025-09-09 10:00:00', '2025-09-09 10:00:00'
+              FROM users u WHERE u.email = 'sherzod.abdullayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO workout_plans (uuid, user_id, name, description, difficulty_level, deleted, created_at, updated_at)
+              SELECT 'eb200001-0000-0000-0000-000000000010', u.id, 'Tanani Shakllantirish',
+                'Mushak massasini oshirish va tanani shakllantirishga mojallangan reja.', 'INTERMEDIATE', false, '2025-09-10 10:00:00', '2025-09-10 10:00:00'
+              FROM users u WHERE u.email = 'kamola.hasanova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM workout_plans WHERE uuid = 'eb200001-0000-0000-0000-000000000010'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 20. WORKOUT_PLAN_EXERCISES  (FK -> workout_plans, exercises)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-workout-plan-exercises
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000001', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000001'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000002', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000001'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000003', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000001'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000004', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000002'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000006'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000005', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000002'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000009'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000006', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000003'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000005'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000007', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000003'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000008', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000003'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000008'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000009', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000005'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000007'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000010', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000005'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000011', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000007'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000011'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000012', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000007'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000012'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000012'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000013', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000010'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000010'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000013'::uuid);
+
+              INSERT INTO workout_plan_exercises (uuid, workout_plan_id, exercise_id, deleted)
+              SELECT 'fc300001-0000-0000-0000-000000000014', wp.id, e.id, false
+              FROM workout_plans wp, exercises e WHERE wp.uuid = 'eb200001-0000-0000-0000-000000000010'::uuid AND e.uuid = 'd4000001-0000-0000-0000-000000000011'::uuid
+              AND NOT EXISTS (SELECT 1 FROM workout_plan_exercises WHERE uuid = 'fc300001-0000-0000-0000-000000000014'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 21. AI_REQUEST_LOGS  (FK -> users, prompt_templates; template_id nullable)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-ai-request-logs
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO ai_request_logs (uuid, user_id, prompt_template_id, request_payload, response_payload, execution_time_ms, deleted, created_at, updated_at)
+              SELECT 'ab110001-0000-0000-0000-000000000001', u.id, t.id,
+                '{"level": "BEGINNER", "user_profile": {"age": 20, "weight_kg": 75, "sport": "general"}}',
+                '{"workout_plan": "1-hafta: 3x Squat, 3x Push-up, 2x Plank..."}',
+                1245, false, '2025-09-01 10:05:00', '2025-09-01 10:05:00'
+              FROM users u, prompt_templates t WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND t.uuid = 'e5000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM ai_request_logs WHERE uuid = 'ab110001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO ai_request_logs (uuid, user_id, prompt_template_id, request_payload, response_payload, execution_time_ms, deleted, created_at, updated_at)
+              SELECT 'ab110001-0000-0000-0000-000000000002', u.id, t.id,
+                '{"calorie_goal": 1800, "user_profile": {"age": 21, "weight_kg": 62, "goal": "fat_loss"}}',
+                '{"diet_plan": "Nonushta: Yulaf, tuxum, sabzavot salatasi..."}',
+                1890, false, '2025-09-02 11:00:00', '2025-09-02 11:00:00'
+              FROM users u, prompt_templates t WHERE u.email = 'malika.toshmatova@student.unisport.uz' AND t.uuid = 'e5000001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM ai_request_logs WHERE uuid = 'ab110001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO ai_request_logs (uuid, user_id, prompt_template_id, request_payload, response_payload, execution_time_ms, deleted, created_at, updated_at)
+              SELECT 'ab110001-0000-0000-0000-000000000003', u.id, t.id,
+                '{"level": "ADVANCED", "user_profile": {"age": 22, "sport": "athletics", "weekly_hours": 12}}',
+                '{"workout_plan": "Plyometric va sprint mashqlari kombinatsiyasi..."}',
+                2100, false, '2025-09-03 14:00:00', '2025-09-03 14:00:00'
+              FROM users u, prompt_templates t WHERE u.email = 'jasur.yusupov@student.unisport.uz' AND t.uuid = 'e5000001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM ai_request_logs WHERE uuid = 'ab110001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO ai_request_logs (uuid, user_id, prompt_template_id, request_payload, response_payload, execution_time_ms, deleted, created_at, updated_at)
+              SELECT 'ab110001-0000-0000-0000-000000000004', u.id, t.id,
+                '{"user_activity": {"sport": "swimming", "frequency": "5x_week", "duration_min": 60}}',
+                '{"advice": ["1. Yelkani isitib olish", "2. Teknik suzish usulini tekshiring"]}',
+                980, false, '2025-09-04 09:00:00', '2025-09-04 09:00:00'
+              FROM users u, prompt_templates t WHERE u.email = 'nilufar.rahimova@student.unisport.uz' AND t.uuid = 'e5000001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM ai_request_logs WHERE uuid = 'ab110001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO ai_request_logs (uuid, user_id, prompt_template_id, request_payload, response_payload, execution_time_ms, deleted, created_at, updated_at)
+              SELECT 'ab110001-0000-0000-0000-000000000005', u.id, NULL,
+                '{"question": "Basketbol uchun qanday ovqatlanish kerak?"}',
+                '{"answer": "Uglevodlar, oqsillar va minerallar boyicha tavsiyanomalar..."}',
+                750, false, '2025-09-05 15:00:00', '2025-09-05 15:00:00'
+              FROM users u WHERE u.email = 'bobur.mirzayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM ai_request_logs WHERE uuid = 'ab110001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO ai_request_logs (uuid, user_id, prompt_template_id, request_payload, response_payload, execution_time_ms, deleted, created_at, updated_at)
+              SELECT 'ab110001-0000-0000-0000-000000000006', u.id, t.id,
+                '{"period": "30_days", "performance_data": {"attendance": 90, "avg_speed_kmh": 12.5}}',
+                '{"analysis": "Yaxshi natijalar, lekin kuch korsatkichlari 15% oshishi kerak..."}',
+                1560, false, '2025-09-06 10:00:00', '2025-09-06 10:00:00'
+              FROM users u, prompt_templates t WHERE u.email = 'sherzod.abdullayev@student.unisport.uz' AND t.uuid = 'e5000001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM ai_request_logs WHERE uuid = 'ab110001-0000-0000-0000-000000000006'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 22. TOKEN_USAGE_LOGS  (FK -> users)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-token-usage-logs
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000001', u.id, 'WORKOUT_GENERATION', 850, '2025-09-01 10:05:00', false, '2025-09-01 10:05:00', '2025-09-01 10:05:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000002', u.id, 'DIET_GENERATION', 1200, '2025-09-02 11:00:00', false, '2025-09-02 11:00:00', '2025-09-02 11:00:00'
+              FROM users u WHERE u.email = 'malika.toshmatova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000003', u.id, 'WORKOUT_GENERATION', 940, '2025-09-03 14:00:00', false, '2025-09-03 14:00:00', '2025-09-03 14:00:00'
+              FROM users u WHERE u.email = 'jasur.yusupov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000004', u.id, 'CHAT', 450, '2025-09-04 09:00:00', false, '2025-09-04 09:00:00', '2025-09-04 09:00:00'
+              FROM users u WHERE u.email = 'nilufar.rahimova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000005', u.id, 'CHAT', 320, '2025-09-05 15:00:00', false, '2025-09-05 15:00:00', '2025-09-05 15:00:00'
+              FROM users u WHERE u.email = 'bobur.mirzayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000006', u.id, 'DIET_GENERATION', 1050, '2025-09-06 09:00:00', false, '2025-09-06 09:00:00', '2025-09-06 09:00:00'
+              FROM users u WHERE u.email = 'zulfiya.nazarova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000007', u.id, 'WORKOUT_GENERATION', 780, '2025-09-07 10:00:00', false, '2025-09-07 10:00:00', '2025-09-07 10:00:00'
+              FROM users u WHERE u.email = 'sardor.xolmatov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000008', u.id, 'CHAT', 200, '2025-09-08 11:00:00', false, '2025-09-08 11:00:00', '2025-09-08 11:00:00'
+              FROM users u WHERE u.email = 'dilorom.saidova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000009', u.id, 'WORKOUT_GENERATION', 1100, '2025-09-06 10:00:00', false, '2025-09-06 10:00:00', '2025-09-06 10:00:00'
+              FROM users u WHERE u.email = 'sherzod.abdullayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000010', u.id, 'DIET_GENERATION', 960, '2025-09-09 13:00:00', false, '2025-09-09 13:00:00', '2025-09-09 13:00:00'
+              FROM users u WHERE u.email = 'kamola.hasanova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO token_usage_logs (uuid, user_id, request_type, tokens_used, timestamp, deleted, created_at, updated_at)
+              SELECT 'bc220001-0000-0000-0000-000000000011', u.id, 'CHAT', 610, '2025-09-01 12:00:00', false, '2025-09-01 12:00:00', '2025-09-01 12:00:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM token_usage_logs WHERE uuid = 'bc220001-0000-0000-0000-000000000011'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 23. DYNAMIC_QR_CODES  (FK -> users)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-dynamic-qr-codes
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000001', u.id, 'unisport://attendance?user=11100001-0000-0000-0000-000000000001&session=S001&ts=1725170700', '2025-09-01 08:30:00', true, false, '2025-09-01 08:00:00', '2025-09-01 08:05:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000002', u.id, 'unisport://attendance?user=11100001-0000-0000-0000-000000000002&session=S001&ts=1725170820', '2025-09-01 08:30:00', true, false, '2025-09-01 08:00:00', '2025-09-01 08:07:00'
+              FROM users u WHERE u.email = 'malika.toshmatova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000003', u.id, 'unisport://attendance?user=11100001-0000-0000-0000-000000000004&session=S004&ts=1725253380', '2025-09-02 07:30:00', true, false, '2025-09-02 07:00:00', '2025-09-02 07:03:00'
+              FROM users u WHERE u.email = 'nilufar.rahimova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000004', u.id, 'unisport://attendance?user=11100001-0000-0000-0000-000000000006&session=S006&ts=1725256920', '2025-09-02 12:30:00', true, false, '2025-09-02 12:00:00', '2025-09-02 12:02:00'
+              FROM users u WHERE u.email = 'zulfiya.nazarova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000005', u.id, 'unisport://attendance?user=11100001-0000-0000-0000-000000000007&session=S008&ts=1725350460', '2025-09-03 14:30:00', true, false, '2025-09-03 14:00:00', '2025-09-03 14:01:00'
+              FROM users u WHERE u.email = 'sardor.xolmatov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000006', u.id, 'unisport://attendance?user=11100001-0000-0000-0000-000000000009&session=S009&ts=1725451320', '2025-09-04 16:30:00', true, false, '2025-09-04 16:00:00', '2025-09-04 16:02:00'
+              FROM users u WHERE u.email = 'sherzod.abdullayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000007', u.id, 'unisport://attendance?user=11100001-0000-0000-0000-000000000001&session=S002&ts=1725343200', '2025-09-03 08:30:00', false, false, '2025-09-03 08:00:00', '2025-09-03 08:00:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000008', u.id, 'unisport://attendance?user=11100001-0000-0000-0000-000000000003&session=S005&ts=1725429600', '2025-09-04 07:30:00', false, false, '2025-09-04 07:00:00', '2025-09-04 07:00:00'
+              FROM users u WHERE u.email = 'jasur.yusupov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000009', u.id, 'unisport://access?user=11100001-0000-0000-0000-000000000005&facility=BBALL&ts=1725538800', '2025-09-05 09:30:00', false, false, '2025-09-05 09:00:00', '2025-09-05 09:00:00'
+              FROM users u WHERE u.email = 'bobur.mirzayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000010', u.id, 'unisport://access?user=11100001-0000-0000-0000-000000000010&facility=FITNESS&ts=1725616200', '2025-09-06 15:30:00', false, false, '2025-09-06 15:00:00', '2025-09-06 15:00:00'
+              FROM users u WHERE u.email = 'kamola.hasanova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO dynamic_qr_codes (uuid, user_id, qr_data, expires_at, is_used, deleted, created_at, updated_at)
+              SELECT 'cd330001-0000-0000-0000-000000000011', u.id, 'unisport://attendance?user=11100001-0000-0000-0000-000000000008&session=S011&ts=1725202860', '2025-09-01 16:30:00', true, false, '2025-09-01 16:00:00', '2025-09-01 16:01:00'
+              FROM users u WHERE u.email = 'dilorom.saidova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM dynamic_qr_codes WHERE uuid = 'cd330001-0000-0000-0000-000000000011'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 24. NOTIFICATIONS  (FK -> users, bookings; unique on reference_id+type)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-notifications
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000001', u.id, 'BOOKING_REMINDER_24_HOURS', b.id, 'PUSH', 'SENT', NULL, 0, false, '2025-08-31 09:00:00', '2025-08-31 09:00:00'
+              FROM users u, bookings b WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000001'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000002', u.id, 'BOOKING_REMINDER_2_HOURS', b.id, 'PUSH', 'SENT', NULL, 0, false, '2025-09-01 07:00:00', '2025-09-01 07:00:00'
+              FROM users u, bookings b WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000003', u.id, 'BOOKING_REMINDER_24_HOURS', b.id, 'SMS', 'SENT', NULL, 0, false, '2025-08-27 14:00:00', '2025-08-27 14:00:00'
+              FROM users u, bookings b WHERE u.email = 'malika.toshmatova@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000002'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000004', u.id, 'BOOKING_REMINDER_30_MINUTES', b.id, 'PUSH', 'FAILED', 'Push token expired', 0, false, '2025-09-02 13:30:00', '2025-09-02 13:30:00'
+              FROM users u, bookings b WHERE u.email = 'malika.toshmatova@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000012'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000005', u.id, 'BOOKING_REMINDER_24_HOURS', b.id, 'PUSH', 'SENT', NULL, 0, false, '2025-09-02 10:00:00', '2025-09-02 10:00:00'
+              FROM users u, bookings b WHERE u.email = 'jasur.yusupov@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000003'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000006', u.id, 'BOOKING_REMINDER_24_HOURS', b.id, 'PUSH', 'SENT', NULL, 0, false, '2025-09-03 08:00:00', '2025-09-03 08:00:00'
+              FROM users u, bookings b WHERE u.email = 'nilufar.rahimova@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000004'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000007', u.id, 'BOOKING_REMINDER_2_HOURS', b.id, 'SMS', 'SENT', NULL, 0, false, '2025-09-05 14:00:00', '2025-09-05 14:00:00'
+              FROM users u, bookings b WHERE u.email = 'bobur.mirzayev@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000005'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000008', u.id, 'BOOKING_REMINDER_24_HOURS', b.id, 'PUSH', 'PENDING', NULL, 0, false, '2025-09-05 09:00:00', '2025-09-05 09:00:00'
+              FROM users u, bookings b WHERE u.email = 'sardor.xolmatov@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000007'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000009', u.id, 'BOOKING_REMINDER_24_HOURS', b.id, 'PUSH', 'SENT', NULL, 0, false, '2025-09-06 11:00:00', '2025-09-06 11:00:00'
+              FROM users u, bookings b WHERE u.email = 'sherzod.abdullayev@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000009'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000010', u.id, 'BOOKING_REMINDER_2_HOURS', b.id, 'PUSH', 'PENDING', NULL, 0, false, '2025-09-08 13:00:00', '2025-09-08 13:00:00'
+              FROM users u, bookings b WHERE u.email = 'kamola.hasanova@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000010'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO notifications (uuid, recipient_id, type, reference_id, channel, status, error_message, version, deleted, created_at, updated_at)
+              SELECT 'de440001-0000-0000-0000-000000000011', u.id, 'BOOKING_REMINDER_30_MINUTES', b.id, 'SMS', 'SENT', NULL, 0, false, '2025-09-09 07:30:00', '2025-09-09 07:30:00'
+              FROM users u, bookings b WHERE u.email = 'asilbek.karimov@student.unisport.uz' AND b.uuid = 'dd300001-0000-0000-0000-000000000011'::uuid
+              AND NOT EXISTS (SELECT 1 FROM notifications WHERE uuid = 'de440001-0000-0000-0000-000000000011'::uuid);
+
+  # ─────────────────────────────────────────────────────────────────
+  # 25. FILE_METADATA  (FK -> users)
+  # ─────────────────────────────────────────────────────────────────
+  - changeSet:
+      id: seed-file-metadata
+      author: antigravity
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000001', 1001, 'asilbek_profile_photo.jpg', 'users/11100001-0000-0000-0000-000000000001/profile/asilbek_profile_photo.jpg', 'image/jpeg', 245120, u.id, false, '2025-02-01 10:00:00', '2025-02-01 10:00:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000001'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000002', 1002, 'malika_profile_photo.png', 'users/11100001-0000-0000-0000-000000000002/profile/malika_profile_photo.png', 'image/png', 189456, u.id, false, '2025-02-02 10:00:00', '2025-02-02 10:00:00'
+              FROM users u WHERE u.email = 'malika.toshmatova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000002'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000003', 1003, 'workout_plan_asilbek_sep2025.pdf', 'users/11100001-0000-0000-0000-000000000001/documents/workout_plan_sep2025.pdf', 'application/pdf', 512000, u.id, false, '2025-09-01 11:00:00', '2025-09-01 11:00:00'
+              FROM users u WHERE u.email = 'asilbek.karimov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000003'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000004', 1004, 'sport_zali_asosiy.jpg', 'facilities/main_hall/images/sport_zali_asosiy.jpg', 'image/jpeg', 1245000, u.id, false, '2025-01-10 10:00:00', '2025-01-10 10:00:00'
+              FROM users u WHERE u.email = 'alisher.qodirov@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000004'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000005', 1005, 'suzish_havzasi.jpg', 'facilities/pool/images/suzish_havzasi.jpg', 'image/jpeg', 980000, u.id, false, '2025-01-10 10:30:00', '2025-01-10 10:30:00'
+              FROM users u WHERE u.email = 'alisher.qodirov@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000005'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000006', 1006, 'jasur_id_scan.pdf', 'users/11100001-0000-0000-0000-000000000003/documents/jasur_id_scan.pdf', 'application/pdf', 128000, u.id, false, '2025-02-03 11:00:00', '2025-02-03 11:00:00'
+              FROM users u WHERE u.email = 'jasur.yusupov@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000006'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000007', 1007, 'alisher_coach_certificate.pdf', 'users/11100001-0000-0000-0000-000000000011/documents/coach_certificate.pdf', 'application/pdf', 420000, u.id, false, '2025-01-15 10:00:00', '2025-01-15 10:00:00'
+              FROM users u WHERE u.email = 'alisher.qodirov@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000007'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000008', 1008, 'fitness_hall_promo.mp4', 'facilities/fitness/media/fitness_hall_promo.mp4', 'video/mp4', 52428800, u.id, false, '2025-02-10 11:00:00', '2025-02-10 11:00:00'
+              FROM users u WHERE u.email = 'alisher.qodirov@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000008'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000009', 1009, 'kamola_medical_clearance.pdf', 'users/11100001-0000-0000-0000-000000000010/documents/medical_clearance.pdf', 'application/pdf', 215000, u.id, false, '2025-02-10 10:00:00', '2025-02-10 10:00:00'
+              FROM users u WHERE u.email = 'kamola.hasanova@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000009'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000010', 1010, 'sherzod_profile_photo.jpg', 'users/11100001-0000-0000-0000-000000000009/profile/sherzod_profile_photo.jpg', 'image/jpeg', 198000, u.id, false, '2025-02-09 10:00:00', '2025-02-09 10:00:00'
+              FROM users u WHERE u.email = 'sherzod.abdullayev@student.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000010'::uuid);
+
+              INSERT INTO file_metadata (uuid, id, original_name, storage_path, content_type, size, uploaded_by, deleted, created_at, updated_at)
+              SELECT 'ef550001-0000-0000-0000-000000000011', 1011, 'schedule_fall2025.pdf', 'public/schedules/schedule_fall2025.pdf', 'application/pdf', 320000, u.id, false, '2025-08-15 09:00:00', '2025-08-15 09:00:00'
+              FROM users u WHERE u.email = 'alisher.qodirov@coach.unisport.uz'
+              AND NOT EXISTS (SELECT 1 FROM file_metadata WHERE uuid = 'ef550001-0000-0000-0000-000000000011'::uuid);
